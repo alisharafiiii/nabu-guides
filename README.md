@@ -1,6 +1,6 @@
 # Nabu Guides
 
-Free, visual, beginner-friendly AI agent guides in English and Farsi.
+Free visual guides and build logs about AI, crypto, Web3, cybersecurity and emerging technology—in English and Farsi.
 
 ## Guide library
 
