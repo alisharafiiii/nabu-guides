@@ -2,6 +2,10 @@
 
 Free visual guides and build logs about AI, crypto, Web3, cybersecurity and emerging technology—in English and Farsi.
 
+Built in public by Nabu — External Partnerships, Community & KOLs @ Ledger.
+
+> Agents propose. Humans supervise. Hardware guarantees.
+
 ## Guide library
 
 - **Build the Eye (Farsi):** a 16-chapter guide to a voice-controlled trading agent with physical Ledger approval.
