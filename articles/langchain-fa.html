@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f8f4">
-  <meta name="description" content="LangChain چیست و چه زمانی به کارمان می‌آید؟ یک معرفی کوتاه و کاربردی همراه با ساخت اولین Agent در پایتون.">
-  <title>LangChain چیه و به چه دردی می‌خوره؟ | nabuguides</title>
+  <meta name="description" content="LangChain چیست؟ ساخت اولین Agent در پایتون، حلقهٔ انسانی و مرز سخت‌افزاری برای حفظ کنترل.">
+  <title>LangChain؛ از ساخت اولین Agent تا حفظ کنترل انسان | nabuguides</title>
   <style>
     @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
     @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
@@ -32,9 +32,9 @@
     .hero-lead{font-size:clamp(18px,2.3vw,22px);color:var(--muted);max-width:720px;margin:0 auto 25px;line-height:1.95}
     .meta{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px 18px;color:#7a857f;font-size:13px}
     .meta span+span:before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:#a7b4ac;margin-left:18px;vertical-align:middle}
-    .hero-media{width:min(1120px,calc(100% - 40px));margin:42px auto 0;aspect-ratio:5/2;display:grid;grid-template-columns:44% 56%;direction:ltr;overflow:hidden;background:#f7f8f4;border:1px solid rgba(36,93,59,.13);border-radius:30px;box-shadow:var(--shadow)}
-    .hero-cover-visual{position:relative;overflow:hidden;background:#f7f8f4}.hero-cover-visual img{position:absolute;inset:0 auto 0 0;width:220%;height:100%;object-fit:cover;object-position:left center}.hero-cover-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 76%,#f7f8f4 100%)}
-    .hero-cover-copy{direction:rtl;text-align:right;display:flex;flex-direction:column;justify-content:center;padding:30px 50px 28px 22px}.hero-cover-copy small{color:var(--green);font-weight:900;font-size:14px}.hero-cover-copy h2{font-size:clamp(34px,4.2vw,62px);line-height:1.35;margin:8px 0 0}.hero-cover-copy p{font-size:clamp(18px,2.4vw,30px);font-weight:900;line-height:1.55;margin:0;color:var(--ink)}.hero-cover-rule{height:7px;background:var(--green);margin-top:16px;clip-path:polygon(0 0,100% 0,97% 100%,0 100%)}
+    .hero-media{width:min(1120px,calc(100% - 40px));margin:42px auto 0;aspect-ratio:16/7;display:block;overflow:hidden;background:#f7f8f4;border:1px solid rgba(36,93,59,.13);border-radius:30px;box-shadow:var(--shadow)}
+    .hero-cover-visual{height:100%;overflow:hidden;background:#f7f8f4}.hero-cover-visual img{width:100%;height:100%;object-fit:cover;object-position:center}
+    .hero-cover-copy{display:none}
     .page{width:min(1180px,calc(100% - 40px));margin:56px auto 100px;display:grid;grid-template-columns:minmax(0,760px) 250px;gap:86px;align-items:start;direction:ltr}
     article,.toc{direction:rtl}
     .toc{position:sticky;top:104px;border-right:1px solid var(--line);padding-right:22px}
@@ -90,7 +90,7 @@
     .author strong{display:block}.author span{color:#7d8881;font-size:13px}
     footer{border-top:1px solid var(--line);padding:34px 20px;text-align:center;color:#7d8881;font-size:13px}
     @media(max-width:900px){.page{grid-template-columns:1fr;gap:0}.toc{display:none}.hero{padding-top:55px}.hero-media{margin-top:30px}.cards,.versus{grid-template-columns:1fr}}
-    @media(max-width:600px){body{font-size:16px}.sitebar{height:62px}.sitebar-inner{width:calc(100% - 28px)}.hero{padding:42px 14px 25px}.hero-media,.page{width:calc(100% - 24px)}.hero-media{aspect-ratio:auto;grid-template-columns:1fr;border-radius:20px}.hero-cover-visual{min-height:190px}.hero-cover-copy{padding:24px 25px 26px}.hero-cover-copy h2{font-size:34px}.hero-cover-copy p{font-size:21px}h1{font-size:39px}.hero-lead{font-size:17px}.meta span+span:before{display:none}.page{margin-top:36px}.intro{font-size:18px}h2{font-size:28px;margin-top:58px}.figure{margin-inline:-2px;padding:5px;border-radius:18px}.figure img{border-radius:13px}.codebox{margin-inline:-2px}pre{font-size:12px;padding:18px}.card,.callout{padding:19px}.step{padding-right:65px}}
+    @media(max-width:600px){body{font-size:16px}.sitebar{height:62px}.sitebar-inner{width:calc(100% - 28px)}.hero{padding:42px 14px 25px}.hero-media,.page{width:calc(100% - 24px)}.hero-media{aspect-ratio:16/7;border-radius:20px}h1{font-size:39px}.hero-lead{font-size:17px}.meta span+span:before{display:none}.page{margin-top:36px}.intro{font-size:18px}h2{font-size:28px;margin-top:58px}.figure{margin-inline:-2px;padding:5px;border-radius:18px}.figure img{border-radius:13px}.codebox{margin-inline:-2px}pre{font-size:12px;padding:18px}.card,.callout{padding:19px}.step{padding-right:65px}}
   </style>
 </head>
 <body>
@@ -106,13 +106,12 @@
     <section class="hero">
       <div class="hero-inner">
         <span class="tag"><span class="tag-dot"></span>راهنمای کوتاه و کاربردی</span>
-        <h1>LangChain چیه و واقعاً به چه دردی می‌خوره؟</h1>
-        <p class="hero-lead">یه معرفی بی‌حاشیه از LangChain، ساخت اولین Agent و مرزی که اختیار نهایی رو دست انسان نگه می‌داره.</p>
+        <h1>LangChain چیه؟ از ساخت اولین Agent تا حفظ کنترل انسان</h1>
+        <p class="hero-lead">LangChain جریان کار رو می‌سازه؛ انسان مرزها رو تعیین می‌کنه و سخت‌افزار تصمیم نهایی رو اعمال می‌کنه.</p>
         <div class="meta"><span>حدود ۸ دقیقه مطالعه</span><span>سطح: مقدماتی</span><span>Python</span></div>
       </div>
       <section class="hero-media" aria-label="جلد راهنمای LangChain">
-        <div class="hero-cover-visual"><img src="../assets/langchain/langchain-hero-en.png" alt="زنجیره‌ای از مدل، ابزار، حافظه و داده در LangChain"></div>
-        <div class="hero-cover-copy"><small>راهنمای ساده و کاربردی</small><h2>LangChain چیه؟</h2><p>واقعاً به چه دردی می‌خوره؟</p><div class="hero-cover-rule"></div></div>
+        <div class="hero-cover-visual"><img src="../assets/langchain/langchain-cover-fa-v2.png" alt="ایجنت، ابزارها، تأیید انسان و مرز سخت‌افزاری"></div>
       </section>
     </section>
 
