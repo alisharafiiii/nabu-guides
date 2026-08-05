@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f4">
+  <meta name="description" content="LangChain چیست و چه زمانی به کارمان می‌آید؟ یک معرفی کوتاه و کاربردی همراه با ساخت اولین Agent در پایتون.">
+  <title>LangChain چیه و به چه دردی می‌خوره؟ | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--bg:#f7f8f4;--paper:#fff;--ink:#17211b;--muted:#647069;--line:#dce5df;--green:#15804b;--green2:#2f9b63;--mint:#e7f6ed;--mint2:#d7f0e2;--blue:#3975d7;--violet:#7255d9;--code:#101814;--shadow:0 18px 60px rgba(21,61,40,.09);--radius:24px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,sans-serif;font-size:18px;line-height:2;text-rendering:optimizeLegibility}
+    a{color:inherit}
+    img{display:block;max-width:100%}
+    ::selection{background:#bfe9ce;color:#102117}
+    .reading-progress{position:fixed;z-index:20;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--green),#6fcf97);transform-origin:right;transform:scaleX(0)}
+    .sitebar{height:72px;border-bottom:1px solid rgba(23,33,27,.08);background:rgba(247,248,244,.86);backdrop-filter:blur(18px);position:sticky;top:0;z-index:10}
+    .sitebar-inner{width:min(1180px,calc(100% - 40px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{text-decoration:none;display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.03em}
+    .brand-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:var(--ink);color:white;font-size:15px;direction:ltr}
+    .navlink{text-decoration:none;color:var(--muted);font-size:14px}
+    .navlink:hover{color:var(--green)}
+    .hero{position:relative;overflow:hidden;padding:78px 20px 42px}
+    .hero:before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;top:-390px;right:-130px;background:radial-gradient(circle,#bde9cc 0,rgba(189,233,204,0) 68%)}
+    .hero-inner{position:relative;width:min(980px,100%);margin:auto;text-align:center}
+    .tag{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid #bcdcc8;border-radius:999px;background:rgba(255,255,255,.7);color:var(--green);font-size:13px;font-weight:700}
+    .tag-dot{width:7px;height:7px;background:#35ad6c;border-radius:50%;box-shadow:0 0 0 5px rgba(53,173,108,.12)}
+    h1{font-size:clamp(42px,7vw,76px);line-height:1.35;letter-spacing:-.055em;margin:22px auto 18px;max-width:900px}
+    .hero-lead{font-size:clamp(18px,2.3vw,22px);color:var(--muted);max-width:720px;margin:0 auto 25px;line-height:1.95}
+    .meta{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px 18px;color:#7a857f;font-size:13px}
+    .meta span+span:before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:#a7b4ac;margin-left:18px;vertical-align:middle}
+    .hero-media{width:min(1120px,calc(100% - 40px));margin:42px auto 0;padding:10px;background:rgba(255,255,255,.74);border:1px solid rgba(36,93,59,.13);border-radius:30px;box-shadow:var(--shadow)}
+    .hero-media img{width:100%;aspect-ratio:16/9;object-fit:contain;border-radius:21px;background:#fbfcf9}
+    .page{width:min(1180px,calc(100% - 40px));margin:56px auto 100px;display:grid;grid-template-columns:minmax(0,760px) 250px;gap:86px;align-items:start;direction:ltr}
+    article,.toc{direction:rtl}
+    .toc{position:sticky;top:104px;border-right:1px solid var(--line);padding-right:22px}
+    .toc-title{font-size:12px;font-weight:900;color:#8a958e;margin-bottom:12px}
+    .toc a{display:block;text-decoration:none;color:#78837c;font-size:13px;line-height:1.8;padding:6px 0;transition:.2s}
+    .toc a:hover,.toc a.active{color:var(--green);transform:translateX(-3px)}
+    article{min-width:0}
+    .intro{font-size:21px;line-height:2.05;color:#2c3931;margin:0 0 42px}
+    h2{font-size:34px;line-height:1.55;letter-spacing:-.035em;margin:78px 0 18px;scroll-margin-top:105px}
+    h3{font-size:23px;line-height:1.65;margin:38px 0 12px;letter-spacing:-.02em}
+    p{margin:0 0 21px}
+    article p,article li{color:#3f4b44}
+    strong{color:var(--ink)}
+    .highlight{background:linear-gradient(transparent 58%,#ccefd9 58%)}
+    .figure{margin:34px 0 12px;border:1px solid var(--line);background:white;padding:9px;border-radius:24px;box-shadow:0 16px 48px rgba(26,72,46,.07)}
+    .figure img{width:100%;aspect-ratio:16/9;object-fit:contain;border-radius:17px;background:#fbfcf9}
+    figcaption{font-size:12px;color:#7c8880;text-align:center;margin:8px 10px 1px;line-height:1.8}
+    .callout{position:relative;margin:30px 0;padding:24px 27px 22px;border:1px solid #c7e2d0;border-radius:20px;background:linear-gradient(135deg,#eefaf3,#fff)}
+    .callout:before{content:"";position:absolute;right:-1px;top:22px;width:4px;height:34px;border-radius:4px;background:var(--green)}
+    .callout-title{display:block;font-weight:900;margin-bottom:5px;color:var(--green)}
+    .callout p{margin:0;font-size:16px}
+    .plain-list{padding:0;margin:20px 0 30px;list-style:none;display:grid;gap:13px}
+    .plain-list li{position:relative;padding-right:30px}
+    .plain-list li:before{content:"✓";position:absolute;right:0;top:2px;width:21px;height:21px;border-radius:7px;background:var(--mint2);color:var(--green);font-weight:900;display:grid;place-items:center;font-size:12px}
+    .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+    .card{padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.72)}
+    .card-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--mint);color:var(--green);font-weight:900;margin-bottom:13px}
+    .card h3{font-size:18px;margin:0 0 6px}
+    .card p{font-size:14px;line-height:1.9;margin:0;color:#66726b}
+    .codebox{margin:30px 0;border-radius:22px;overflow:hidden;background:var(--code);box-shadow:0 20px 50px rgba(7,18,11,.15);direction:ltr}
+    .codebar{height:48px;padding:0 15px 0 12px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;color:#8fa097;font:12px ui-monospace,monospace}
+    .window-dots{display:flex;gap:6px}.window-dots i{width:8px;height:8px;border-radius:50%;background:#36423b}.window-dots i:first-child{background:#2da562}
+    .copy{border:1px solid rgba(255,255,255,.13);color:#b7c3bc;border-radius:8px;background:transparent;padding:5px 9px;cursor:pointer;font:inherit}
+    .copy:hover{background:rgba(255,255,255,.07);color:white}
+    pre{margin:0;padding:23px 25px 27px;overflow:auto;color:#e5eee8;font:14px/1.85 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:left;white-space:pre}
+    .kw{color:#c79cff}.fn{color:#71d7a0}.st{color:#ffc980}.cm{color:#7f9187}.op{color:#86b9ff}
+    .steps{counter-reset:step;display:grid;gap:14px;margin:28px 0}
+    .step{position:relative;padding:22px 70px 22px 22px;border:1px solid var(--line);border-radius:18px;background:white}
+    .step:before{counter-increment:step;content:counter(step);position:absolute;right:18px;top:20px;width:36px;height:36px;border-radius:12px;background:var(--ink);color:white;display:grid;place-items:center;font:700 14px Vazirmatn}
+    .step strong{display:block;margin-bottom:4px}.step p{font-size:15px;margin:0;color:#67736c}
+    .versus{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+    .yes,.no{border-radius:21px;padding:23px;border:1px solid}
+    .yes{background:#f0faf4;border-color:#c9e8d4}.no{background:#fbf7f3;border-color:#eaded2}
+    .versus h3{font-size:18px;margin:0 0 12px}.yes h3{color:var(--green)}.no h3{color:#9a6440}
+    .versus ul{padding:0 20px 0 0;margin:0}.versus li{font-size:14px;margin:7px 0}
+    .next{margin-top:76px;padding:30px;border-radius:25px;background:var(--ink);color:white;overflow:hidden;position:relative}
+    .next:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;left:-70px;bottom:-120px;background:rgba(73,190,121,.16)}
+    .next small{color:#87d4a6;font-weight:700}.next h2{color:white;margin:8px 0 10px;font-size:27px}.next p{color:#c5d0c9;margin:0;max-width:610px;font-size:15px}
+    .sources{margin-top:52px;padding-top:24px;border-top:1px solid var(--line)}
+    .sources h2{font-size:18px;margin:0 0 12px}.sources a{display:block;color:#68746d;font-size:13px;text-decoration:none;margin:7px 0}.sources a:hover{color:var(--green)}
+    .author{margin-top:50px;display:flex;gap:16px;align-items:center;padding:20px 0;border-top:1px solid var(--line)}
+    .avatar{width:52px;height:52px;border-radius:17px;background:var(--ink);color:white;display:grid;place-items:center;font-weight:900;direction:ltr}
+    .author strong{display:block}.author span{color:#7d8881;font-size:13px}
+    footer{border-top:1px solid var(--line);padding:34px 20px;text-align:center;color:#7d8881;font-size:13px}
+    @media(max-width:900px){.page{grid-template-columns:1fr;gap:0}.toc{display:none}.hero{padding-top:55px}.hero-media{margin-top:30px}.cards,.versus{grid-template-columns:1fr}}
+    @media(max-width:600px){body{font-size:16px}.sitebar{height:62px}.sitebar-inner{width:calc(100% - 28px)}.hero{padding:42px 14px 25px}.hero-media,.page{width:calc(100% - 24px)}.hero-media{padding:5px;border-radius:20px}.hero-media img{border-radius:15px}h1{font-size:39px}.hero-lead{font-size:17px}.meta span+span:before{display:none}.page{margin-top:36px}.intro{font-size:18px}h2{font-size:28px;margin-top:58px}.figure{margin-inline:-2px;padding:5px;border-radius:18px}.figure img{border-radius:13px}.codebox{margin-inline:-2px}pre{font-size:12px;padding:18px}.card,.callout{padding:19px}.step{padding-right:65px}}
+  </style>
+</head>
+<body>
+  <div class="reading-progress" id="progress"></div>
+  <header class="sitebar">
+    <div class="sitebar-inner">
+      <a class="brand" href="../index.html"><span class="brand-mark">N</span><span>nabuguides</span></a>
+      <a class="navlink" href="#start">شروع سریع ←</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="tag"><span class="tag-dot"></span>راهنمای کوتاه و کاربردی</span>
+        <h1>LangChain چیه و واقعاً به چه دردی می‌خوره؟</h1>
+        <p class="hero-lead">یه معرفی بی‌حاشیه از LangChain، اجزای اصلیش و ساخت اولین Agent؛ بدون اینکه توی اصطلاحات پیچیده گم بشیم.</p>
+        <div class="meta"><span>حدود ۷ دقیقه مطالعه</span><span>سطح: مقدماتی</span><span>Python</span></div>
+      </div>
+      <figure class="hero-media">
+        <img src="../assets/langchain/langchain-overview.webp" alt="نمای کلی ارتباط کاربر، پرامپت، مدل، ابزار، داده و خروجی در LangChain" width="1672" height="941">
+      </figure>
+    </section>
+
+    <div class="page">
+      <article>
+        <p class="intro">اگه تا حالا با API یک مدل زبانی کار کرده باشی، احتمالاً از یه سؤال ساده شروع کردی: متن رو می‌فرستی و جواب می‌گیری. همه‌چیز خوبه تا وقتی که برنامه باید به دیتابیس وصل بشه، ابزار صدا بزنه، چند مرحله تصمیم بگیره یا یه خروجی قابل‌اعتماد تحویل بده. <span class="highlight">LangChain دقیقاً از همین‌جا وارد بازی می‌شه.</span></p>
+
+        <section id="what">
+          <h2>اول از همه: LangChain چیه؟</h2>
+          <p>LangChain یه فریم‌ورک متن‌بازه برای ساخت اپلیکیشن‌ها و Agentهایی که با مدل‌های زبانی کار می‌کنن. خودش مدل هوش مصنوعی نیست؛ یه لایهٔ هماهنگ‌کننده‌ست که مدل رو به ابزارها، داده‌ها و منطق برنامه وصل می‌کنه.</p>
+          <p>یعنی به‌جای اینکه اتصال OpenAI یا Claude، اجرای ابزار، تاریخچهٔ گفتگو و فرمت خروجی رو هر بار از صفر مدیریت کنی، یه سری رابط و الگوی آماده داری که این قطعه‌ها رو کنار هم نگه می‌دارن.</p>
+          <div class="callout"><span class="callout-title">خیلی خلاصه</span><p>مدل فکر می‌کنه، ابزار کار انجام می‌ده، داده اطلاعات می‌ده و LangChain جریان بین این‌ها رو مدیریت می‌کنه.</p></div>
+          <figure class="figure">
+            <img src="../assets/langchain/langchain-comparison.webp" alt="مقایسه اتصال‌های پراکنده بدون LangChain و ساختار مرتب با LangChain" width="1536" height="1024">
+            <figcaption>LangChain قرار نیست مدل را باهوش‌تر کند؛ قرار است اجزای برنامه را منظم‌تر به هم وصل کند.</figcaption>
+          </figure>
+        </section>
+
+        <section id="pieces">
+          <h2>چه چیزهایی رو کنار هم می‌ذاره؟</h2>
+          <p>لازم نیست روز اول همهٔ بخش‌های LangChain رو یاد بگیری. برای شروع همین شش مفهوم تصویر کلی خوبی بهت می‌ده:</p>
+          <figure class="figure">
+            <img src="../assets/langchain/langchain-components.webp" alt="اجزای اصلی LangChain شامل مدل‌ها، پرامپت‌ها، ابزارها، بازیابی، Agent و حافظه" width="1672" height="941">
+          </figure>
+          <div class="cards">
+            <div class="card"><span class="card-icon">M</span><h3>Models</h3><p>یه رابط تقریباً یکسان برای کار با مدل‌های شرکت‌های مختلف؛ عوض‌کردن مدل دردسر کمتری داره.</p></div>
+            <div class="card"><span class="card-icon">P</span><h3>Prompts</h3><p>دستورها و پیام‌هایی که با متغیرهای برنامه ترکیب می‌شن و به مدل می‌رسن.</p></div>
+            <div class="card"><span class="card-icon">T</span><h3>Tools</h3><p>تابع‌هایی مثل جست‌وجو، خواندن دیتابیس، محاسبه یا صدا زدن یک API واقعی.</p></div>
+            <div class="card"><span class="card-icon">R</span><h3>Retrieval</h3><p>پیدا کردن بخش مرتبط از اسناد و اضافه‌کردنش به زمینهٔ مدل؛ پایهٔ خیلی از سیستم‌های RAG.</p></div>
+            <div class="card"><span class="card-icon">A</span><h3>Agents</h3><p>مدل با توجه به هدف تصمیم می‌گیره کدوم ابزار رو اجرا کنه و چه زمانی جواب نهایی بده.</p></div>
+            <div class="card"><span class="card-icon">H</span><h3>Memory</h3><p>نگه‌داشتن وضعیت و تاریخچه تا گفتگو یا فرایند چندمرحله‌ای رشته‌اش رو گم نکنه.</p></div>
+          </div>
+        </section>
+
+        <section id="start">
+          <h2>اولین Agent رو بسازیم</h2>
+          <p>یه مثال خیلی ساده می‌سازیم: Agent هواشناسی که هر وقت لازم باشه تابع <code>get_weather</code> رو صدا می‌زنه. برای نمونه از OpenAI استفاده شده، ولی می‌تونی provider و مدل رو عوض کنی.</p>
+          <h3>۱. نصب پکیج‌ها</h3>
+          <div class="codebox">
+            <div class="codebar"><span class="window-dots"><i></i><i></i><i></i></span><button class="copy" type="button">Copy</button></div>
+            <pre><code>pip install -U langchain langchain-openai</code></pre>
+          </div>
+          <h3>۲. ساخت Agent</h3>
+          <div class="codebox">
+            <div class="codebar"><span class="window-dots"><i></i><i></i><i></i></span><button class="copy" type="button">Copy</button></div>
+            <pre><code><span class="kw">from</span> langchain.agents <span class="kw">import</span> create_agent
+
+<span class="kw">def</span> <span class="fn">get_weather</span>(city: str) -&gt; str:
+    <span class="st">"""Get the current weather for a city."""</span>
+    <span class="cm"># در پروژهٔ واقعی اینجا API هواشناسی صدا زده می‌شه</span>
+    <span class="kw">return</span> <span class="st">f"Weather in {city}: sunny, 24°C"</span>
+
+agent = create_agent(
+    model=<span class="st">"openai:gpt-5-mini"</span>,
+    tools=[get_weather],
+    system_prompt=<span class="st">"جواب‌ها را کوتاه و فارسی بده."</span>,
+)
+
+result = agent.invoke({
+    <span class="st">"messages"</span>: [{
+        <span class="st">"role"</span>: <span class="st">"user"</span>,
+        <span class="st">"content"</span>: <span class="st">"هوای تورنتو چطوره؟"</span>
+    }]
+})
+
+print(result[<span class="st">"messages"</span>][-1].content)</code></pre>
+          </div>
+          <div class="callout"><span class="callout-title">قبل از اجرا</span><p>کلید API را داخل کد ننویس. آن را با متغیر محیطی <code>OPENAI_API_KEY</code> تنظیم کن.</p></div>
+          <p>اینجا نکتهٔ جالب اینه که ما نگفتیم تابع هواشناسی حتماً اجرا بشه. مدل توضیح تابع و سؤال کاربر رو می‌بینه، خودش تصمیم می‌گیره ابزار لازمه، نتیجه‌اش رو می‌گیره و بعد جواب نهایی رو می‌سازه.</p>
+        </section>
+
+        <section id="loop">
+          <h2>پشت صحنه چه اتفاقی می‌افته؟</h2>
+          <figure class="figure">
+            <img src="../assets/langchain/langchain-agent-loop.webp" alt="چرخه اجرای Agent از سؤال تا انتخاب ابزار، مشاهده نتیجه و پاسخ نهایی" width="1672" height="941">
+          </figure>
+          <div class="steps">
+            <div class="step"><strong>سؤال وارد می‌شه</strong><p>Agent پیام کاربر، دستور سیستمی و وضعیت فعلی رو کنار هم می‌ذاره.</p></div>
+            <div class="step"><strong>مدل تصمیم می‌گیره</strong><p>بررسی می‌کنه که جواب آماده‌ست یا برای ادامه به یکی از ابزارها نیاز داره.</p></div>
+            <div class="step"><strong>ابزار اجرا می‌شه</strong><p>LangChain ورودی تابع رو آماده می‌کنه، ابزار رو صدا می‌زنه و نتیجه رو به جریان برمی‌گردونه.</p></div>
+            <div class="step"><strong>حلقه ادامه پیدا می‌کنه</strong><p>مدل نتیجه رو می‌بینه؛ یا ابزار دیگه‌ای انتخاب می‌کنه یا جواب نهایی رو تحویل می‌ده.</p></div>
+          </div>
+          <p>این حلقه تا وقتی ادامه داره که مدل جواب نهایی بده یا محدودیت اجرای تعیین‌شده به پایان برسه. Agentهای LangChain در نسخه‌های جدید، زیرِ پوسته از runtime مبتنی بر LangGraph استفاده می‌کنن؛ فعلاً لازم نیست درگیر جزئیاتش بشیم.</p>
+        </section>
+
+        <section id="when">
+          <h2>چه زمانی LangChain انتخاب خوبیه؟</h2>
+          <div class="versus">
+            <div class="yes"><h3>احتمالاً به کارت میاد اگر…</h3><ul><li>مدل باید چند ابزار یا API داشته باشه.</li><li>جریان کارت چندمرحله‌ای یا Agentمحوره.</li><li>می‌خوای provider مدل رو راحت‌تر عوض کنی.</li><li>به حافظه، streaming یا خروجی ساختاریافته نیاز داری.</li></ul></div>
+            <div class="no"><h3>شاید لازم نباشه اگر…</h3><ul><li>فقط یک درخواست ساده به مدل می‌فرستی.</li><li>یک SDK مستقیم همهٔ نیازت رو پوشش می‌ده.</li><li>کمترین وابستگی و کنترل کامل اولویت اصلیته.</li><li>هنوز مسئلهٔ واقعی محصولت مشخص نشده.</li></ul></div>
+          </div>
+          <p>قانون ساده: <strong>از کمترین پیچیدگی ممکن شروع کن.</strong> اگر یه درخواست مستقیم به API جواب می‌ده، همون بهترین گزینه‌ست. وقتی ابزارها، state و مراحل تصمیم‌گیری زیاد شدن، LangChain ارزشش رو نشون می‌ده.</p>
+        </section>
+
+        <section id="mistakes">
+          <h2>سه اشتباه رایج</h2>
+          <ul class="plain-list">
+            <li><strong>Agent برای همه‌چیز:</strong> خیلی از کارها با یک جریان قطعی یا حتی یک فراخوانی ساده بهتر، ارزان‌تر و قابل‌اعتمادتر انجام می‌شن.</li>
+            <li><strong>ابزارهای مبهم:</strong> اسم و توضیح تابع باید دقیق باشه؛ مدل از همین توضیح می‌فهمه چه زمانی ابزار رو انتخاب کنه.</li>
+            <li><strong>اعتماد بدون مشاهده:</strong> فراخوانی ابزار، هزینه، خطا و خروجی Agent رو ثبت کن. چیزی که نمی‌بینی، سخت اصلاح می‌شه.</li>
+          </ul>
+        </section>
+
+        <section id="next" class="next">
+          <small>ادامهٔ این مجموعه</small>
+          <h2>LangGraph و LangSmith چی می‌شن؟</h2>
+          <p>عمداً وارد جزئیاتشون نشدیم. در مقاله‌های جدا می‌ریم سراغ LangGraph برای کنترل جریان‌های پیچیده و LangSmith برای trace، ارزیابی و دیباگ Agentها. هر کدوم به‌اندازهٔ کافی مهم هستن که راهنمای مستقل داشته باشن.</p>
+        </section>
+
+        <section class="sources">
+          <h2>منابع رسمی</h2>
+          <a href="https://docs.langchain.com/oss/python/langchain/quickstart" target="_blank" rel="noreferrer">LangChain Quickstart ↗</a>
+          <a href="https://docs.langchain.com/oss/python/langchain/agents" target="_blank" rel="noreferrer">LangChain Agents ↗</a>
+          <a href="https://docs.langchain.com/oss/python/langchain/models" target="_blank" rel="noreferrer">LangChain Models ↗</a>
+          <a href="https://docs.langchain.com/oss/python/langchain/tools" target="_blank" rel="noreferrer">LangChain Tools ↗</a>
+        </section>
+
+        <div class="author"><span class="avatar">N</span><div><strong>NabuGuide</strong><span>راهنماهای ساده و کاربردی برای ساختن با AI</span></div></div>
+      </article>
+
+      <aside class="toc" aria-label="فهرست مقاله">
+        <div class="toc-title">توی این مقاله</div>
+        <a href="#what">LangChain چیه؟</a>
+        <a href="#pieces">اجزای اصلی</a>
+        <a href="#start">ساخت اولین Agent</a>
+        <a href="#loop">چرخهٔ اجرا</a>
+        <a href="#when">چه زمانی استفاده کنیم؟</a>
+        <a href="#mistakes">اشتباهات رایج</a>
+        <a href="#next">مقاله‌های بعدی</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer>© NabuGuide — ساخته‌شده برای یادگیری ساده‌تر AI</footer>
+  <script>
+    const progress=document.getElementById('progress');
+    const sections=[...document.querySelectorAll('article section[id]')];
+    const links=[...document.querySelectorAll('.toc a')];
+    addEventListener('scroll',()=>{
+      const max=document.documentElement.scrollHeight-innerHeight;
+      progress.style.transform=`scaleX(${max?scrollY/max:0})`;
+      let current='';
+      for(const section of sections){if(section.getBoundingClientRect().top<180)current=section.id}
+      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current));
+    },{passive:true});
+    document.querySelectorAll('.copy').forEach(button=>button.addEventListener('click',async()=>{
+      const text=button.closest('.codebox').querySelector('code').innerText;
+      await navigator.clipboard.writeText(text);
+      const old=button.textContent;button.textContent='Copied';
+      setTimeout(()=>button.textContent=old,1400);
+    }));
+  </script>
+</body>
+</html>
