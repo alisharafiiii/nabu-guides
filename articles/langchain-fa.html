@@ -107,8 +107,8 @@
       <div class="hero-inner">
         <span class="tag"><span class="tag-dot"></span>راهنمای کوتاه و کاربردی</span>
         <h1>LangChain چیه و واقعاً به چه دردی می‌خوره؟</h1>
-        <p class="hero-lead">یه معرفی بی‌حاشیه از LangChain، اجزای اصلیش و ساخت اولین Agent؛ بدون اینکه توی اصطلاحات پیچیده گم بشیم.</p>
-        <div class="meta"><span>حدود ۷ دقیقه مطالعه</span><span>سطح: مقدماتی</span><span>Python</span></div>
+        <p class="hero-lead">یه معرفی بی‌حاشیه از LangChain، ساخت اولین Agent و مرزی که اختیار نهایی رو دست انسان نگه می‌داره.</p>
+        <div class="meta"><span>حدود ۸ دقیقه مطالعه</span><span>سطح: مقدماتی</span><span>Python</span></div>
       </div>
       <section class="hero-media" aria-label="جلد راهنمای LangChain">
         <div class="hero-cover-visual"><img src="../assets/langchain/langchain-hero-en.png" alt="زنجیره‌ای از مدل، ابزار، حافظه و داده در LangChain"></div>
@@ -118,13 +118,13 @@
 
     <div class="page">
       <article>
-        <p class="intro">اگه تا حالا با API یک مدل زبانی کار کرده باشی، احتمالاً از یه سؤال ساده شروع کردی: متن رو می‌فرستی و جواب می‌گیری. همه‌چیز خوبه تا وقتی که برنامه باید به دیتابیس وصل بشه، ابزار صدا بزنه، چند مرحله تصمیم بگیره یا یه خروجی قابل‌اعتماد تحویل بده. <span class="highlight">LangChain دقیقاً از همین‌جا وارد بازی می‌شه.</span></p>
+        <p class="intro">اگه تا حالا با API یک مدل زبانی کار کرده باشی، احتمالاً از یه سؤال ساده شروع کردی: متن رو می‌فرستی و جواب می‌گیری. همه‌چیز خوبه تا وقتی که برنامه باید به دیتابیس وصل بشه، ابزار صدا بزنه یا چند مرحله تصمیم بگیره. <span class="highlight">LangChain این جریان رو هماهنگ می‌کنه؛ اما هماهنگ‌کردن ابزارها با دادن اختیار نهایی یکی نیست.</span></p>
 
         <section id="what">
           <h2>اول از همه: LangChain چیه؟</h2>
           <p>LangChain یه فریم‌ورک متن‌بازه برای ساخت اپلیکیشن‌ها و Agentهایی که با مدل‌های زبانی کار می‌کنن. خودش مدل هوش مصنوعی نیست؛ یه لایهٔ هماهنگ‌کننده‌ست که مدل رو به ابزارها، داده‌ها و منطق برنامه وصل می‌کنه.</p>
           <p>یعنی به‌جای اینکه اتصال OpenAI یا Claude، اجرای ابزار، تاریخچهٔ گفتگو و فرمت خروجی رو هر بار از صفر مدیریت کنی، یه سری رابط و الگوی آماده داری که این قطعه‌ها رو کنار هم نگه می‌دارن.</p>
-          <div class="callout"><span class="callout-title">خیلی خلاصه</span><p>مدل فکر می‌کنه، ابزار کار انجام می‌ده، داده اطلاعات می‌ده و LangChain جریان بین این‌ها رو مدیریت می‌کنه.</p></div>
+          <div class="callout"><span class="callout-title">خیلی خلاصه</span><p>مدل فکر می‌کنه، ابزار کار انجام می‌ده، داده اطلاعات می‌ده و LangChain جریان بین این‌ها رو مدیریت می‌کنه. تصمیم Agent هنوز به معنی اجازهٔ اجرا نیست.</p></div>
           <figure class="figure">
             <img src="../assets/langchain/langchain-comparison.webp" alt="مقایسه اتصال‌های پراکنده بدون LangChain و ساختار مرتب با LangChain" width="1536" height="1024">
             <figcaption>LangChain قرار نیست مدل را باهوش‌تر کند؛ قرار است اجزای برنامه را منظم‌تر به هم وصل کند.</figcaption>
@@ -195,7 +195,24 @@ print(result[<span class="st">"messages"</span>][-1].content)</code></pre>
             <div class="step"><strong>ابزار اجرا می‌شه</strong><p>LangChain ورودی تابع رو آماده می‌کنه، ابزار رو صدا می‌زنه و نتیجه رو به جریان برمی‌گردونه.</p></div>
             <div class="step"><strong>حلقه ادامه پیدا می‌کنه</strong><p>مدل نتیجه رو می‌بینه؛ یا ابزار دیگه‌ای انتخاب می‌کنه یا جواب نهایی رو تحویل می‌ده.</p></div>
           </div>
-          <p>این حلقه تا وقتی ادامه داره که مدل جواب نهایی بده یا محدودیت اجرای تعیین‌شده به پایان برسه. Agentهای LangChain در نسخه‌های جدید، زیرِ پوسته از runtime مبتنی بر LangGraph استفاده می‌کنن؛ فعلاً لازم نیست درگیر جزئیاتش بشیم.</p>
+          <p>این حلقه تا وقتی ادامه داره که مدل جواب نهایی بده یا محدودیت اجرای تعیین‌شده به پایان برسه. از LangChain v1، Agentهایی که با <code>create_agent</code> ساخته می‌شن روی LangGraph اجرا می‌شن؛ فعلاً لازم نیست درگیر جزئیاتش بشیم.</p>
+        </section>
+
+        <section id="control">
+          <h2>حلقهٔ انسانی و مرز سخت‌افزاری</h2>
+          <p>LangChain به Agent کمک می‌کنه فکر کنه، ابزار انتخاب کنه و یک عمل رو آماده کنه. اما وقتی پای پول، هویت، دسترسی یا اطلاعات حساس وسطه، آماده‌کردن یک عمل نباید خودکار به معنی اجازهٔ اجرای اون باشه.</p>
+          <figure class="figure">
+            <img src="../assets/langchain/ledger-human-hardware-flow-fa.png" alt="ایجنت عمل را پیشنهاد می‌دهد، سیاست در سخت‌افزار بررسی می‌شود و اعمال خارج از محدوده به تأیید انسان برمی‌گردند" width="1774" height="887">
+            <figcaption>داخل محدوده، Agent می‌تونه خودکار کار کنه؛ خارج از محدوده، تصمیم به انسان برمی‌گرده. در هر دو مسیر، مرز در سخت‌افزار اعمال می‌شه.</figcaption>
+          </figure>
+          <div class="callout"><span class="callout-title">مدل سادهٔ Ledger Agent Stack</span><p><strong>ایجنت پیشنهاد می‌ده. انسان تأیید می‌کنه. سخت‌افزار اعمال می‌کنه.</strong></p></div>
+          <div class="steps">
+            <div class="step"><strong>Agent پیشنهاد می‌ده</strong><p>تحقیق، برنامه‌ریزی و آماده‌کردن تراکنش داخل محیط نرم‌افزاری Agent انجام می‌شه.</p></div>
+            <div class="step"><strong>سیاست بررسی می‌شه</strong><p>کارهای مجاز می‌تونن داخل محدودهٔ ازقبل‌تعریف‌شده ادامه پیدا کنن؛ مدل خودش مرز امنیتی نیست.</p></div>
+            <div class="step"><strong>انسان موارد حساس رو می‌بینه</strong><p>کار خارج از محدوده روی نمایشگر امن بررسی و با یک تأیید فیزیکی قبول یا رد می‌شه.</p></div>
+            <div class="step"><strong>سخت‌افزار تصمیم رو اعمال می‌کنه</strong><p>کلید خصوصی وارد محیط Agent نمی‌شه و نرم‌افزار نمی‌تونه تصمیم نهایی رو دور بزنه.</p></div>
+          </div>
+          <p>در نسخهٔ فعلی Ledger Agent Stack، ابزارهایی مثل Device Management Kit Skills و CLIهای Ledger Wallet، Enterprise و Multisig قابل آزمایشن. Agent Intents، سیاست‌های سخت‌افزاری و Proof of Human رو باید به‌عنوان قابلیت‌های در حال عرضه یا نقشهٔ راه معرفی کرد، نه چیزهایی که همه‌شون همین امروز به‌صورت عمومی آماده‌ان.</p>
         </section>
 
         <section id="when">
@@ -204,7 +221,7 @@ print(result[<span class="st">"messages"</span>][-1].content)</code></pre>
             <div class="yes"><h3>احتمالاً به کارت میاد اگر…</h3><ul><li>مدل باید چند ابزار یا API داشته باشه.</li><li>جریان کارت چندمرحله‌ای یا Agentمحوره.</li><li>می‌خوای provider مدل رو راحت‌تر عوض کنی.</li><li>به حافظه، streaming یا خروجی ساختاریافته نیاز داری.</li></ul></div>
             <div class="no"><h3>شاید لازم نباشه اگر…</h3><ul><li>فقط یک درخواست ساده به مدل می‌فرستی.</li><li>یک SDK مستقیم همهٔ نیازت رو پوشش می‌ده.</li><li>کمترین وابستگی و کنترل کامل اولویت اصلیته.</li><li>هنوز مسئلهٔ واقعی محصولت مشخص نشده.</li></ul></div>
           </div>
-          <p>قانون ساده: <strong>از کمترین پیچیدگی ممکن شروع کن.</strong> اگر یه درخواست مستقیم به API جواب می‌ده، همون بهترین گزینه‌ست. وقتی ابزارها، state و مراحل تصمیم‌گیری زیاد شدن، LangChain ارزشش رو نشون می‌ده.</p>
+          <p>قانون ساده: <strong>از کمترین پیچیدگی ممکن شروع کن.</strong> اگر یه درخواست مستقیم به API جواب می‌ده، همون بهترین گزینه‌ست. وقتی ابزارها، state و مراحل تصمیم‌گیری زیاد شدن، LangChain ارزشش رو نشون می‌ده. LangChain مشخص می‌کنه کار چطور جلو بره؛ انسان و سخت‌افزار مشخص می‌کنن چه کاری اجازهٔ اجرا داره.</p>
         </section>
 
         <section id="mistakes">
@@ -212,7 +229,7 @@ print(result[<span class="st">"messages"</span>][-1].content)</code></pre>
           <ul class="plain-list">
             <li><strong>Agent برای همه‌چیز:</strong> خیلی از کارها با یک جریان قطعی یا حتی یک فراخوانی ساده بهتر، ارزان‌تر و قابل‌اعتمادتر انجام می‌شن.</li>
             <li><strong>ابزارهای مبهم:</strong> اسم و توضیح تابع باید دقیق باشه؛ مدل از همین توضیح می‌فهمه چه زمانی ابزار رو انتخاب کنه.</li>
-            <li><strong>اعتماد بدون مشاهده:</strong> فراخوانی ابزار، هزینه، خطا و خروجی Agent رو ثبت کن. چیزی که نمی‌بینی، سخت اصلاح می‌شه.</li>
+            <li><strong>اعتماد بدون مرز:</strong> ثبت فراخوانی‌ها و خطاها لازمه، اما برای کار حساس کافی نیست. اختیار Agent رو محدود کن و تأیید انسانی رو به یک مرز سخت‌افزاری وصل کن.</li>
           </ul>
         </section>
 
@@ -228,6 +245,9 @@ print(result[<span class="st">"messages"</span>][-1].content)</code></pre>
           <a href="https://docs.langchain.com/oss/python/langchain/agents" target="_blank" rel="noreferrer">LangChain Agents ↗</a>
           <a href="https://docs.langchain.com/oss/python/langchain/models" target="_blank" rel="noreferrer">LangChain Models ↗</a>
           <a href="https://docs.langchain.com/oss/python/langchain/tools" target="_blank" rel="noreferrer">LangChain Tools ↗</a>
+          <a href="https://www.ledger.com/blog-preview-ledger-agent-stack" target="_blank" rel="noreferrer">Ledger Agent Stack: Open Toolkit ↗</a>
+          <a href="https://www.ledger.com/blog-dont-give-agent-keys" target="_blank" rel="noreferrer">Don’t Give the Agent the Keys ↗</a>
+          <a href="https://www.ledger.com/blog-2026-ai-security-roadmap" target="_blank" rel="noreferrer">Ledger 2026 AI Security Roadmap ↗</a>
         </section>
 
         <div class="author"><span class="avatar">N</span><div><strong>NabuGuide</strong><span>راهنماهای ساده و کاربردی برای ساختن با AI</span></div></div>
@@ -239,6 +259,7 @@ print(result[<span class="st">"messages"</span>][-1].content)</code></pre>
         <a href="#pieces">اجزای اصلی</a>
         <a href="#start">ساخت اولین Agent</a>
         <a href="#loop">چرخهٔ اجرا</a>
+        <a href="#control">انسان و مرز سخت‌افزاری</a>
         <a href="#when">چه زمانی استفاده کنیم؟</a>
         <a href="#mistakes">اشتباهات رایج</a>
         <a href="#next">مقاله‌های بعدی</a>
