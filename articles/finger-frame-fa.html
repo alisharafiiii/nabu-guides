@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f1">
+  <meta name="description" content="پنجرهٔ AI بین دو دست چگونه ساخته می‌شود؟ توضیح سادهٔ ردیابی دست، ماسک‌گذاری و مدل ویدیویی.">
+  <title>جادوی پنجرهٔ AI بین دو دست چطور کار می‌کند؟ | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--bg:#f6f7f1;--paper:#fffefa;--ink:#18231b;--muted:#627066;--line:#d9e3d8;--green:#1b774b;--deep:#123d2a;--yellow:#e8be35;--mint:#e3f1e6;--code:#10231a;--radius:24px;--shadow:0 16px 52px rgba(20,66,42,.1)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,sans-serif;font-size:18px;line-height:2.05}.progress{position:fixed;inset:0 0 auto;height:3px;background:var(--green);z-index:20;transform-origin:right;transform:scaleX(0)}a{color:inherit}img{display:block;max-width:100%}code{direction:ltr;unicode-bidi:embed;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}
+    .bar{height:70px;border-bottom:1px solid rgba(24,35,27,.1);background:rgba(246,247,241,.88);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10}.barin{height:100%;width:min(1120px,calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;text-decoration:none;letter-spacing:-.04em;direction:ltr}.brand b{display:inline-grid;place-items:center;width:31px;height:31px;margin-left:8px;border-radius:9px;background:var(--ink);color:#fff;font-size:14px}.back{font-size:14px;color:var(--muted);text-decoration:none}.back:hover{color:var(--green)}
+    .hero{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:64px 0 35px}.tag{display:inline-flex;gap:9px;align-items:center;color:var(--green);font-size:14px;font-weight:800}.tag:before{content:"";width:27px;height:3px;background:var(--yellow)}h1{max-width:850px;margin:18px 0 15px;font-size:clamp(39px,6.4vw,76px);line-height:1.14;letter-spacing:-.055em}.lead{max-width:720px;color:#4f5f54;font-size:clamp(18px,2.2vw,23px);line-height:1.9;margin:0}.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;color:var(--muted);font-size:13px}.meta span{border:1px solid var(--line);border-radius:99px;padding:4px 11px;background:rgba(255,255,255,.6)}
+    .heroimg{width:min(1240px,calc(100% - 28px));margin:17px auto 0;border-radius:28px;overflow:hidden;border:1px solid #d4ddcf;background:#e9ece4;box-shadow:var(--shadow)}.heroimg img{width:100%;aspect-ratio:5/2;object-fit:cover}
+    .page{width:min(760px,calc(100% - 40px));margin:52px auto 100px}.intro{font-size:21px;line-height:2.05;margin-bottom:47px}.highlight{background:linear-gradient(transparent 56%,#d9eddb 56%);font-weight:700}h2{font-size:clamp(27px,4vw,40px);line-height:1.35;letter-spacing:-.035em;margin:65px 0 17px}h3{font-size:22px;margin:30px 0 8px;line-height:1.55}p{margin:0 0 19px}.note{border-right:5px solid var(--yellow);padding:18px 21px;margin:27px 0;background:#fffbed;border-radius:0 16px 16px 0}.note strong{display:block;margin-bottom:4px}.flow{margin:31px 0;padding:25px;background:var(--deep);color:#f8fbf8;border-radius:22px;box-shadow:var(--shadow);direction:ltr}.flow-title{color:#b8d8be;font-size:12px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px;font-family:ui-monospace,monospace}.steps{display:flex;align-items:stretch;gap:8px}.step{flex:1;border:1px solid rgba(255,255,255,.22);border-radius:15px;padding:15px;min-height:115px}.step b{display:block;color:#fff;font-size:18px;line-height:1.3}.step span{display:block;color:#cbd7ce;font-size:12px;line-height:1.55;margin-top:8px}.arrow{align-self:center;color:var(--yellow);font-size:23px}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:27px 0}.panel{border:1px solid var(--line);border-radius:19px;padding:22px;background:var(--paper)}.panel.free{background:#f1f8f1}.panel h3{margin:0 0 8px}.pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:12px;font-weight:800;background:#e2e9e2;color:var(--deep)}.free .pill{background:#d1ebd5;color:#17633b}.panel ul{padding:0 20px 0 0;margin:13px 0 0;line-height:1.9;color:#526057;font-size:15px}.list{padding-right:22px}.list li{margin-bottom:11px}.code{direction:ltr;text-align:left;white-space:pre-wrap;background:var(--code);color:#d9eadc;border-radius:18px;padding:21px 24px;font:14px/1.9 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto}.source{margin-top:52px;border-top:1px solid var(--line);padding-top:24px;font-size:14px;color:var(--muted)}.source a{color:var(--green);font-weight:700}.footer{padding:34px 20px;text-align:center;border-top:1px solid var(--line);color:#788279;font-size:13px;background:#eef1ea;direction:ltr}
+    @media(max-width:650px){body{font-size:17px}.barin,.hero,.page{width:calc(100% - 28px)}.hero{padding-top:42px}h1{font-size:40px}.heroimg{width:calc(100% - 16px);border-radius:19px}.heroimg img{aspect-ratio:16/8;object-position:28% center}.page{margin-top:35px}.intro{font-size:19px}.two{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:1fr 24px 1fr;gap:7px}.step{padding:12px;min-height:104px}.step:nth-of-type(3){grid-column:1/4}.arrow{align-self:center;text-align:center}.flow{padding:17px}.code{font-size:12px;padding:16px}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="p"></div>
+  <header class="bar"><div class="barin"><a class="brand" href="../index.html"><b>N</b>nabuguides</a><a class="back" href="../index.html">بازگشت به همهٔ راهنماها ←</a></div></header>
+  <main>
+    <section class="hero"><span class="tag">AI · Computer Vision · Build log</span><h1>جادوی پنجرهٔ AI<br>بین دو دست چطور کار می‌کند؟</h1><p class="lead">برخلاف چیزی که به نظر می‌رسد، مدل هوش مصنوعی اصلاً دست‌های تو را نمی‌بیند. اثر نهایی از ترکیب یک ویدیوی کاملِ بازطراحی‌شده با یک ماسک متحرک ساخته می‌شود.</p><div class="meta"><span>حدود ۷ دقیقه مطالعه</span><span>سطح: کنجکاو تا سازنده</span><span>رایگان برای تست اولیه</span></div></section>
+    <figure class="heroimg"><img src="../assets/finger-frame/finger-frame-hero-fa.png" alt="دو دست که یک پنجره به جهان بازطراحی‌شده با هوش مصنوعی می‌سازند"></figure>
+    <article class="page">
+      <p class="intro">یک مستطیل با دو دستت می‌سازی. بیرون آن، ویدئوی واقعی است؛ داخلش، همان دنیا با یک استایل تازه دیده می‌شود. <span class="highlight">ترفند این نیست که AI بفهمد دست‌هایت کجا هستند؛ ترفند، یک لایه‌بندی دقیق در مرورگر است.</span></p>
+      <h2>مدل چه چیزی را می‌بیند؟</h2>
+      <p>کل ویدیوی اصلی به مدل ویدیو-به-ویدیو فرستاده می‌شود تا مثلاً به انیمه، خمیر یا یک جهان آینده‌نگر تبدیلش کند. مدل تمام پیکسل‌ها را بازسازی می‌کند: آدم، اتاق، دیوار و حتی دست‌ها.</p>
+      <p>در یک مسیر جدا، <b>MediaPipe</b> موقعیت ۲۱ نقطه از هر دست را در هر فریم پیدا می‌کند. نوک شست و اشارهٔ دو دست، چهار گوشهٔ قاب را می‌سازند. بعد مرورگر فقط همان چهارضلعی را از ویدیوی AI نمایش می‌دهد.</p>
+      <div class="note"><strong>نکتهٔ کلیدی</strong>AI فقط ویدیو را استایل می‌دهد. تشخیص دست، ساخت قاب و بریدن پنجره همگی محلی و بدون AI انجام می‌شوند.</div>
+      <div class="flow"><div class="flow-title">The actual pipeline</div><div class="steps"><div class="step"><b>1. Restyle</b><span>AI transforms the whole clip</span></div><i class="arrow">→</i><div class="step"><b>2. Track</b><span>MediaPipe finds hand landmarks</span></div><i class="arrow">→</i><div class="step"><b>3. Composite</b><span>Canvas reveals AI only inside the frame</span></div></div></div>
+      <h2>چهار مرحلهٔ واقعی اثر</h2>
+      <h3>۱. بازطراحی ویدیو</h3><p>یک مدل ویدیویی، کل کلیپ را با استایل انتخابی تو تولید می‌کند. چون ویدیو را یک‌جا می‌بیند، حرکت و پلک‌زدن طبیعی‌تر از ادیت تصویر-به-تصویر می‌ماند.</p>
+      <h3>۲. ردیابی دست</h3><p>MediaPipe یک مدل بینایی کامپیوتری است، نه مدل مولد. برای جلوگیری از لرزش، پروژه از هموارسازی، تشخیص قطع‌شدن دست از کادر و محدودیت اندازهٔ قاب استفاده می‌کند.</p>
+      <h3>۳. کامپوزیت</h3><p>Canvas 2D یا OpenCV دو ویدیو را روی هم می‌گذارد و با ماسک چهارضلعی، فقط بخش داخل قاب را آشکار می‌کند. خط‌چین و نقطه‌های گوشه صرفاً جزئیات بصری همین لایه‌اند.</p>
+      <h3>۴. خروجی</h3><p>در مرورگر با <code>MediaRecorder</code> و در مسیر خط فرمان با <code>ffmpeg</code> فایل نهایی ساخته می‌شود. این بخش هم بدون AI است.</p>
+      <h2>اول رایگان تست کن، بعد برای AI هزینه کن</h2>
+      <p>هوشمندانه‌ترین بخش پروژه یک حالت آزمایشی است. در آن، داخل قاب به‌جای ویدیوی تولیدشده با AI، همان ویدیو با یک فیلتر رنگی نمایش داده می‌شود. پس تمام زنجیرهٔ ردیابی، ماسک و خروجی را واقعاً امتحان می‌کنی، فقط محتوای داخل پنجره AI نیست.</p>
+      <div class="two"><section class="panel free"><span class="pill">رایگان و فوری</span><h3>Placeholder mode</h3><ul><li>داخل قاب: ویدیوی خودت با فیلتر رنگی</li><li>ردیابی، ماسک و خروجی: کاملاً واقعی</li><li>برای چک‌کردن ژست و ثبات قاب</li><li>نامحدود و بدون انتظار</li></ul></section><section class="panel"><span class="pill">نیازمند API / اعتبار</span><h3>AI mode</h3><ul><li>داخل قاب: دنیای بازتولیدشده با مدل ویدیویی</li><li>هزینه و چند دقیقه انتظار</li><li>همان ردیابی و ماسک</li><li>فقط برای برداشت‌هایی که از قبل خوب تست شده‌اند</li></ul></section></div>
+      <p>پس روند درست این است: اول با حالت رایگان مطمئن شو دست‌ها درست قاب می‌سازند و خروجی سالم است؛ بعد فقط برای بهترین برداشت‌ها generation واقعی اجرا کن.</p>
+      <h2>سخت‌ترین بخش، AI نیست: هم‌ترازی است</h2>
+      <p>اگر مدل ویدیویی حتی کمی زوم کند، صورت را جابه‌جا کند یا زمان‌بندی را تغییر دهد، پنجره فوراً خراب به نظر می‌رسد: دست واقعی یک‌جاست و نسخهٔ بازطراحی‌شده جای دیگر.</p>
+      <p>برای همین پرامپت باید روی حفظ ژست، حرکت، کادر، پس‌زمینه و زمان‌بندی تأکید کند؛ بدون crop، zoom یا recenter. با این وجود، تضمین کامل نیست و باید برای چند بار تلاش آماده باشی.</p>
+      <h2>چند واقعیت کاربردی قبل از اجرا</h2>
+      <ol class="list"><li><b>ژست باید قاب باشد.</b> دو دست باز کنار هم کافی نیستند؛ باید واقعاً چهار گوشهٔ یک مستطیل بسازند.</li><li><b>کلید جدید همیشه مشکل quota را حل نمی‌کند.</b> سهمیه معمولاً برای Google Cloud Project است، نه تک API key.</li><li><b>کلیپ کوتاه بهتر است.</b> برای مسیر AI، ۳ تا ۵ ثانیه هم هزینه را پایین نگه می‌دارد و هم احتمال حفظ کادر را بیشتر می‌کند.</li><li><b>حریم خصوصی را فراموش نکن.</b> ویدیوی ورودی فقط وقتی به سرویس بیرونی می‌رود که تولید AI را اجرا کنی؛ ردیابی و کامپوزیت در دستگاه خودت انجام می‌شوند.</li></ol>
+      <h2>اگر خواستی خودت اجراش کنی</h2>
+      <p>راه ساده، اجرای پروژه در مرورگر است:</p>
+      <pre class="code">python3 -m http.server 8124
+# سپس: http://localhost:8124</pre>
+      <p>در مسیر خط فرمان، فقط فایل stylize با AI حرف می‌زند؛ فایل composite صرفاً ردیابی و ماسک را انجام می‌دهد. این یعنی می‌توانی ویدیوی استایل‌شده را با هر مدل دیگری تولید کنی، به شرطی که با ویدیوی اصلی هم‌تراز باشد.</p>
+      <pre class="code">python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+export GEMINI_API_KEY=...
+.venv/bin/python stylize.py input.mp4 -o stylized.mp4
+.venv/bin/python composite.py input.mp4 stylized.mp4 -o final.mp4</pre>
+      <p class="source">منبع پروژه: <a href="https://github.com/sophiamyang/finger-frame-effect-ai" target="_blank" rel="noreferrer">finger-frame-effect-ai روی GitHub</a> · نسخهٔ زنده: <a href="https://sophiamyang.github.io/finger-frame-effect-ai/" target="_blank" rel="noreferrer">دموی پروژه</a></p>
+    </article>
+  </main>
+  <footer class="footer">nabuguides · learn the mechanism, then make it yours.</footer>
+  <script>addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('p').style.transform=`scaleX(${scrollY/(h.scrollHeight-innerHeight)})`},{passive:true})</script>
+</body>
+</html>
