@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f7f1">
+  <meta name="description" content="راهنمای ساده و مرحله‌به‌مرحله نصب GrapheneOS؛ بکاپ قبل از نصب و Duress PIN، مقایسه با Xiaomi Second Space و تفاوت Seedvault با iCloud Backup.">
+  <title>راهنمای نصب GrapheneOS؛ اول بکاپ | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--bg:#f4f7f1;--paper:#fffefa;--ink:#10291f;--muted:#607269;--green:#194c37;--green2:#1f6b4a;--mint:#e3f1e7;--yellow:#f6c84b;--yellow2:#fff2c5;--red:#a93232;--red-soft:#fff0ec;--line:#d5e0d7;--shadow:0 20px 65px rgba(18,65,44,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:18px/2 Vazirmatn,system-ui,sans-serif;text-rendering:optimizeLegibility}a{color:inherit}img{display:block;max-width:100%}::selection{background:var(--yellow);color:var(--ink)}
+    .progress{position:fixed;z-index:20;inset:0 0 auto;height:3px;background:var(--yellow);transform-origin:right;transform:scaleX(0)}
+    .bar{height:70px;position:sticky;top:0;z-index:10;background:rgba(244,247,241,.91);backdrop-filter:blur(18px);border-bottom:1px solid rgba(16,41,31,.09)}.bar-inner{width:min(1180px,calc(100% - 40px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;font-weight:900;direction:ltr;letter-spacing:-.04em}.brand span{color:#ad7a00}.back{text-decoration:none;color:var(--muted);font-size:14px}.back:hover{color:var(--green2)}
+    .hero{width:min(1180px,calc(100% - 40px));margin:66px auto 0}.hero-copy{width:min(850px,100%)}.eyebrow{display:flex;align-items:center;gap:10px;color:#8a6500;font-size:13px;font-weight:800}.eyebrow:before{content:"";width:34px;height:4px;border-radius:4px;background:var(--yellow)}h1{font-size:clamp(44px,7vw,80px);line-height:1.28;letter-spacing:-.055em;margin:18px 0 16px}.lead{max-width:800px;color:#50635a;font-size:clamp(18px,2.2vw,23px);line-height:1.9;margin:0}.meta{display:flex;gap:10px 22px;flex-wrap:wrap;color:#75847c;font-size:13px;margin-top:22px}.cover{overflow:hidden;margin-top:40px;aspect-ratio:5/2;border:1px solid #cad9ce;border-radius:30px;background:#e8f3eb;box-shadow:var(--shadow)}.cover img{width:100%;height:100%;object-fit:cover}
+    .layout{width:min(1120px,calc(100% - 40px));margin:62px auto 110px;display:grid;grid-template-columns:minmax(0,770px) 250px;gap:70px;direction:ltr}.layout article,.toc{direction:rtl}.toc{position:sticky;top:105px;align-self:start;border-right:1px solid var(--line);padding-right:22px}.toc b{font-size:12px;color:#819087}.toc a{display:block;text-decoration:none;color:#6d7e75;font-size:13px;line-height:1.75;padding:6px 0}.toc a:hover,.toc a.active{color:var(--green2)}
+    article{min-width:0}.intro{font-size:22px;line-height:2.05;color:#2c4237;margin:0 0 34px}.highlight{background:linear-gradient(transparent 58%,#f5d874 58%)}h2{font-size:34px;line-height:1.55;letter-spacing:-.035em;margin:76px 0 18px;scroll-margin-top:100px}h3{font-size:22px;margin:34px 0 10px}p{margin:0 0 21px}article p,article li{color:#3e5148}
+    .warning,.callout,.tip{position:relative;border-radius:22px;padding:24px 27px;margin:30px 0}.warning{background:var(--red-soft);border:1px solid #efb5aa}.warning:before{content:"!";position:absolute;right:-16px;top:23px;width:33px;height:33px;display:grid;place-items:center;border-radius:50%;background:var(--red);color:white;font-weight:900}.warning b{display:block;color:var(--red);margin-bottom:6px}.warning p,.callout p,.tip p{margin:0;font-size:16px}.callout{background:var(--yellow2);border:1px solid #ead27f}.callout b,.tip b{display:block;color:#7f5c00;margin-bottom:6px}.tip{background:var(--mint);border:1px solid #bed8c7}.tip b{color:var(--green2)}
+    .start{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:28px 0}.need{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px}.need span{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:11px;background:var(--yellow);font-weight:900;margin-bottom:10px}.need b{display:block}.need p{font-size:14px;line-height:1.85;margin:5px 0 0;color:#67786f}
+    .steps{counter-reset:step;display:grid;gap:14px;margin:30px 0}.step{counter-increment:step;display:grid;grid-template-columns:58px 1fr;gap:17px;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:20px}.step:before{content:counter(step);width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:var(--green);color:white;font-weight:900;direction:ltr}.step h3{font-size:19px;margin:2px 0 5px}.step p{font-size:15px;line-height:1.85;margin:0;color:#64756c}.step a{color:var(--green2);font-weight:800}
+    .compare{overflow-x:auto;margin:30px 0;border:1px solid var(--line);border-radius:22px;background:var(--paper)}table{width:100%;min-width:690px;border-collapse:collapse;text-align:right}th,td{padding:16px 18px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#e9f2eb;color:var(--green);font-size:14px}td{font-size:14px;line-height:1.75;color:#53665d}td:first-child{font-weight:800;color:var(--ink);width:20%}tr:last-child td{border-bottom:0}.yes{color:#197043;font-weight:800}.maybe{color:#936800;font-weight:800}
+    .profile-visual{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:12px;margin:32px 0}.phone{min-height:250px;border:2px solid var(--green);border-radius:26px;padding:18px;background:var(--paper);box-shadow:0 10px 30px rgba(24,76,55,.08)}.phone b{display:block}.phone small{color:var(--muted)}.space{margin-top:16px;border-radius:14px;padding:13px;background:var(--mint);border:1px solid #c7dccd}.space.alt{background:var(--yellow2);border-color:#ead587}.versus{text-align:center;font-weight:900;color:#8b9b92;direction:ltr}.phone ul{padding:0 20px 0 0;margin:12px 0 0}.phone li{font-size:13px;margin:5px 0}
+    .backup-plan{display:grid;gap:12px;margin:27px 0}.backup-item{display:grid;grid-template-columns:42px 1fr;gap:13px;padding:17px;border-radius:17px;background:var(--paper);border:1px solid var(--line)}.backup-item span{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--yellow);font-weight:900}.backup-item b{display:block}.backup-item p{font-size:14px;line-height:1.75;margin:2px 0 0;color:#65766d}
+    .duress{margin-top:75px;border:2px solid var(--red);border-radius:28px;overflow:hidden;background:#fff}.duress-head{background:var(--red);color:white;padding:26px}.duress-head small{font-weight:800;opacity:.8}.duress-head h2{color:white;margin:4px 0 0;font-size:32px}.duress-body{padding:27px}.duress-body p{color:#523d39}.duress-check{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}.duress-check div{background:var(--red-soft);border:1px solid #efc1b8;border-radius:15px;padding:14px;font-size:14px;color:#6d4841}.duress strong{color:var(--red)}
+    .next{margin-top:70px;padding:28px;border-radius:24px;background:var(--green);color:white}.next small{color:#f7d46e;font-weight:800}.next h2{color:white;font-size:27px;margin:8px 0}.next p{color:#dce9e0;font-size:15px;margin:0}.sources{margin-top:48px;padding-top:22px;border-top:1px solid var(--line)}.sources h2{font-size:19px;margin:0 0 10px}.sources a{display:block;color:#61736a;font-size:13px;text-decoration:none;margin:7px 0}.sources a:hover{color:var(--green2)}.ai-disclaimer{margin-top:34px;padding-top:18px;border-top:1px dashed var(--line);color:#7a8981}.ai-disclaimer b{font-size:12px;color:#64736b}.ai-disclaimer p{margin:4px 0 0;color:#7a8981;font-size:12px;line-height:1.9}footer{border-top:1px solid var(--line);padding:34px 20px;text-align:center;color:#77867e;font-size:13px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr;gap:0}.toc{display:none}.hero{margin-top:48px}.start{grid-template-columns:1fr}.profile-visual{grid-template-columns:1fr}.versus{padding:5px}}
+    @media(max-width:620px){body{font-size:16px}.bar{height:62px}.bar-inner,.hero,.layout{width:calc(100% - 24px)}.hero{margin-top:38px}h1{font-size:38px;line-height:1.35}.lead{font-size:17px}.cover{margin-top:28px;border-radius:20px;aspect-ratio:5/2}.cover img{object-position:center}.layout{margin-top:38px}.intro{font-size:18px}h2{font-size:28px;margin-top:58px}.step{grid-template-columns:48px 1fr;padding:16px}.step:before{width:42px;height:42px}.duress-check{grid-template-columns:1fr}.duress-head h2{font-size:27px}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="bar"><div class="bar-inner"><a class="brand" href="../index.html">nabu<span>guides</span></a><a class="back" href="../index.html">بازگشت به راهنماها ←</a></div></header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><div class="eyebrow">PRIVACY · PIXEL · BACKUP</div><h1>راهنمای نصب <span dir="ltr">GrapheneOS</span>؛ اول بکاپ، بعد امنیت</h1><p class="lead">نصبش سخت نیست، ولی دو مرحله از نصب کل گوشی رو پاک می‌کنه. این راهنما قبل از هر کلیک مهم بهت می‌گه چی رو ذخیره کنی، چه چیزی واقعاً جدا می‌شه و Duress PIN چرا جای شوخی نداره.</p><div class="meta"><span>حدود ۱۰ دقیقه مطالعه</span><span>مرحله‌به‌مرحله</span><span>مقایسه با Xiaomi و iCloud</span></div></div>
+      <div class="cover"><img src="../assets/grapheneos/grapheneos-cover-fa.svg?v=baloo-bhaijaan2-embedded-2" alt="راهنمای نصب GrapheneOS همراه با یادآوری بکاپ و Duress PIN"></div>
+    </section>
+
+    <div class="layout">
+      <article>
+        <p class="intro"><span dir="ltr">GrapheneOS</span> یه اندروید امنیت‌محوره که برای دستگاه‌های پشتیبانی‌شدهٔ Pixel ساخته شده. قرار نیست گوشی رو جادویی یا ناشناس کنه؛ هدفش اینه که سیستم‌عامل، اپ‌ها و دسترسی‌ها رو سخت‌گیرانه‌تر کنترل کنه. <span class="highlight">اما نصبش با پاک‌شدن کامل داده‌ها همراهه، پس قدم صفر همیشه بکاپه.</span></p>
+
+        <div class="warning"><b>قبل از ادامه: نصب آزمایشی روی گوشی اصلی ممنوع!</b><p>بازکردن bootloader و دوباره قفل‌کردنش هر دو داده‌های گوشی رو پاک می‌کنن. عکس‌ها، پیام‌ها، کدهای 2FA، فایل‌های کیف‌پول، بکاپ پیام‌رسان‌ها و اطلاعات eSIM رو قبل از نصب جداگانه ذخیره کن.</p></div>
+
+        <section id="before"><h2>قبل از نصب چی لازم داری؟</h2><div class="start">
+          <div class="need"><span>۱</span><b>یک Pixel واقعاً پشتیبانی‌شده</b><p>GrapheneOS فقط روی مدل‌های مشخص Pixel پشتیبانی رسمی داره. قبل از خرید یا نصب، لیست زندهٔ سایت رسمی رو چک کن؛ مدل‌های carrier-locked ممکنه اجازهٔ OEM unlocking ندن.</p></div>
+          <div class="need"><span>۲</span><b>کامپیوتر و فضای خالی</b><p>برای Web Installer حداقل ۲ گیگابایت حافظهٔ آزاد و ۳۲ گیگابایت فضای ذخیره‌سازی آزاد لازم داری.</p></div>
+          <div class="need"><span>۳</span><b>کابل USB درست‌وحسابی</b><p>مستقیم به پورت لپ‌تاپ یا پشت کیس وصل شو. هاب USB و کابل‌های بی‌کیفیت از رایج‌ترین دلیل‌های خطای نصبن.</p></div>
+          <div class="need"><span>۴</span><b>مرورگر Chromium به‌روز</b><p>Chrome، Edge، Chromium یا Brave با Shields خاموش. Incognito، Snap و Flatpak می‌تونن WebUSB یا فضای موقت نصب رو خراب کنن.</p></div>
+        </div><div class="callout"><b>مدل گوشی رو حدس نزن</b><p>صفحهٔ <a href="https://grapheneos.org/faq#supported-devices" target="_blank" rel="noreferrer">Supported devices</a> مرجع نهاییه. پشتیبانی امنیتی فقط اسم Pixel نیست؛ به firmware، bootloader و مدت دریافت آپدیت هم بستگی داره.</p></div></section>
+
+        <section id="backup"><h2>قدم صفر: بکاپی که واقعاً به درد بخوره</h2><p>فقط کپی‌کردن پوشهٔ عکس‌ها کافی نیست. بعضی از مهم‌ترین چیزها اصلاً توی گالری نیستن: کدهای احراز هویت، recovery phrase، تاریخچهٔ پیام‌رسان، فایل‌های اپ‌ها و تنظیمات حساب‌ها.</p><div class="backup-plan">
+          <div class="backup-item"><span>۱</span><div><b>عکس‌ها و فایل‌ها</b><p>روی کامپیوتر یا یک حافظهٔ خارجی کپی کن و چند فایل رو باز کن تا مطمئن شی سالم منتقل شدن.</p></div></div>
+          <div class="backup-item"><span>۲</span><div><b>پیام‌رسان‌ها و اپ‌های حساس</b><p>از داخل خود Signal، WhatsApp، password manager، authenticator و کیف‌پول‌ها export یا recovery بگیر. بکاپ سیستمی همیشه دادهٔ این اپ‌ها رو پوشش نمی‌ده.</p></div></div>
+          <div class="backup-item"><span>۳</span><div><b>کدهای بازیابی و 2FA</b><p>نسخهٔ آفلاین و خوانا نگه دار. تنها نسخه نباید روی همون گوشی‌ای باشه که قراره پاک بشه.</p></div></div>
+          <div class="backup-item"><span>۴</span><div><b>یک تست کوچکِ بازیابی</b><p>وجود فایل بکاپ به معنی قابل‌بازیابی‌بودنش نیست. حداقل چند عکس، یک export مهم و recovery code رو روی دستگاه دیگه یا کامپیوتر بررسی کن.</p></div></div>
+        </div><div class="tip"><b>اگه از iPhone میای</b><p>بکاپ iCloud به‌صورت کامل روی GrapheneOS restore نمی‌شه. فایل‌ها، عکس‌ها، مخاطب‌ها و دادهٔ هر اپ رو با روش خودش منتقل کن؛ GrapheneOS نمی‌تونه یک image کامل iPhone رو تبدیل به Android کنه.</p></div></section>
+
+        <section id="install"><h2>مراحل نصب با Web Installer</h2><p>روش پیشنهادی خود پروژه، نصب از طریق مرورگر و WebUSB است. صفحهٔ رسمی رو باز نگه دار و دقیقاً همون دکمه‌ای رو بزن که در مرحلهٔ فعلی بهت می‌گه.</p><div class="steps">
+          <div class="step"><div><h3>Pixel رو آپدیت کن</h3><p>قبل از نصب، سیستم فعلی رو به آخرین نسخه برسون تا firmware و اتصال اولیه تازه باشه.</p></div></div>
+          <div class="step"><div><h3>Developer options و OEM unlocking رو روشن کن</h3><p>برو به Settings › About phone و چندبار Build number رو بزن. بعد Settings › System › Developer options › OEM unlocking رو فعال کن.</p></div></div>
+          <div class="step"><div><h3>فقط Web Installer رسمی رو باز کن</h3><p><a href="https://grapheneos.org/install/web" target="_blank" rel="noreferrer">grapheneos.org/install/web ↗</a> رو در مرورگر پشتیبانی‌شده باز کن. از فایل یا ابزار ناشناس استفاده نکن.</p></div></div>
+          <div class="step"><div><h3>گوشی رو وارد Fastboot Mode کن</h3><p>گوشی رو خاموش یا ری‌استارت کن و هنگام روشن‌شدن Volume Down رو نگه دار. صفحه باید Fastboot Mode رو نشون بده؛ هنوز Start رو نزن.</p></div></div>
+          <div class="step"><div><h3>bootloader رو باز کن - پاک‌شدن اول</h3><p>در Installer روی Unlock bootloader بزن و روی خود گوشی تأیید کن. <strong>این مرحله همهٔ داده‌ها رو پاک می‌کنه.</strong></p></div></div>
+          <div class="step"><div><h3>نسخه رو دانلود و Flash کن</h3><p>Download release و بعد Flash release رو اجرا کن. تا پایان اسکریپت کابل رو جدا نکن و با گوشی کار نکن.</p></div></div>
+          <div class="step"><div><h3>bootloader رو دوباره قفل کن - پاک‌شدن دوم</h3><p>Lock bootloader رو در Installer اجرا و روی گوشی تأیید کن. این مرحله هم داده‌ها رو پاک می‌کنه و برای Verified Boot ضروریه.</p></div></div>
+          <div class="step"><div><h3>بوت کن و OEM unlocking رو خاموش نگه دار</h3><p>گوشی رو روشن کن. در setup نهایی، خاموش‌کردن OEM unlocking به‌صورت پیش‌فرض پیشنهاد می‌شه؛ همون حالت توصیه‌شده رو نگه دار.</p></div></div>
+        </div><div class="warning"><b>bootloader باز یعنی نصب کامل نشده</b><p>گوشی رو با bootloader باز استفاده نکن و اطلاعاتت رو قبل از قفل‌کردن نریز. قفل‌کردن هم داده‌ها رو پاک می‌کنه و هم Verified Boot کامل رو فعال می‌کنه.</p></div></section>
+
+        <section id="spaces"><h2>GrapheneOS با Xiaomi Second Space یکیه؟</h2><p>نه. هر دو برای جداکردن زندگی دیجیتال به درد می‌خورن، ولی در دو سطح متفاوت کار می‌کنن. Second Space یه محیط جدا داخل سیستم‌عامل Xiaomi می‌سازه؛ GrapheneOS کل سیستم‌عامل رو سخت‌گیرانه‌تر می‌کنه و بعد داخلش user profileهای جدا می‌ده.</p><div class="profile-visual">
+          <div class="phone"><b>GrapheneOS User Profiles</b><small>چند فضای جدا روی یک سیستم‌عامل امنیت‌محور</small><div class="space">Owner · کارهای اصلی</div><div class="space">Work · اپ‌های کاری</div><div class="space">Social · شبکه‌های اجتماعی</div><ul><li>اپ و دادهٔ جدا</li><li>کلید رمزنگاری جدا برای هر profile</li><li>امکان End session و خارج‌کردن کلید از حافظه</li></ul></div>
+          <div class="versus">VS</div>
+          <div class="phone"><b>Xiaomi Second Space</b><small>یک محیط دوم داخل MIUI / HyperOS</small><div class="space alt">First space · زندگی روزمره</div><div class="space alt">Second space · محیط جدا</div><ul><li>برای همهٔ مدل‌ها موجود نیست</li><li>فضای ذخیره و توان دستگاه رو مصرف می‌کنه</li><li>جایگزین سخت‌سازی کل سیستم‌عامل نیست</li></ul></div>
+        </div><div class="compare"><table><thead><tr><th>موضوع</th><th>GrapheneOS Profiles</th><th>Xiaomi Second Space</th></tr></thead><tbody>
+          <tr><td>هدف اصلی</td><td>جداسازی اپ و داده روی یک OS سخت‌سازی‌شده</td><td>ساختن یک محیط دوم برای حریم خصوصی و نظم</td></tr>
+          <tr><td>تعداد فضاها</td><td class="yes">تا ۳۱ profile ثانویه + Guest</td><td class="maybe">معمولاً یک Second Space؛ بسته به مدل</td></tr>
+          <tr><td>کلید رمزنگاری جدا</td><td class="yes">هر profile کلیدهای وابسته به قفل خودش رو داره</td><td>محیط جداست، اما جزئیات و سطح پشتیبانی به دستگاه و نسخه بستگی داره</td></tr>
+          <tr><td>خاموش‌کردن کامل فضا</td><td class="yes">End session اپ‌ها رو متوقف و کلیدها رو از حافظه خارج می‌کنه</td><td>تعویض فضا برای استفادهٔ روزمره طراحی شده</td></tr>
+          <tr><td>روی چه گوشی‌ای؟</td><td>فقط Pixelهای پشتیبانی‌شده</td><td>فقط بعضی مدل‌های Xiaomi؛ حتی بعضی مدل‌های جدید ندارنش</td></tr>
+          <tr><td>آیا بکاپه؟</td><td><strong>نه</strong></td><td><strong>نه</strong></td></tr>
+        </tbody></table></div><div class="callout"><b>جداکردن با بکاپ‌گرفتن فرق داره</b><p>Second Space یا user profile جلوی قاطی‌شدن اپ‌ها و داده‌ها رو می‌گیره؛ ولی اگر گوشی پاک، گم یا خراب بشه، فضای جدا هم از بین می‌ره.</p></div></section>
+
+        <section id="icloud"><h2>بکاپ GrapheneOS در مقایسه با iCloud</h2><p>iCloud برای راحتی و بازیابی داخل اکوسیستم Apple ساخته شده: بخشی از داده‌ها sync می‌شن و چیزهایی که sync نیستن در backup دوره‌ای قرار می‌گیرن. GrapheneOS از Seedvault استفاده می‌کنه؛ بکاپ رمزگذاری‌شده‌ای که باید خودت فعالش کنی و محل نگه‌داریش رو انتخاب کنی.</p><div class="compare"><table><thead><tr><th>موضوع</th><th>GrapheneOS + Seedvault</th><th>iCloud Backup</th></tr></thead><tbody>
+          <tr><td>راه‌اندازی</td><td>باید از Settings › System › Backup فعالش کنی</td><td>داخل Apple Account و iCloud یکپارچه است</td></tr>
+          <tr><td>محل نگه‌داری</td><td>محل انتخابی مثل USB یا storage provider سازگار</td><td>سرورهای iCloud</td></tr>
+          <tr><td>رمز بازیابی</td><td>recovery code جدا؛ بدونش ممکنه بکاپت بی‌استفاده بشه</td><td>وابسته به Apple Account و تنظیمات امنیتی حساب</td></tr>
+          <tr><td>پوشش اپ‌ها</td><td class="maybe">کامل نیست؛ بعضی اپ‌ها اجازهٔ backup داده نمی‌دن</td><td>app data و تنظیمات پشتیبانی‌شده؛ داده‌های syncشده جداگانه در iCloud می‌مونن</td></tr>
+          <tr><td>چند profile</td><td>برای هر profile جداگانه بررسی و بکاپ بگیر</td><td>مدل profile چندکاربرهٔ GrapheneOS رو نداره</td></tr>
+          <tr><td>حس کلی</td><td>کنترل بیشتر، مسئولیت بیشتر</td><td>راحتی بیشتر داخل اکوسیستم Apple</td></tr>
+        </tbody></table></div><div class="tip"><b>Seedvault رو تنها نسخهٔ نجاتت نکن</b><p>بکاپ اپ‌های حساس رو با ابزار خود اون اپ بگیر. Seedvault رمزگذاری‌شده و کاربردیه، ولی خود Android اجازه می‌ده بعضی اپ‌ها از بکاپ سیستمی خارج بشن. recovery code رو هم فقط داخل گوشی نگه ندار.</p></div></section>
+
+        <section id="duress" class="duress"><div class="duress-head"><small>این بخش را قبل از فعال‌کردن بخوان</small><h2>Duress PIN دکمهٔ «پاک‌کردن واقعی» است</h2></div><div class="duress-body"><p>GrapheneOS اجازه می‌ده یک PIN و password اضطراری تعریف کنی. واردکردنش هرجایی که سیستم رمز دستگاه رو می‌خواد، <strong>گوشی و eSIMهای نصب‌شده رو به‌صورت غیرقابل‌برگشت پاک می‌کنه.</strong> پاک‌سازی نیازی به reboot نداره و نمی‌تونی وسطش متوقفش کنی.</p><div class="duress-check"><div>قبلش آخرین Seedvault backup رو اجرا و نتیجه‌اش رو چک کن.</div><div>از پیام‌رسان‌ها، 2FA، password manager و کیف‌پول‌ها export جدا داشته باش.</div><div>recovery code بکاپ باید بیرون از گوشی و آفلاین باشه.</div><div>بدون دادهٔ مهم و بدون برنامهٔ بازیابی، Duress PIN رو امتحان نکن.</div></div><p><strong>ترتیب درست:</strong> بکاپ → تست بازیابی → نگه‌داری recovery code در جای جدا → بعد فعال‌کردن Duress PIN از Settings › Security &amp; privacy › Device unlock › Duress Password.</p></div></section>
+
+        <section id="finish"><h2>بعد از نصب، اول این کارها رو انجام بده</h2><div class="backup-plan">
+          <div class="backup-item"><span>۱</span><div><b>قفل اصلی قوی بساز</b><p>PIN کوتاه و قابل‌حدس نذار. قفل هر profile رو هم با توجه به حساسیتش تنظیم کن.</p></div></div>
+          <div class="backup-item"><span>۲</span><div><b>Profileها رو با هدف بساز</b><p>مثلاً Owner برای کارهای اصلی، Work برای اپ‌های کاری و Social برای شبکه‌های اجتماعی. تعداد زیاد بدون برنامه فقط مدیریت رو سخت می‌کنه.</p></div></div>
+          <div class="backup-item"><span>۳</span><div><b>Sandboxed Google Play رو فقط جایی نصب کن که لازم داری</b><p>می‌تونی Play services رو مثل اپ معمولی داخل profile دلخواه نصب کنی؛ لازم نیست توی همهٔ فضاها باشه.</p></div></div>
+          <div class="backup-item"><span>۴</span><div><b>Seedvault رو فعال و یک تست restore برنامه‌ریزی کن</b><p>بکاپی که هیچ‌وقت تست نشده، هنوز برنامهٔ بازیابی نیست.</p></div></div>
+        </div></section>
+
+        <aside class="next"><small>اگه فقط یه چیز یادت بمونه</small><h2>GrapheneOS از اطلاعاتت محافظت می‌کنه؛ جای بکاپ رو نمی‌گیره.</h2><p>نصب و Duress PIN هر دو می‌تونن داده‌ها رو برای همیشه پاک کنن. اول نسخهٔ قابل‌بازیابی بساز، بعد سراغ مرزهای امنیتی برو.</p></aside>
+        <section class="sources"><h2>منابع رسمی و به‌روز</h2>
+          <a href="https://grapheneos.org/install/web" target="_blank" rel="noreferrer">GrapheneOS Web Installer ↗</a>
+          <a href="https://grapheneos.org/faq#supported-devices" target="_blank" rel="noreferrer">GrapheneOS supported devices ↗</a>
+          <a href="https://grapheneos.org/features#duress-password" target="_blank" rel="noreferrer">GrapheneOS Duress PIN / Password ↗</a>
+          <a href="https://grapheneos.org/features#improved-user-profiles" target="_blank" rel="noreferrer">GrapheneOS improved user profiles ↗</a>
+          <a href="https://github.com/seedvault-app/seedvault" target="_blank" rel="noreferrer">Seedvault official repository ↗</a>
+          <a href="https://www.mi.com/global/support/faq/details/KA-492707/" target="_blank" rel="noreferrer">Xiaomi Second Space limitations ↗</a>
+          <a href="https://support.apple.com/en-gb/108770" target="_blank" rel="noreferrer">Apple: What does iCloud back up? ↗</a>
+        </section>
+        <aside class="ai-disclaimer"><b>دیسکلیمر</b><p>این راهنما توسط ایجنت هوش مصنوعی Sauron و بر اساس منابع رسمی آماده شده و راهنمای رسمی GrapheneOS نیست. قبل از نصب یا اجرای هر مرحلهٔ برگشت‌ناپذیر، مستندات زندهٔ سایت رسمی را دوباره بررسی کن.</p></aside>
+      </article>
+      <aside class="toc"><b>توی این راهنما</b><a href="#before">قبل از نصب</a><a href="#backup">قدم صفر: بکاپ</a><a href="#install">مراحل نصب</a><a href="#spaces">مقایسه با Second Space</a><a href="#icloud">مقایسه با iCloud</a><a href="#duress">Duress PIN</a><a href="#finish">بعد از نصب</a></aside>
+    </div>
+  </main>
+  <footer>nabuguides · راهنماهای رایگان برای یادگرفتن با ساختن</footer>
+  <script>
+    const progress=document.getElementById('progress'),sections=[...document.querySelectorAll('article section[id]')],links=[...document.querySelectorAll('.toc a')];
+    addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.transform=`scaleX(${max?scrollY/max:0})`;let current='';for(const s of sections)if(s.getBoundingClientRect().top<150)current=s.id;links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current))},{passive:true});
+  </script>
+</body>
+</html>
