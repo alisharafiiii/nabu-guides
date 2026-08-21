@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f0e5">
+  <meta name="description" content="مقایسهٔ خیلی ساده و بعد فنی Claude Cowork، ChatGPT Work و Grok Bot؛ با Record a Skill، جدول انتخاب و نکات امنیتی.">
+  <title>Cowork یا Work یا Grok Bot؟ مقایسهٔ ساده تا فنی | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--ink:#171713;--paper:#f6f0e5;--card:#fffaf0;--line:#d9cfbd;--yellow:#e2a51d;--soft:#f6e5b6;--muted:#655e53;--shadow:0 9px 0 #ded3c0}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:18px/2 Vazirmatn,system-ui,sans-serif}a{color:inherit}img{max-width:100%;display:block}::selection{background:var(--yellow)}
+    .bar{height:68px;border-bottom:1px solid var(--line);background:rgba(246,240,229,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10}.bar-in{width:min(1180px,calc(100% - 32px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;font-weight:900;direction:ltr}.brand span{color:var(--yellow)}.back{text-decoration:none;color:var(--muted);font-size:14px}
+    .hero,.main{width:min(1120px,calc(100% - 32px));margin:auto}.hero{padding:64px 0 0}.eyebrow{font-size:13px;font-weight:900;color:#966900;direction:ltr;text-align:right}.hero h1{max-width:970px;font-size:clamp(42px,7.6vw,82px);line-height:1.25;letter-spacing:-.055em;margin:10px 0}.lead{max-width:860px;font-size:clamp(19px,2.4vw,25px);color:#554f46;margin:0}.cover{position:relative;margin-top:38px;border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:5/2}.cover img{width:100%;height:100%;object-fit:cover}
+    .main{max-width:880px;padding:66px 0 110px}.mother{padding:26px 28px;border:2px solid var(--ink);border-radius:24px;background:var(--yellow);box-shadow:7px 7px 0 var(--ink);font-size:22px;line-height:1.8}.mother b{display:block;font-size:13px;margin-bottom:4px}.update{display:inline-flex;margin-top:16px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}
+    h2{font-size:clamp(29px,5vw,43px);line-height:1.5;letter-spacing:-.035em;margin:78px 0 17px}h3{font-size:23px;margin:0 0 6px}p{color:#49453e;margin:0 0 20px}.small{font-size:14px;color:#716a60}.highlight{background:linear-gradient(transparent 55%,var(--soft) 55%)}
+    .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}.persona{position:relative;overflow:hidden;border:1.5px solid var(--ink);border-radius:23px;background:var(--card);padding:23px;box-shadow:5px 5px 0 var(--yellow)}.persona::before{content:"";position:absolute;top:-25px;left:-20px;width:90px;height:90px;border:1px solid var(--line);border-radius:50%}.persona .icon{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--ink);color:var(--yellow);font-size:26px;margin-bottom:18px}.persona h3{direction:ltr;text-align:right;font-size:20px}.persona p{font-size:15px;line-height:1.85;margin:9px 0 0}.persona strong{display:block;margin-top:15px;font-size:13px;color:#8a6000}
+    .plain{padding:20px 22px;border-right:6px solid var(--yellow);border-radius:16px;background:rgba(255,250,240,.76)}.plain b{display:block;margin-bottom:4px}.plain p{font-size:15px;margin:0}.article-visual{margin:34px 0 0}.article-visual img{width:100%;border:1px solid var(--line);border-radius:22px;background:var(--card)}.article-visual figcaption{padding:9px 5px 0;color:var(--muted);font-size:12px;text-align:center}
+    .table-wrap{overflow-x:auto;border:1.5px solid var(--ink);border-radius:18px;background:var(--card);margin:24px 0}table{width:100%;min-width:720px;border-collapse:collapse;font-size:14px;line-height:1.75}th,td{padding:14px 13px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}th{background:var(--ink);color:var(--paper)}th:first-child{color:var(--yellow)}tr:last-child td{border-bottom:0}th:last-child,td:last-child{border-left:0}td:first-child{font-weight:900}.yes{font-weight:900}.note{display:block;font-size:11px;color:#746d62;margin-top:3px}
+    .skill-flow{margin:30px calc(50% - 50vw);padding:38px max(16px,calc((100vw - 1120px)/2));background:var(--ink);color:var(--paper)}.skill-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:25px}.skill-head h3{font-size:30px;margin:0}.skill-head span{color:var(--yellow);font-size:12px;font-weight:900}.flowline{display:grid;grid-template-columns:repeat(5,1fr);gap:26px;direction:rtl}.flow-step{position:relative;text-align:center}.flow-step:not(:last-child)::after{content:"←";position:absolute;left:-20px;top:31px;color:var(--yellow);font-size:24px}.flow-step i{display:grid;place-items:center;width:66px;height:66px;margin:0 auto 11px;border:1.5px solid var(--yellow);border-radius:20px;color:var(--yellow);font-style:normal;font-size:27px}.flow-step b{display:block;font-size:14px}.flow-step small{display:block;color:#cfc7b9;font-size:11px;line-height:1.7;margin-top:4px}.warning{margin-top:27px;padding:15px 18px;border:1px solid #716951;border-radius:15px;background:#24241e;color:#ddd4c5;font-size:13px}.warning b{color:var(--yellow)}
+    .takes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}.take{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:21px;background:var(--card);padding:23px}.take .winner{font-size:12px;font-weight:900;color:#8c6200}.take h3{direction:ltr;text-align:right;margin-top:7px}.take p{font-size:15px;line-height:1.85}.take ul{margin:auto 0 0;padding-right:20px;color:#514b42;font-size:13px;line-height:1.9}
+    .architecture{display:grid;grid-template-columns:1fr 78px 1fr;align-items:stretch;margin:30px 0}.zone{padding:24px;border:1.5px solid var(--ink);border-radius:22px;background:var(--card)}.zone h3{margin:0 0 12px}.zone ul{margin:0;padding-right:20px;font-size:14px;color:#514b42}.wall{position:relative;display:grid;place-items:center}.wall::before{content:"";position:absolute;inset:0 37px;background:repeating-linear-gradient(0deg,var(--ink) 0 10px,transparent 10px 16px)}.wall span{position:relative;z-index:1;writing-mode:vertical-rl;background:var(--yellow);border:1px solid var(--ink);border-radius:999px;padding:10px 4px;font-size:10px;font-weight:900}.zone.safe{background:var(--ink);color:var(--paper)}.zone.safe ul{color:#d8d0c2}.zone.safe h3{color:var(--yellow)}
+    .decision{padding:30px;border:2px solid var(--ink);border-radius:28px;background:var(--soft);box-shadow:8px 8px 0 var(--ink);margin-top:70px}.decision h2{margin:4px 0 12px}.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:24px}.pick div{padding:18px;border:1.5px solid var(--ink);border-radius:18px;background:var(--card)}.pick b{display:block;direction:ltr;text-align:right}.pick p{font-size:13px;line-height:1.8;margin:7px 0 0}
+    .download-link{display:inline-flex;align-items:center;gap:8px;margin-top:2px;padding:10px 16px;border:1.5px solid var(--ink);border-radius:999px;background:var(--yellow);color:var(--ink);font-size:14px;font-weight:900;text-decoration:none;box-shadow:3px 3px 0 var(--ink)}.download-link:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+    .sources{border-top:1px solid var(--line);margin-top:76px;padding-top:28px}.sources h2{font-size:26px;margin:0 0 12px}.sources ul{padding-right:20px;font-size:13px;color:#625b51}.sources a{text-decoration-color:var(--yellow);text-decoration-thickness:2px}.disclaimer{margin-top:25px;font-size:12px;color:#81796e}
+    footer{border-top:1px solid var(--line);padding:32px;text-align:center;color:#81796e;font-size:13px}
+    @media(max-width:760px){body{font-size:16px}.hero{padding-top:40px}.hero h1{font-size:42px}.cover{border-radius:18px}.trio,.takes,.pick{grid-template-columns:1fr}.flowline{grid-template-columns:1fr}.flow-step{display:grid;grid-template-columns:62px 1fr;text-align:right;align-items:center}.flow-step:not(:last-child)::after{content:"↓";left:auto;right:23px;top:auto;bottom:-28px}.flow-step i{width:52px;height:52px;margin:0}.skill-head{align-items:start;flex-direction:column}.architecture{grid-template-columns:1fr}.wall{height:70px}.wall::before{inset:32px 0;background:repeating-linear-gradient(90deg,var(--ink) 0 10px,transparent 10px 16px)}.wall span{writing-mode:horizontal-tb;padding:5px 10px}.mother{font-size:19px}.decision{padding:23px}}
+  </style>
+</head>
+<body>
+  <header class="bar"><div class="bar-in"><a class="brand" href="../index.html">nabu<span>guides</span></a><a class="back" href="../index.html">بازگشت به همهٔ راهنماها ←</a></div></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">AI AT WORK · SIMPLE → EXPERT</div>
+      <h1>Cowork یا Work یا Grok Bot؟</h1>
+      <p class="lead">سه محصول خیلی شبیه برای انجام کار واقعی؛ اول هم‌پوشانی بزرگشون رو می‌بینیم، بعد فقط قابلیت‌هایی رو جدا می‌کنیم که فعلاً واقعاً امتیاز خاص هرکدومن.</p>
+      <div class="cover">
+        <img src="../assets/work-agents-comparison/work-agents-logo-cover-v2.png" alt="لوگوهای Claude Cowork، ChatGPT Work و Grok Bot در یک بنر مقایسه‌ای">
+      </div>
+    </section>
+
+    <article class="main">
+      <div class="mother"><b>نسخهٔ خیلی ساده و صادقانه</b>اگر یکی از این سه تا رو داری، احتمالاً برای بخش بزرگی از کارهای روزمره لازم نیست بری سراغ دوتای دیگه. هر سه می‌تونن کار چندمرحله‌ای انجام بدن، فایل و ابزار ببینن و یک روند رو تکرار کنن. تفاوت مهم بیشتر توی <span class="highlight">قابلیت شاخص، محیط اجرا، پلن و تجربهٔ استفاده</span>ست—نه اینکه سه موجود کاملاً متفاوت باشن.</div>
+      <span class="update">بررسی‌شده با منابع رسمی در ۲۰ آگوست ۲۰۲۶</span>
+
+      <section>
+        <h2>اول واقعیت: این سه تا خیلی شبیه‌ان</h2>
+        <p>منظور از «GPT Work» همون <b>ChatGPT Work</b>ـه. اسم دو تای دیگه هم <b>Claude Cowork</b> و <b>Grok Bot</b>ـه. هر سه دارن یک مسئله رو حل می‌کنن: به‌جای یک جواب، یک <b>کار</b> رو با چند مرحله، ابزار و کانتکست جلو ببرن.</p>
+        <p>هیچ درصد علمی و ثابتی برای میزان هم‌پوشانی‌شون نداریم، چون نتیجه به تسک، پلن و ابزارهای متصل بستگی داره. ولی از نظر کاربرد، هم‌پوشانی‌شون بالاست و خیلی وقت‌ها می‌تونن کار همدیگه رو انجام بدن.</p>
+        <div class="trio">
+          <article class="persona"><div class="icon">🧠</div><h3>کار چندمرحله‌ای</h3><p>هر سه می‌تونن هدف رو بگیرن، مرحله‌ها رو بچینن، وسط کار اطلاعات جمع کنن و خروجی آماده کنن.</p><strong>قابلیت مشترک هر سه</strong></article>
+          <article class="persona"><div class="icon">🧰</div><h3>فایل و ابزار</h3><p>هر سه می‌تونن به شکلی با فایل، وب و سرویس‌های کاری درگیر بشن؛ فقط روش اتصال و محدودیت‌ها فرق داره.</p><strong>قابلیت مشترک هر سه</strong></article>
+          <article class="persona"><div class="icon">↻</div><h3>تکرار و ادامهٔ کار</h3><p>هر سه راهی برای نگه‌داشتن کانتکست، تکرار دستور یا ادامه‌دادن یک کار در طول زمان دارن.</p><strong>قابلیت مشترک هر سه</strong></article>
+        </div>
+        <div class="plain"><b>ELI5: سه ماشین هم‌رده با چند آپشن متفاوت</b><p>هر سه ماشین می‌تونن تو رو به مقصد برسونن. Cowork و Grok Bot حتی هر دو می‌تونن با دیدن روند کارت یاد بگیرن؛ اولی نتیجه رو به شکل Skill قابل‌مدیریت می‌ده و دومی به شکل Routine داخل Bot. Work هم اتصال پروژه بین وب و دسکتاپ رو پررنگ‌تر کرده. این آپشن‌ها مهمن، ولی معنی‌ش این نیست که بقیه از پس آن نوع کار برنمیان.</p></div>
+        <figure class="article-visual"><img src="../assets/work-agents-comparison/work-agents-hero.png" alt="تصویر سه محیط کاری برای ضبط روند، مدیریت پروژه و اجرای ابری"><figcaption>تصویر قبلی اینجا حفظ شد: سه شکل مختلف از یک ایدهٔ مشترک—ایجنتی که فقط جواب نمی‌ده و کار رو جلو می‌بره.</figcaption></figure>
+      </section>
+
+      <section>
+        <h2>چه کارهایی رو تقریباً هر سه انجام می‌دن؟</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>کار</th><th>Claude Cowork</th><th>ChatGPT Work</th><th>Grok Bot</th></tr></thead>
+            <tbody>
+              <tr><td>انجام کار چندمرحله‌ای</td><td class="yes">بله</td><td class="yes">بله</td><td class="yes">بله</td></tr>
+              <tr><td>کار با فایل و سند</td><td class="yes">بله؛ با دسترسی Cowork</td><td class="yes">بله؛ محلی یا منابع متصل</td><td class="yes">بله؛ روی محیط و اپ‌های Bot</td></tr>
+              <tr><td>استفاده از وب و ابزار</td><td class="yes">بله</td><td class="yes">بله؛ apps و plugins</td><td class="yes">بله؛ داخل کامپیوتر ابری</td></tr>
+              <tr><td>یادگیری با دیدن روند کارت</td><td class="yes">بله؛ Record a Skill</td><td>فعلاً نه با یک قابلیت رسمی مشابه</td><td class="yes">بله؛ ذخیره به شکل Routine</td></tr>
+              <tr><td>نگه‌داشتن روش یا کانتکست</td><td>Task و Skills</td><td>Task، Project، Skills و منابع متصل</td><td>Bot، memory و Routine</td></tr>
+              <tr><td>کار تکرارشونده یا زمان‌دار</td><td>بسته به محیط و نوع تسک</td><td>Scheduled Tasks و heartbeat</td><td>Routine و اجرای همیشه‌روشن</td></tr>
+              <tr><td>جلو‌بردن چند کار</td><td class="yes">بله؛ چند تسک</td><td class="yes">بله؛ تسک یا teammate جدا</td><td class="yes">بله؛ چند Bot موازی</td></tr>
+              <tr><td>تأیید آدم برای کار حساس</td><td class="yes">دارد</td><td class="yes">دارد</td><td class="yes">دارد؛ بسته به action</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">پس جدول اصلی بیشتر «بله، با روش متفاوت»ه تا «این داره و اون نداره». قابلیت‌ها هم با پلن، سیستم‌عامل و rollout عوض می‌شن.</p>
+      </section>
+
+      <section>
+        <h2>Record a Skill در Cowork؛ خاص، ولی نه بی‌رقیب</h2>
+        <p>Cowork هم مثل دو تای دیگه از پس فایل، سند، تحقیق، گزارش و کار چندمرحله‌ای برمیاد. با Record a Skill می‌تونی صفحه، کلیک‌ها، تایپ و توضیح صوتی روند کارت رو ضبط کنی و Claude از روی آن یک Skill پیشنهاد بده.</p>
+        <p><b>اما Grok Bot هم از روی نمایش کار یاد می‌گیره.</b> تفاوت دقیق‌تر در خروجیه: Cowork یک Skill مشخص می‌سازه که قبل از ذخیره می‌تونی محتواش رو ببینی و بعداً ویرایش، اشتراک‌گذاری یا حذفش کنی. Grok Bot همان ایده را به شکل Routine داخل Bot ذخیره می‌کنه.</p>
+      </section>
+
+      <section class="skill-flow" aria-label="مسیر Record a Skill در Claude Cowork">
+        <div class="skill-head"><div><h3>Record a Skill چطور کار می‌کنه؟</h3><span>فقط توضیح نمی‌دی؛ یک بار نشونش می‌دی.</span></div><span>CLAUDE FOR MAC · COWORK</span></div>
+        <div class="flowline">
+          <div class="flow-step"><i>⏺</i><div><b>ضبط رو شروع می‌کنی</b><small>صفحه، کلیک، تایپ و صدات ثبت می‌شه.</small></div></div>
+          <div class="flow-step"><i>🖱️</i><div><b>کار رو یک بار انجام می‌دی</b><small>مثلاً تبدیل فایل خام به گزارش هفتگی.</small></div></div>
+          <div class="flow-step"><i>🧠</i><div><b>Claude روند رو تحلیل می‌کنه</b><small>پیشنهاد می‌ده Skill جدید بسازه یا قبلی رو آپدیت کنه.</small></div></div>
+          <div class="flow-step"><i>👀</i><div><b>تو مرورش می‌کنی</b><small>قبل از ذخیره، دستورهای استخراج‌شده رو چک می‌کنی.</small></div></div>
+          <div class="flow-step"><i>↻</i><div><b>دفعهٔ بعد تکرارش می‌کنه</b><small>Skill قابل ویرایش، اشتراک‌گذاری و حذف می‌مونه.</small></div></div>
+        </div>
+        <div class="warning"><b>قبل از Record:</b> تب‌های خصوصی رو ببند و هیچ پسورد یا اطلاعات حساس تایپ نکن. ضبط می‌تونه تا حدود ۱۰ دقیقه ادامه داشته باشه. طبق راهنمای Anthropic، ویدئو و صدا نگه‌داری نمی‌شن، اما اسکرین‌شات‌ها داخل همان Cowork task می‌مونن تا وقتی تسک رو حذف کنی.<br><br><b>دسترسی در زمان نوشتن این مقاله:</b> خود Custom Skills گسترده‌تر در دسترسه، اما Record a Skill فعلاً فقط داخل Cowork روی Claude for Mac و برای پلن‌های Pro، Max و Team ارائه شده؛ نه Chat، ویندوز، Free یا Enterprise.</div>
+      </section>
+
+      <section>
+        <h2>امتیاز پررنگ Work: یک تسک بین وب و دسکتاپ</h2>
+        <p>Work هم می‌تونه روش تکراری نگه داره، فایل بخونه و کار چندمرحله‌ای انجام بده. امتیاز پررنگ فعلیش اینه که «پروژه و کانتکست متصل» رو بین وب، دسکتاپ و منابع کاری خیلی جدی گرفته: پیام‌ها، اسناد، جلسه‌ها، تصمیم‌ها و سؤال‌های باز رو کنار هم می‌بینه؛ بعد خلاصه می‌کنه، blocker پیدا می‌کنه یا draft می‌سازه.</p>
+        <p>روی وب برای کار با منابع متصل و کار زمان‌بندی‌شده خوبه. روی دسکتاپ می‌تونه به فایل‌ها و اپ‌های محلی هم دسترسی بگیره. نکتهٔ مهم اینه که اگر Scheduled Task به فایل یا ابزار محلی نیاز داشته باشه، کامپیوتر و اپ باید روشن بمونن؛ ولی چک‌کردن منابع متصل روی وب می‌تونه وقتی لپ‌تاپ خاموشه هم ادامه پیدا کنه.</p>
+        <div class="plain"><b>نکتهٔ مهم</b><p>این به معنی «Cowork و Grok پروژه نمی‌فهمن» نیست. مزیت Work بیشتر یکپارچگی تجربه و منابع متصلشه، نه انحصار توانایی.</p></div>
+        <p class="small" style="margin-top:16px">طبق معرفی رسمی، Work روی macOS و Windows و در پلن‌های مختلف از جمله Free ارائه شده؛ اما pluginها، منابع متصل و بعضی قابلیت‌ها به پلن و تنظیمات workspace بستگی دارن.</p>
+      </section>
+
+      <section>
+        <h2>امتیاز پررنگ Grok Bot: کامپیوتر ابری و چند Bot</h2>
+        <p>Grok Bot هم می‌تونه فایل، ابزار، کانتکست و روند تکراری داشته باشه. چیزی که xAI بیشتر روش تأکید کرده، اینه که هر Bot یک کامپیوتر ابری داره و می‌تونه بدون روشن‌بودن لپ‌تاپت کار کنه. چند Bot هم می‌تونن کارها رو موازی جلو ببرن یا توی group chat هماهنگ بشن.</p>
+        <p>ویژگی جذابش Routineـه: به Bot می‌گی دفعهٔ بعد نگاه کن، خودت کار رو انجام می‌دی و اون روند رو برای تکرار ذخیره می‌کنه. از بیرون شبیه Record a Skill به نظر میاد، ولی معماری و محصول یکی نیست: Cowork یک Skill قابل‌مدیریت می‌سازه؛ Grok Bot یک routine برای ادامهٔ کار روی کامپیوتر ابری خودش یاد می‌گیره.</p>
+        <div class="plain"><b>نکتهٔ مهم</b><p>این هم به معنی «دو تای دیگه کار ابری یا موازی نمی‌کنن» نیست. فرق شاخص Grok Bot اینه که کامپیوتر ابری و تیم Botها در مرکز طراحی محصول قرار گرفتن.</p></div>
+        <p class="small" style="margin-top:16px"><b>فرصت تست:</b> فعلاً برای بعضی حساب‌ها Free Trial نمایش داده می‌شه؛ چون ارائهٔ آزمایشی ممکنه بر اساس حساب یا منطقه فرق کنه، بعد از نصب شرایطی که داخل اکانت خودت می‌بینی ملاکه. صفحهٔ رسمی xAI هم Grok Bot رو هنوز Early Beta معرفی می‌کنه.</p>
+        <a class="download-link" href="https://downloads.cursor.com/grokbot/stable/darwin-arm64/0.18.0/Grok_Bot_0.18.0.dmg" target="_blank" rel="noreferrer">دانلود رسمی Grok Bot برای macOS ↗</a>
+      </section>
+
+      <section>
+        <h2>پس هرکدوم دقیقاً چه امتیاز خاصی دارن؟</h2>
+        <p>این‌ها «کارهایی که فقط آن محصول می‌تونه انجام بده» نیستن؛ چیزهایی‌ان که فعلاً در آن محصول <b>واضح‌تر، آماده‌تر یا مرکزی‌تر</b> ارائه شدن.</p>
+        <div class="takes">
+          <article class="take"><span class="winner">امتیاز شاخص فعلی</span><h3>Claude Cowork</h3><p>بسته‌بندی روند ضبط‌شده به شکل یک Skill شفاف که می‌تونی قبل و بعد از ذخیره مدیریتش کنی.</p><ul><li>ضبط صفحه، کلیک، تایپ و صدا</li><li>بازبینی پیشنهاد قبل از ذخیره</li><li>ویرایش و اشتراک Skill</li></ul></article>
+          <article class="take"><span class="winner">امتیاز شاخص فعلی</span><h3>ChatGPT Work</h3><p>ادامهٔ یک کار متصل بین وب، دسکتاپ، منابع ابری و Scheduled Tasks.</p><ul><li>Project teammate</li><li>plugins و منابع متصل</li><li>تسک ابری یا محلی</li></ul></article>
+          <article class="take"><span class="winner">امتیاز شاخص فعلی</span><h3>Grok Bot</h3><p>یادگیری روند با مشاهده و ذخیره به شکل Routine، کنار کامپیوتر ابری و چند Bot همیشه‌روشن.</p><ul><li>Routine با دنبال‌کردن کارت</li><li>cloud computer</li><li>multi-Bot و group chat</li></ul></article>
+        </div>
+      </section>
+
+      <section>
+        <h2>یکم فنی‌تر: فرق در پیاده‌سازیه، نه اصل توانایی</h2>
+        <p>هر سه یک loop شبیه دارن: هدف می‌گیرن، کانتکست جمع می‌کنن، ابزار اجرا می‌کنن، وضعیت رو نگه می‌دارن و گاهی برای تأیید مکث می‌کنن. تفاوت بیشتر در اینه که هر شرکت این قطعه‌ها رو با چه اسم و محیطی بسته‌بندی کرده.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>پیاده‌سازی</th><th>Claude Cowork</th><th>ChatGPT Work</th><th>Grok Bot</th></tr></thead>
+            <tbody>
+              <tr><td>محیط پررنگ‌تر</td><td>Cowork روی Claude for Mac و فایل‌های در دسترس</td><td>وب + دسکتاپ + منابع متصل</td><td>کامپیوتر ابری همیشه‌روشن</td></tr>
+              <tr><td>اسم واحد کار</td><td>Task و Skill</td><td>Task، Project، teammate و Scheduled Task</td><td>Bot، memory و Routine</td></tr>
+              <tr><td>روش برجستهٔ تکرار</td><td>Skill؛ حتی ساخت با ضبط صفحه، صدا و کلیک</td><td>Skill، پروژه، prompt و Schedule</td><td>Routine با دنبال‌کردن روند کار و گرفتن اصلاحات</td></tr>
+              <tr><td>روش برجستهٔ اتصال</td><td>فایل‌ها و ابزارهای Cowork</td><td>plugins/apps، مرورگر و فایل محلی یا ابری</td><td>کار روی اپ‌ها داخل ماشین ابری Bot</td></tr>
+              <tr><td>نکته‌ای که نباید اشتباه بفهمیم</td><td>فقط برای فایل نیست</td><td>فقط مدیر پروژه نیست</td><td>فقط برای کار طولانی یا موازی نیست</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Capability با Authority فرق داره</h2>
+        <p>این سه محصول دارن خیلی سریع «توانایی» بیشتری می‌گیرن: می‌تونن فایل بخونن، اپ باز کنن، پیام draft کنن یا یک روند رو تکرار کنن. اما اینکه <b>اجازهٔ نهایی چه کاری رو دارن</b> باید جدا تعریف بشه.</p>
+        <div class="architecture" aria-label="توانایی داخل ایجنت و اختیار نهایی بیرون از آن">
+          <div class="zone"><h3>داخل محیط ایجنت</h3><ul><li>برنامه‌ریزی و پیشنهاد</li><li>خواندن دادهٔ مجاز</li><li>ساخت draft و preview</li><li>اجرای ابزار کم‌خطر</li></ul></div>
+          <div class="wall"><span>مرز اختیار</span></div>
+          <div class="zone safe"><h3>بیرون از محیط ایجنت</h3><ul><li>ارسال یا انتشار نهایی</li><li>پرداخت و خرج بودجه</li><li>حذف اطلاعات</li><li>تغییر دسترسی و حساب</li></ul></div>
+        </div>
+        <p>دکمهٔ «Approve» خوبه، ولی برای کار حساس به‌تنهایی مرز سخت نیست. سقف هزینه، حساب محدود، permission جدا، log و امکان revoke باید بیرون از منطق خود ایجنت باشن. اگر ایجنت خراب یا فریب‌خورده شد، نباید خودش بتونه قانون خودش رو عوض کنه.</p>
+      </section>
+
+      <section>
+        <h2>قبل از وصل‌کردن اکانت اصلی، این ۶ کار رو بکن</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>کار ساده</th><th>چرا مهمه؟</th></tr></thead>
+            <tbody>
+              <tr><td>۱</td><td>اول با یک پوشه و اکانت تست شروع کن</td><td>خراب‌کاری محدود می‌مونه.</td></tr>
+              <tr><td>۲</td><td>فقط دسترسی لازم رو بده</td><td>ایجنت برای نوشتن گزارش به کل Drive احتیاج نداره.</td></tr>
+              <tr><td>۳</td><td>ارسال، حذف و پرداخت رو approval بذار</td><td>کار برگشت‌ناپذیر بدون نگاه تو انجام نمی‌شه.</td></tr>
+              <tr><td>۴</td><td>برای هزینه سقف مستقل بساز</td><td>تعداد اجرای زیاد نمی‌تونه بودجه رو بی‌صدا بسوزونه.</td></tr>
+              <tr><td>۵</td><td>خروجی و log رو نگه دار</td><td>می‌فهمی چه اتفاقی افتاده و چرا.</td></tr>
+              <tr><td>۶</td><td>راه قطع فوری داشته باش</td><td>Logout، revoke و stop باید سریع و بیرون از ایجنت باشه.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="decision">
+        <small>انتخاب شخصی من</small>
+        <h2>اگر خودم بخوام انتخاب کنم</h2>
+        <p>با سلیقه و مدل کاری خودم، ترتیب انتخابم اینه: <b>اول Claude Cowork، بعد ChatGPT Work و بعد Grok Bot.</b> این رتبه‌بندی مطلق نیست؛ فقط می‌گه من با کدوم تجربهٔ کاربری و روش انجام کار راحت‌ترم.</p>
+        <div class="pick">
+          <div><b>۱ · Claude Cowork</b><p>انتخاب اول من؛ مخصوصاً به‌خاطر تجربهٔ Cowork و روش شفاف ساخت، بازبینی و مدیریت Skillها.</p></div>
+          <div><b>۲ · ChatGPT Work</b><p>انتخاب دوم من؛ برای وقتی که پروژه، فایل‌ها و ابزارهای متصل رو در یک محیط کاری یکپارچه می‌خوام.</p></div>
+          <div><b>۳ · Grok Bot</b><p>انتخاب سوم من؛ با اینکه کامپیوتر ابری، Routine و چند Bot موازی قابلیت‌های جذابی هستن.</p></div>
+        </div>
+        <p class="small" style="margin-top:20px"><b>ولی انتخاب تو ممکنه کاملاً برعکس من باشه.</b> اول مشخص کن برای چه کاری می‌خوای ازش استفاده کنی، بعد ببین با محیط کاربری، روش دادن دسترسی و مدل تعامل کدوم محصول راحت‌تری. چون قابلیت‌های اصلی خیلی به هم نزدیکن، راحتی تو با محیط محصول می‌تونه از تفاوت‌های روی کاغذ مهم‌تر باشه.</p>
+      </section>
+
+      <section class="sources">
+        <h2>منابع رسمی و وضعیت قابلیت‌ها</h2>
+        <ul>
+          <li><a href="https://support.claude.com/en/articles/12512198-how-to-create-custom-skills" target="_blank" rel="noreferrer">راهنمای رسمی Anthropic برای Custom Skills و Record a Skill</a></li>
+          <li><a href="https://www.anthropic.com/webinars/future-of-ai-at-work-introducing-cowork" target="_blank" rel="noreferrer">معرفی رسمی Claude Cowork</a></li>
+          <li><a href="https://learn.chatgpt.com/use-cases/project-teammate" target="_blank" rel="noreferrer">راهنمای رسمی ChatGPT Work برای Project Teammate</a></li>
+          <li><a href="https://openai.com/index/chatgpt-for-your-most-ambitious-work/" target="_blank" rel="noreferrer">معرفی رسمی ChatGPT Work</a></li>
+          <li><a href="https://x.ai/news/introducing-grok-bot" target="_blank" rel="noreferrer">معرفی رسمی Grok Bot و شرایط دسترسی Beta</a></li>
+          <li><a href="https://downloads.cursor.com/grokbot/stable/darwin-arm64/0.18.0/Grok_Bot_0.18.0.dmg" target="_blank" rel="noreferrer">دانلود رسمی Grok Bot برای macOS</a></li>
+          <li><a href="https://x.ai/news/grok-automations" target="_blank" rel="noreferrer">معرفی رسمی Grok Automations</a></li>
+        </ul>
+        <p class="disclaimer">این مقاله توصیهٔ خرید یا امنیتی قطعی نیست. محصول‌ها، پلن‌ها و دسترسی‌ها سریع عوض می‌شن؛ قبل از اتصال حساب یا دادهٔ حساس، صفحهٔ رسمی همان روز رو چک کن.</p>
+      </section>
+    </article>
+  </main>
+  <footer>nabuguides · ایجنت‌ها پیشنهاد می‌دن، آدم‌ها نظارت می‌کنن و مرز اختیار باید بیرون از ایجنت بمونه.</footer>
+</body>
+</html>
