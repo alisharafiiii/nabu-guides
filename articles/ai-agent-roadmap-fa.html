@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f0e5">
+  <meta name="description" content="ایجنت هوش مصنوعی از صفر و به زبان خیلی ساده؛ از چت‌بات و ابزار تا LangChain، LangGraph، تأیید انسان و مرز سخت‌افزاری.">
+  <title>از چت‌بات تا ایجنت؛ راهنمای خیلی ساده | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--ink:#171713;--paper:#f6f0e5;--card:#fffaf0;--line:#d9cfbd;--yellow:#e2a51d;--soft:#f6e5b6;--green:#194c37;--muted:#655e53;--shadow:0 9px 0 #ded3c0}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:18px/2 Vazirmatn,system-ui,sans-serif}a{color:inherit}img{max-width:100%;display:block}::selection{background:var(--yellow)}
+    .bar{height:68px;border-bottom:1px solid var(--line);background:rgba(246,240,229,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10}.bar-in{width:min(1180px,calc(100% - 32px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;font-weight:900;direction:ltr}.brand span{color:var(--yellow)}.back{text-decoration:none;color:var(--muted);font-size:14px}
+    .hero,.main{width:min(1120px,calc(100% - 32px));margin:auto}.hero{padding:64px 0 0}.eyebrow{font-size:13px;font-weight:900;color:#966900}.hero h1{font-size:clamp(45px,8vw,84px);line-height:1.25;letter-spacing:-.055em;margin:10px 0}.lead{max-width:850px;font-size:clamp(19px,2.4vw,25px);color:#554f46;margin:0}.cover{margin-top:38px;border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:5/2}.cover img{width:100%;height:100%;object-fit:cover}
+    .main{max-width:850px;padding:66px 0 110px}.mother{padding:26px 28px;border:2px solid var(--ink);border-radius:24px;background:var(--yellow);box-shadow:7px 7px 0 var(--ink);font-size:22px;line-height:1.8}.mother b{display:block;font-size:13px;letter-spacing:.05em;margin-bottom:4px}
+    h2{font-size:clamp(29px,5vw,43px);line-height:1.5;letter-spacing:-.035em;margin:78px 0 17px}h3{font-size:23px;margin:0 0 6px}p{color:#49453e;margin:0 0 20px}.small{font-size:15px;color:#716a60}
+    .versus{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}.box{border:1px solid var(--line);border-radius:22px;background:var(--card);padding:24px;box-shadow:var(--shadow)}.box .icon{font-size:38px;line-height:1}.box p{font-size:15px;margin:8px 0 0}
+    .story{display:grid;gap:22px;margin-top:32px}.step{position:relative;border:1.5px solid var(--ink);border-radius:25px;background:var(--card);padding:28px 28px 26px 88px;box-shadow:6px 6px 0 var(--yellow)}.num{position:absolute;left:23px;top:25px;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--paper);font-weight:900;direction:ltr}.analogy{display:inline-block;background:var(--soft);border-radius:999px;padding:4px 11px;font-size:13px;font-weight:800;margin-bottom:9px}.step p{font-size:16px;line-height:1.9}.go{display:inline-flex;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);padding:9px 15px;font-size:14px;font-weight:900}.go:hover{background:var(--yellow);color:var(--ink)}
+    .flow{direction:rtl;display:grid;grid-template-columns:repeat(6,1fr);gap:20px;align-items:start;margin:30px calc(50% - 50vw);padding:30px max(16px,calc((100vw - 1120px)/2));background:var(--ink);color:var(--paper)}.flow div{position:relative;text-align:center;font-size:13px;font-weight:800;line-height:1.6}.flow div:not(:last-child)::after{content:"←";position:absolute;left:-17px;top:17px;color:var(--yellow);font-size:22px}.flow span{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 9px;border-radius:18px;background:var(--yellow);color:var(--ink);font-size:27px}
+    .glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.term{padding:19px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.term b{display:block}.term span{font-size:14px;color:var(--muted)}
+    .dont{border-right:6px solid var(--yellow);padding:4px 22px;margin:26px 0}.dont p{margin:7px 0}.start{margin-top:70px;padding:30px;border:2px solid var(--ink);border-radius:28px;background:var(--soft);box-shadow:8px 8px 0 var(--ink)}.start h2{margin:4px 0 10px}.start-intro{max-width:740px}.where-runs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}.where-card{padding:23px;border:1.5px solid var(--ink);border-radius:22px;background:var(--card)}.where-card.local{background:var(--ink);color:var(--paper)}.where-card.local p,.where-card.local li{color:#d8d0c2}.where-card h3{margin-top:10px}.where-card p,.where-card li{font-size:15px;line-height:1.9}.where-card ol{margin:12px 0 0;padding-right:22px}.where-card li{margin-bottom:5px}.route{display:flex;align-items:center;gap:7px;direction:rtl;font-size:12px;font-weight:900}.route span{display:inline-grid;place-items:center;min-height:35px;padding:5px 9px;border:1px solid currentColor;border-radius:10px}.route i{font-style:normal;color:var(--yellow);font-size:18px}.plain-note{padding:18px 20px;border-right:6px solid var(--yellow);background:rgba(255,250,240,.72);border-radius:15px}.plain-note p{font-size:15px;margin:4px 0}.compare-title{font-size:24px;margin:34px 0 12px}.table-wrap{overflow-x:auto;border:1.5px solid var(--ink);border-radius:18px;background:var(--card)}table{width:100%;min-width:620px;border-collapse:collapse;font-size:14px;line-height:1.7}th,td{padding:14px 13px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}th{background:var(--ink);color:var(--paper)}th:first-child{color:var(--yellow)}tr:last-child td{border-bottom:0}th:last-child,td:last-child{border-left:0}td:first-child{font-weight:900}.choose-title{margin-top:42px!important}.choice-help{font-size:15px}.agent-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:25px}.agent-choice{display:flex;flex-direction:column;min-height:285px;padding:24px;border:1.5px solid var(--ink);border-radius:22px;background:var(--card);text-decoration:none;transition:transform .18s ease,box-shadow .18s ease}.agent-choice:hover{transform:translateY(-4px);box-shadow:0 7px 0 var(--yellow)}.agent-choice.local{background:var(--ink);color:var(--paper)}.agent-choice.local p{color:#d8d0c2}.choice-icon{font-size:40px;line-height:1;margin-bottom:18px}.agent-choice b{font-size:23px}.agent-choice p{font-size:15px;line-height:1.9;margin:8px 0 20px}.choice-cta{margin-top:auto;font-size:14px;font-weight:900;color:#8b6000}.local .choice-cta{color:var(--yellow)}
+    footer{border-top:1px solid var(--line);padding:32px;text-align:center;color:#81796e;font-size:13px}
+    @media(max-width:700px){body{font-size:16px}.hero{padding-top:40px}.hero h1{font-size:42px}.cover{border-radius:18px}.versus,.glossary,.where-runs,.agent-choices{grid-template-columns:1fr}.step{padding:24px}.num{position:static;margin-bottom:12px}.flow{grid-template-columns:repeat(2,1fr);row-gap:28px}.flow div::after{display:none}.mother{font-size:19px}.start{padding:23px}.agent-choice{min-height:auto}}
+  </style>
+</head>
+<body>
+  <header class="bar"><div class="bar-in"><a class="brand" href="../index.html">nabu<span>guides</span></a><a class="back" href="../index.html">بازگشت به همهٔ راهنماها ←</a></div></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">START HERE · ABSOLUTE BEGINNER · ELI5</div>
+      <h1>ایجنت هوش مصنوعی یعنی چی؟</h1>
+      <p class="lead">از اولین صفحهٔ چت تا ایجنتی که ابزار داره، مرحله‌به‌مرحله کار می‌کنه و برای کار مهم از آدم اجازه می‌گیره؛ بدون اینکه لازم باشه برنامه‌نویس باشی.</p>
+      <div class="cover"><img src="../assets/agent-roadmap/agent-roadmap-cover-fa.svg" alt="مسیر ساده از چت‌بات تا ایجنت، ابزار، جریان کار، تأیید انسان و قفل سخت‌افزاری"></div>
+    </section>
+
+    <article class="main">
+      <div class="mother"><b>اگر بخوام برای مامانم در یک جمله بگم</b>چت‌بات فقط باهات حرف می‌زنه؛ ایجنت می‌تونه برای رسیدن به یک هدف، از ابزار استفاده کنه و چند مرحله کار انجام بده. ولی هرچه دستش بازتر باشه، کنترل‌کردنش مهم‌تر می‌شه.</div>
+
+      <section>
+        <h2>اول فرق چت‌بات و ایجنت رو بفهمیم</h2>
+        <div class="versus">
+          <div class="box"><div class="icon">💬</div><h3>چت‌بات</h3><p>مثل آدم داناییه که پشت تلفن راهنماییت می‌کنه. جواب می‌ده، توضیح می‌ده و متن می‌نویسه؛ ولی معمولاً خودش بیرون از چت کاری انجام نمی‌ده.</p></div>
+          <div class="box"><div class="icon">🧤</div><h3>ایجنت</h3><p>همون آدم داناست که حالا دست هم داره. می‌تونه فایل بخونه، سرچ کنه، فرم پر کنه یا یک برنامه رو صدا بزنه—البته فقط اگر این ابزارها رو بهش داده باشی.</p></div>
+        </div>
+        <p><b>نکتهٔ اصلی:</b> مدل هوش مصنوعی «مغز»ه؛ ابزارها «دست‌ها» هستن؛ ایجنت ترکیب این دوتاست.</p>
+      </section>
+
+      <section>
+        <h2>مسیر ما از اول تا امروز</h2>
+        <p>لازم نیست همهٔ راهنماها رو یک‌جا بخونی. هر کارت پایین یک ایده رو خیلی ساده توضیح می‌ده و اگر خواستی، دکمه‌اش تو رو به راهنمای کامل می‌بره.</p>
+        <div class="story">
+          <div class="step"><span class="num">1</span><span class="analogy">مثل سپردن مرتب‌کردن میز به یک دستیار</span><h3>اولین کار واقعی: مرتب‌کردن دسکتاپ</h3><p>به‌جای اینکه فقط از AI سؤال بپرسیم، یک هدف کوچک بهش دادیم: فایل‌های شلوغ دسکتاپ رو ببینه و مرتب کنه. اینجا فهمیدیم ایجنت باید بدونه کجا کار کنه و اجازهٔ چه کارهایی رو داره.</p><a class="go" href="../downloads/first-ai-agent-beginners-guide-fa.pdf">راهنمای اولین کار ایجنت ←</a></div>
+
+          <div class="step"><span class="num">2</span><span class="analogy">آشپزخانهٔ اجاره‌ای یا آشپزخانهٔ خودت</span><h3>آنلاین یا روی کامپیوتر خودت؟</h3><p>ایجنت آنلاین معمولاً راحت‌تر و قوی‌تره، ولی داده از کامپیوترت بیرون می‌ره. مدل آفلاین روی دستگاه خودت اجرا می‌شه؛ خصوصی‌تره، اما نصب و سخت‌افزار بیشتری می‌خواد.</p><a class="go" href="../downloads/offline-ai-agent-guide-fa.pdf">مقایسهٔ آنلاین و آفلاین ←</a></div>
+
+          <div class="step"><span class="num">3</span><span class="analogy">جعبه‌ابزار</span><h3>LangChain: ابزارها رو کنار هم می‌چینه</h3><p>فرض کن مغز AI می‌گه «باید موجودی رو چک کنم». LangChain کمک می‌کنه ابزار جست‌وجو یا آرشیو اطلاعات رو به مدل وصل کنیم. خودش امنیت جادویی نمی‌سازه؛ فقط این اتصال‌ها رو مرتب‌تر می‌کنه.</p><a class="go" href="langchain-fa.html">LangChain به زبان ساده ←</a></div>
+
+          <div class="step"><span class="num">4</span><span class="analogy">نقشهٔ راه و دکمهٔ مکث</span><h3>LangGraph: می‌گه اول چی، بعد چی</h3><p>برای کار چندمرحله‌ای فقط جعبه‌ابزار کافی نیست. LangGraph مسیر رو مشخص می‌کنه: اول درخواست رو بفهم، بعد اطلاعات رو چک کن، اگر کار حساس بود مکث کن، از آدم اجازه بگیر و بعد ادامه بده.</p><a class="go" href="langgraph-fa.html">LangGraph به زبان خیلی ساده ←</a></div>
+
+          <div class="step"><span class="num">5</span><span class="analogy">کلیدی که دست خودت می‌مونه</span><h3>مرز سخت: ایجنت پیشنهاد می‌ده، آدم و سخت‌افزار تصمیم می‌گیرن</h3><p>در پروژهٔ «چشم» ایجنت می‌تونه جابه‌جایی پول یا قرعه‌کشی رو پیشنهاد بده، ولی مجوز نهایی دست خودش نیست. آدم جزئیات رو می‌بینه و دستگاه فیزیکی اجازه می‌ده یا رد می‌کنه.</p><a class="go" href="build-the-eye-fa.html">داستان ساخت «چشم» ←</a></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>همهٔ ماجرا در یک خط</h2>
+        <div class="flow">
+          <div><span>🗣️</span>تو هدفت رو می‌گی</div>
+          <div><span>🧠</span>مدل منظورت رو می‌فهمه</div>
+          <div><span>🧰</span>LangChain ابزار می‌ده</div>
+          <div><span>🗺️</span>LangGraph مسیر رو کنترل می‌کنه</div>
+          <div><span>✋</span>آدم بررسی می‌کنه</div>
+          <div><span>🔒</span>مرز سخت اجازه می‌ده یا رد می‌کنه</div>
+        </div>
+        <p class="small">در کار ساده شاید همهٔ این قطعه‌ها لازم نباشن. این معماری وقتی مهم می‌شه که ایجنت قراره روی فایل، پول، حساب کاربری یا یک سیستم واقعی اثر بذاره.</p>
+      </section>
+
+      <section>
+        <h2>هشت عبارت که خیلی استفاده می‌شن</h2>
+        <div class="glossary">
+          <div class="term"><b>Model · مدل</b><span>مغزی که متن رو می‌فهمه و جواب تولید می‌کنه.</span></div>
+          <div class="term"><b>Prompt · پرامپت</b><span>دستور یا توضیحی که به مدل می‌دی.</span></div>
+          <div class="term"><b>Tool · ابزار</b><span>یک توانایی واقعی مثل سرچ، خواندن فایل یا صداکردن API.</span></div>
+          <div class="term"><b>Agent · ایجنت</b><span>مدل به‌علاوهٔ ابزار و یک هدف.</span></div>
+          <div class="term"><b>State · وضعیت</b><span>دفترچه‌ای که می‌گه تا اینجای کار چه اتفاقی افتاده.</span></div>
+          <div class="term"><b>Workflow · مسیر کار</b><span>ترتیب مرحله‌ها و قانون رفتن از یک مرحله به بعدی.</span></div>
+          <div class="term"><b>Human in the loop</b><span>جایی که کار متوقف می‌شه تا آدم نگاه کنه و تصمیم بگیره.</span></div>
+          <div class="term"><b>Hard boundary · مرز سخت</b><span>قانونی که ایجنت با یک جواب قانع‌کننده نمی‌تونه دورش بزنه.</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>فعلاً لازم نیست چی بدونی؟</h2>
+        <div class="dont">
+          <p>لازم نیست معماری مدل زبانی رو بلد باشی.</p>
+          <p>لازم نیست همهٔ اصطلاحات برنامه‌نویسی رو حفظ کنی.</p>
+          <p>لازم نیست از روز اول پول واقعی یا حساب اصلیت رو به چیزی وصل کنی.</p>
+          <p>فقط باید بتونی بپرسی: <b>این ایجنت چه ابزاری داره، چه کاری می‌تونه بکنه و چه کسی جلوی اشتباهش رو می‌گیره؟</b></p>
+        </div>
+      </section>
+
+      <section class="start">
+        <small>قبل از انتخاب، این فرق مهم رو بفهمیم</small>
+        <h2>ایجنت ابری و آفلاین چه فرقی دارن؟</h2>
+        <p class="start-intro">هوش مصنوعی هم مثل هر برنامه‌ای باید روی یک کامپیوتر اجرا بشه. فرق اصلی اینه که آن کامپیوتر <b>کجاست و مال کیه</b>: کامپیوتر قدرتمند یک شرکت در اینترنت، یا کامپیوتر خودت.</p>
+
+        <div class="where-runs">
+          <article class="where-card cloud">
+            <div class="route"><span>تو</span><i>←</i><span>اینترنت</span><i>←</i><span>سرور شرکت</span></div>
+            <h3>☁️ ابری یعنی چی؟</h3>
+            <p>مثل اینه که برای پخت غذا از آشپزخونهٔ یک رستوران استفاده کنی. وسایل قوی مال اوناست؛ تو فقط سفارشت رو می‌فرستی و نتیجه رو تحویل می‌گیری.</p>
+            <ol>
+              <li>درخواستت از راه اینترنت فرستاده می‌شه.</li>
+              <li>مدل روی کامپیوترهای شرکت اجرا می‌شه.</li>
+              <li>جواب دوباره از اینترنت برمی‌گرده.</li>
+            </ol>
+          </article>
+
+          <article class="where-card local">
+            <div class="route"><span>تو</span><i>←</i><span>مدل</span><i>←</i><span>کامپیوتر خودت</span></div>
+            <h3>💻 آفلاین یعنی چی؟</h3>
+            <p>مثل آشپزی در خونهٔ خودته. مواد و وسایل پیش خودت می‌مونن، ولی سرعت و توان کارت به آشپزخونهٔ خودت بستگی داره.</p>
+            <ol>
+              <li>اول مدل رو دانلود و نصب می‌کنی.</li>
+              <li>مدل از رم و پردازندهٔ کامپیوترت استفاده می‌کنه.</li>
+              <li>بعد از نصب، خود مدل معمولاً بدون اینترنت هم کار می‌کنه.</li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="plain-note">
+          <p><b>یک نکتهٔ خیلی مهم:</b> ابری یا آفلاین بودن فقط می‌گه «مغز AI کجا کار می‌کنه». هر دو می‌تونن تبدیل به ایجنت بشن و ابزار داشته باشن.</p>
+          <p>آفلاین هم همیشه به معنی قطع کامل اینترنت نیست؛ اگر به ایجنت ابزار سرچ، ایمیل یا شبکه بدی، آن ابزار هنوز به اینترنت وصل می‌شه.</p>
+        </div>
+
+        <h3 class="compare-title">مقایسهٔ خیلی ساده</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>سؤال</th><th>ایجنت ابری</th><th>ایجنت آفلاین روی کامپیوتر خودت</th></tr></thead>
+            <tbody>
+              <tr><td>مغز AI کجا اجرا می‌شه؟</td><td>روی سرورهای یک شرکت</td><td>روی کامپیوتر خودت</td></tr>
+              <tr><td>شروع‌کردن</td><td>معمولاً راحت و سریع</td><td>نیاز به دانلود و نصب داره</td></tr>
+              <tr><td>اینترنت</td><td>معمولاً همیشه لازمه</td><td>خود مدل بعد از نصب معمولاً بدون اینترنت هم کار می‌کنه</td></tr>
+              <tr><td>قدرت و سرعت</td><td>معمولاً بیشتر و سریع‌تر</td><td>به رم، پردازنده و کارت گرافیکت بستگی داره</td></tr>
+              <tr><td>حریم خصوصی</td><td>ممکنه اطلاعات برای شرکت فرستاده بشه</td><td>اطلاعات مدل می‌تونه روی دستگاهت بمونه؛ مگر اینکه ابزار آنلاین اضافه کنی</td></tr>
+              <tr><td>هزینه</td><td>ممکنه اول رایگان و بعد پولی باشه</td><td>مدل می‌تونه رایگان باشه، ولی از سخت‌افزار و برق خودت استفاده می‌کنه</td></tr>
+              <tr><td>برای چه کسی بهتره؟</td><td>کسی که می‌خواد سریع و راحت شروع کنه</td><td>کسی که حریم خصوصی و کنترل بیشتر می‌خواد و با نصب مشکلی نداره</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="choose-title">حالا برو اولین ایجنتت رو بساز</h2>
+        <p class="choice-help">اگر اولین باره، نسخهٔ ابری معمولاً شروع راحت‌تریه. اگر دوست داری همه‌چیز تا جای ممکن روی دستگاه خودت بمونه، نسخهٔ آفلاین رو انتخاب کن.</p>
+        <div class="agent-choices">
+          <a class="agent-choice cloud" href="../downloads/first-ai-agent-beginners-guide-fa.pdf">
+            <span class="choice-icon">☁️</span>
+            <b>ایجنت ابری</b>
+            <p>راه راحت‌تر برای بار اول: نصب کمتر، قدرت بیشتر و شروع سریع‌تر.</p>
+            <span class="choice-cta">اولین ایجنت ابری رو بساز ←</span>
+          </a>
+          <a class="agent-choice local" href="../downloads/offline-ai-agent-guide-fa.pdf">
+            <span class="choice-icon">💻</span>
+            <b>ایجنت آفلاین، روی کامپیوتر خودت</b>
+            <p>راه خصوصی‌تر برای وقتی که می‌خوای مدل و اطلاعات تا جای ممکن روی دستگاه خودت بمونن.</p>
+            <span class="choice-cta">اولین ایجنت آفلاین رو بساز ←</span>
+          </a>
+        </div>
+      </section>
+    </article>
+  </main>
+  <footer>nabuguides · اول بفهم، بعد بساز، همیشه کنترل رو نگه دار</footer>
+</body>
+</html>
