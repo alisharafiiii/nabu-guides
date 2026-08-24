@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4eddf">
+  <meta name="description" content="راهنمای فارسی و خیلی سادهٔ ساخت ایجنت سلامت با Apple Watch، Shortcuts، iCloud و Claude Cowork؛ از خروجی روزانه تا داشبورد و هشدارهای شخصی.">
+  <title>ایجنت سلامت با Apple Watch و Claude؛ از ساعت تا داشبورد روزانه | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--ink:#171712;--paper:#f4eddf;--card:#fffaf0;--line:#d6cab7;--yellow:#e7a923;--soft:#f6dfa0;--muted:#6d655a;--shadow:0 10px 0 #ded1bd}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:18px/2 Vazirmatn,system-ui,sans-serif}a{color:inherit}::selection{background:var(--yellow)}
+    .bar{height:68px;border-bottom:1px solid var(--line);background:rgba(244,237,223,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:20}.bar-in{width:min(1180px,calc(100% - 32px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;font-weight:900;direction:ltr}.brand span{color:var(--yellow)}.back{text-decoration:none;color:var(--muted);font-size:14px}
+    .hero,.article{width:min(1120px,calc(100% - 32px));margin:auto}.hero{padding:64px 0 0}.eyebrow{font:900 13px/1.5 system-ui,sans-serif;color:#946500;direction:ltr;text-align:right;letter-spacing:.08em}.hero h1{max-width:1050px;font-size:clamp(44px,7.5vw,86px);line-height:1.24;letter-spacing:-.06em;margin:12px 0}.lead{max-width:870px;font-size:clamp(19px,2.4vw,25px);color:#554f46;margin:0}
+    .cover{position:relative;margin-top:38px;min-height:470px;border:1.5px solid var(--ink);border-radius:30px;overflow:hidden;background:var(--ink);box-shadow:var(--shadow);isolation:isolate}.cover::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.8%,rgba(231,169,35,.24) 50%,transparent 50.2%),linear-gradient(transparent 49.8%,rgba(231,169,35,.16) 50%,transparent 50.2%);background-size:50px 50px;opacity:.55}.cover::after{content:"";position:absolute;width:650px;height:650px;left:-180px;bottom:-370px;border:1px solid #6d582b;border-radius:50%;box-shadow:0 0 0 60px rgba(231,169,35,.025),0 0 0 120px rgba(231,169,35,.018)}.cover-copy{position:relative;z-index:3;min-height:470px;padding:48px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center;color:var(--paper)}.cover h2{font-size:clamp(39px,5.7vw,70px);line-height:1.18;letter-spacing:-.055em;margin:0 0 20px}.cover p{max-width:540px;color:#d7cebe;font-size:16px;line-height:1.9;margin:0}.cover-kicker{display:inline-flex;margin-bottom:20px;padding:6px 11px;border:1px solid #6c634f;border-radius:999px;color:var(--yellow);font:900 11px/1.4 system-ui,sans-serif;direction:ltr;letter-spacing:.08em}
+    .watch-scene{position:relative;min-height:340px;display:grid;place-items:center;direction:ltr}.watch{position:relative;width:225px;height:270px;border:9px solid #f2eadb;border-radius:58px;background:#0f0f0d;box-shadow:inset 0 0 0 2px #5e574b,0 24px 50px rgba(0,0,0,.35);transform:rotate(-5deg)}.watch::before,.watch::after{content:"";position:absolute;left:68px;width:72px;height:90px;background:#2b2924;border:2px solid #6f6759;z-index:-1}.watch::before{top:-94px;border-radius:25px 25px 8px 8px}.watch::after{bottom:-94px;border-radius:8px 8px 25px 25px}.watch-screen{position:absolute;inset:17px;border:1px solid #4f493e;border-radius:38px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:27px 18px 24px}.watch-date{font:700 11px/1.3 system-ui,sans-serif;color:#aaa294}.heart{font:900 56px/1 system-ui,sans-serif;color:var(--yellow)}.bpm{font:900 42px/1 system-ui,sans-serif}.bpm small{font-size:12px;color:#aaa294}.pulse{position:absolute;left:-75px;right:-75px;top:53%;height:3px;background:linear-gradient(90deg,transparent 0 12%,var(--yellow) 12% 28%,transparent 28% 34%,var(--yellow) 34% 42%,transparent 42% 46%,var(--yellow) 46% 54%,transparent 54% 61%,var(--yellow) 61% 84%,transparent 84%);filter:drop-shadow(0 0 10px rgba(231,169,35,.75));transform:rotate(5deg)}.pulse::before{content:"";position:absolute;left:39%;top:-24px;width:34px;height:47px;border-right:3px solid var(--yellow);border-bottom:3px solid var(--yellow);transform:skew(-28deg) rotate(-35deg)}
+    .article{max-width:900px;padding:70px 0 110px}.intro{padding:26px 28px;border:2px solid var(--ink);border-radius:24px;background:var(--yellow);box-shadow:7px 7px 0 var(--ink);font-size:21px;line-height:1.85}.intro b{display:block;font-size:13px;margin-bottom:4px}.update{display:inline-flex;margin-top:16px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}
+    h2{font-size:clamp(30px,5vw,44px);line-height:1.5;letter-spacing:-.04em;margin:82px 0 17px}h3{font-size:22px;line-height:1.55;margin:0}p{color:#4b463f;margin:0 0 20px}.small{font-size:14px;color:#756d62}.highlight{background:linear-gradient(transparent 58%,var(--soft) 58%)}
+    .eli5{padding:21px 23px;border-right:6px solid var(--yellow);border-radius:17px;background:rgba(255,250,240,.78);margin:25px 0}.eli5 b{display:block;margin-bottom:3px}.eli5 p{font-size:15px;margin:0}.warning{padding:22px 24px;border:1.5px solid var(--ink);border-radius:20px;background:var(--soft);margin:28px 0;box-shadow:4px 4px 0 var(--ink)}.warning b{display:block}.warning p{font-size:15px;margin:5px 0 0}
+    .needs{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:29px 0}.need{padding:22px;border:1.5px solid var(--ink);border-radius:21px;background:var(--card)}.need i{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--ink);color:var(--yellow);font-style:normal;font-size:21px}.need b{display:block;margin:13px 0 5px}.need p{font-size:13px;line-height:1.8;margin:0}.need .tag{display:inline-block;margin-top:10px;padding:3px 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:10px}
+    .architecture{margin:34px calc(50% - 50vw);padding:50px max(16px,calc((100vw - 1160px)/2));background:var(--ink);color:var(--paper)}.architecture h2{margin:0;color:var(--paper)}.architecture>p{max-width:760px;color:#d1c8b8}.flow{direction:ltr;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:center;margin-top:33px}.flow-step{position:relative;min-height:150px;padding:20px 14px;border:1px solid #5e5749;border-radius:20px;background:#22211d;text-align:center;display:flex;flex-direction:column;justify-content:center}.flow-step:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);z-index:2;color:var(--yellow);font:900 25px/1 system-ui,sans-serif}.flow-step span{font-size:30px}.flow-step b{margin-top:9px;color:var(--paper);font-size:13px}.flow-step small{color:#aaa292;font-size:10px;line-height:1.6}.flow-step.final{border-color:var(--yellow)}.boundary{direction:rtl;margin-top:22px;padding:16px 18px;border:1px dashed #686052;border-radius:16px;color:#c8bead;font-size:13px}.boundary b{color:var(--yellow)}
+    .steps{counter-reset:steps;display:grid;gap:18px;margin-top:29px}.step{position:relative;padding:25px 27px 25px 84px;border:1px solid var(--line);border-radius:22px;background:var(--card)}.step::after{counter-increment:steps;content:counter(steps,decimal-leading-zero);position:absolute;left:22px;top:20px;font:900 37px/1 system-ui,sans-serif;color:var(--yellow);direction:ltr}.step h3{font-size:19px}.step p{font-size:14px;line-height:1.9;margin:7px 0 0}.step code{direction:ltr;unicode-bidi:isolate;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:#efe5d4;padding:2px 6px;border-radius:6px}
+    .shortcut-map{display:grid;grid-template-columns:1fr 72px 1fr 72px 1fr;margin:30px 0;align-items:center;direction:ltr}.shortcut-box{min-height:145px;padding:20px;border:1.5px solid var(--ink);border-radius:20px;background:var(--card);display:grid;place-items:center;text-align:center}.shortcut-box b{font-size:16px}.shortcut-box small{display:block;color:var(--muted);font-size:11px}.shortcut-arrow{text-align:center;color:#9a6b00;font:900 31px/1 system-ui,sans-serif}.shortcut-box.dark{background:var(--ink);color:var(--paper)}.shortcut-box.dark b{color:var(--yellow)}.shortcut-box.dark small{color:#bbb2a4}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:25px 0}.metric{padding:17px 13px;border:1px solid var(--line);border-radius:17px;background:var(--card);text-align:center}.metric b{display:block;font-size:13px}.metric code{direction:ltr;font:700 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#8d6100}
+    .trap-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:28px 0}.trap{padding:23px;border:1.5px solid var(--ink);border-radius:21px;background:var(--card)}.trap .num{direction:ltr;color:#9b6c00;font:900 12px/1 system-ui,sans-serif}.trap h3{font-size:18px;margin:10px 0 6px}.trap p{font-size:13px;line-height:1.85;margin:0}
+    .file-format{direction:ltr;text-align:left;margin:23px 0;padding:20px 22px;border:1px solid #4d493f;border-radius:17px;background:#1c1c18;color:#f2dfaa;font:13px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow:auto}.path{direction:ltr;text-align:left;overflow-wrap:anywhere;margin:15px 0;padding:14px 16px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:#5b554c;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .files{display:grid;gap:12px;margin:28px 0}.file{display:grid;grid-template-columns:180px 1fr;gap:20px;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.file code{direction:ltr;text-align:left;font:800 13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;color:#8b6100}.file p{font-size:13px;line-height:1.85;margin:0}
+    .prompt{margin:20px 0;padding:22px;border:1.5px solid var(--ink);border-radius:18px;background:#211f1b;color:#eee5d6;font:14px/1.95 Vazirmatn,system-ui,sans-serif;white-space:pre-wrap;overflow:auto}.prompt b{color:var(--yellow)}.copy-note{font-size:12px;color:var(--muted)}
+    .schedule{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.schedule div{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--card)}.schedule span{display:block;color:#936600;font:900 12px/1.2 system-ui,sans-serif;direction:ltr}.schedule b{display:block;font-size:14px;margin:10px 0 4px}.schedule small{display:block;color:var(--muted);font-size:11px;line-height:1.7}
+    .quick-table{overflow-x:auto;border:1.5px solid var(--ink);border-radius:20px;background:var(--card);margin:27px 0}table{width:100%;min-width:720px;border-collapse:collapse;font-size:14px;line-height:1.75}th,td{padding:14px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}th{background:var(--ink);color:var(--paper)}th:first-child{color:var(--yellow)}tr:last-child td{border-bottom:0}th:last-child,td:last-child{border-left:0}td:first-child{font-weight:900}
+    .privacy{margin:70px calc(50% - 50vw) 0;padding:48px max(16px,calc((100vw - 980px)/2));background:var(--yellow);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}.privacy h2{margin:0 0 12px}.privacy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:25px}.privacy-grid div{padding:20px;border:1.5px solid var(--ink);border-radius:19px;background:var(--paper)}.privacy-grid b{display:block;font-size:14px}.privacy-grid p{font-size:12px;line-height:1.8;margin:6px 0 0}
+    .cost{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}.cost>div{padding:23px;border:1.5px solid var(--ink);border-radius:21px;background:var(--card)}.cost h3{font-size:18px;margin-bottom:8px}.cost ul{margin:0;padding-right:20px;color:#5c554c;font-size:13px;line-height:1.95}.cost .yes{box-shadow:5px 5px 0 var(--yellow)}
+    .sources{border-top:1px solid var(--line);margin-top:80px;padding-top:30px}.sources h2{font-size:27px;margin:0 0 13px}.sources ul{padding-right:20px;font-size:13px;color:#625b51}.sources a{text-decoration-color:var(--yellow);text-decoration-thickness:2px}.disclaimer{margin-top:25px;font-size:12px;color:#81796e}
+    footer{border-top:1px solid var(--line);padding:32px;text-align:center;color:#81796e;font-size:13px}
+    @media(max-width:900px){.cover-copy{grid-template-columns:1fr}.watch-scene{min-height:360px}.flow{grid-template-columns:repeat(3,1fr);row-gap:24px}.flow-step:nth-child(3)::after{display:none}.needs{grid-template-columns:1fr 1fr}.schedule{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.privacy-grid{grid-template-columns:1fr}.files .file{grid-template-columns:1fr}.file code{text-align:right}.cost{grid-template-columns:1fr}}
+    @media(max-width:620px){body{font-size:16px}.hero{padding-top:40px}.hero h1{font-size:41px}.cover{border-radius:21px}.cover-copy{padding:31px 24px}.cover h2{font-size:39px}.watch{transform:scale(.86) rotate(-5deg)}.needs,.trap-grid,.schedule{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow-step:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-26px;transform:translateX(50%)}.flow-step:nth-child(3)::after{display:block}.shortcut-map{grid-template-columns:1fr}.shortcut-arrow{transform:rotate(90deg);padding:8px}.metrics{grid-template-columns:1fr 1fr}.step{padding:24px 23px 24px 70px}.privacy{padding-top:38px;padding-bottom:38px}}
+  </style>
+</head>
+<body>
+  <header class="bar"><div class="bar-in"><a class="brand" href="../index.html">nabu<span>guides</span></a><a class="back" href="../index.html">بازگشت به همهٔ راهنماها ←</a></div></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">APPLE WATCH · SHORTCUTS · CLAUDE COWORK</div>
+      <h1>از ضربان روی مچت تا یک گزارش سادهٔ روزانه</h1>
+      <p class="lead">یک راهنمای خیلی ساده برای ساخت ایجنت سلامت با Apple Watch، آیفون، iCloud و Claude؛ بدون اپ واسط پولی و بدون سرور جدا.</p>
+      <div class="cover" role="img" aria-label="بنر ایجنت سلامت اپل واچ و Claude با تصویر گرافیکی ساعت و خط ضربان">
+        <div class="cover-copy">
+          <div><span class="cover-kicker">NABU PULSE · FULL WALKTHROUGH</span><h2>دادهٔ خام کمتر؛ فهم روزانه بیشتر.</h2><p>ساعت اندازه می‌گیره. آیفون صادر می‌کنه. Claude داده رو مرتب می‌کنه. تصمیم پزشکی؟ هنوز با آدم و پزشکه.</p></div>
+          <div class="watch-scene" aria-hidden="true"><div class="watch"><div class="watch-screen"><span class="watch-date">TODAY · 07:00</span><span class="heart">♥</span><span class="bpm">72 <small>BPM</small></span></div></div><div class="pulse"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="intro"><b>نسخهٔ خیلی ساده</b>Apple Watch داده‌ها رو داخل Health نگه می‌داره، اما Claude مستقیم به HealthKit وصل نمی‌شه. پس با Shortcuts روزی یک فایل می‌سازیم، فایل از iCloud به مک می‌رسه و Claude از روی اون یک ردیف تاریخچه، داشبورد و خلاصهٔ صبحگاهی می‌سازه.</div>
+      <span class="update">بازنویسی و بررسی‌شده در ۲۴ آگوست ۲۰۲۶</span>
+
+      <div class="warning"><b>قبل از شروع: این پروژه ابزار پزشکی نیست.</b><p>روندها می‌تونن برای شناخت عادت‌ها مفید باشن، ولی تشخیص بیماری یا جایگزین پزشک نیستن. هشدارهای قلبی فوری رو روی خود Apple Watch فعال نگه دار و اگر علامت نگران‌کننده داری، به داشبورد ایجنت تکیه نکن.</p></div>
+
+      <section>
+        <h2>قراره دقیقاً چی بسازیم؟</h2>
+        <p>هر روز صبح، Shortcut داده‌های ۲۴ ساعت گذشته رو از Health می‌گیره و داخل یک فایل متنی می‌ریزه. بعد یک کار زمان‌بندی‌شده در Claude فایل رو می‌خونه، خلاصه‌اش می‌کنه و داشبورد رو با همان لینک قبلی به‌روزرسانی می‌کنه.</p>
+        <div class="eli5"><b>ELI5: یعنی ساعت خودش ایجنت می‌شه؟</b><p>نه. ساعت فقط سنسوره. ایجنت همون بخشیه که فایل رو می‌خونه، چند مرحله انجام می‌ده، سابقه رو نگه می‌داره و بر اساس قانون‌هایی که تو تعیین کردی خروجی می‌سازه.</p></div>
+        <div class="needs">
+          <div class="need"><i>⌚</i><b>Apple Watch + iPhone</b><p>برای جمع‌کردن داده و اجرای Shortcut روزانه.</p><span class="tag">لازم</span></div>
+          <div class="need"><i>☁️</i><b>iCloud Drive</b><p>برای رساندن فایل از آیفون به مک. فضای رایگان معمولاً برای این فایل‌ها کافیه.</p><span class="tag">لازم</span></div>
+          <div class="need"><i>💻</i><b>Mac + Claude Cowork</b><p>برای خواندن پوشهٔ محلی، ساخت فایل‌ها و اجرای pipeline.</p><span class="tag">پلن پولی Claude</span></div>
+        </div>
+      </section>
+
+      <section class="architecture">
+        <h2>نقشهٔ کل سیستم</h2>
+        <p>شش تکه داریم. هرکدوم فقط یک کار انجام می‌ده، برای همین وقتی چیزی خراب بشه می‌فهمیم باید کجا رو نگاه کنیم.</p>
+        <div class="flow" aria-label="مسیر داده از اپل واچ تا گزارش روزانه">
+          <div class="flow-step"><span>⌚</span><b>Apple Watch</b><small>اندازه‌گیری</small></div>
+          <div class="flow-step"><span>♥</span><b>Health</b><small>ذخیره روی آیفون</small></div>
+          <div class="flow-step"><span>⚡</span><b>Shortcut</b><small>خروجی روزانه</small></div>
+          <div class="flow-step"><span>☁</span><b>iCloud</b><small>همگام‌سازی فایل</small></div>
+          <div class="flow-step"><span>🗂</span><b>Claude</b><small>پردازش پوشه</small></div>
+          <div class="flow-step final"><span>▤</span><b>Dashboard</b><small>خلاصه و روندها</small></div>
+        </div>
+        <div class="boundary"><b>مرز مهم:</b> داده تا مرحلهٔ Health روی دستگاه می‌مونه. وقتی Shortcut فایل می‌سازه، خودت عمداً داده رو از Health بیرون می‌آری و وارد iCloud و بعد محیط Claude می‌کنی.</div>
+      </section>
+
+      <section>
+        <h2>مرحلهٔ ۱: Shortcut آیفون</h2>
+        <p>داخل اپ Shortcuts یک Shortcut با اسم <b dir="ltr">Health Export</b> بساز. ساختارش فقط سه قسمت داره:</p>
+        <div class="shortcut-map">
+          <div class="shortcut-box"><div><b>Find Health Samples</b><small>هفت بار، برای هفت متریک</small></div></div><div class="shortcut-arrow">→</div>
+          <div class="shortcut-box"><div><b>Text</b><small>چسباندن تیتر و مقدارها</small></div></div><div class="shortcut-arrow">→</div>
+          <div class="shortcut-box dark"><div><b>Save File</b><small>latest.txt با overwrite</small></div></div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><b>قدم‌ها</b><code>#steps</code></div><div class="metric"><b>ضربان قلب</b><code>#hr</code></div>
+          <div class="metric"><b>خواب</b><code>#sleep</code></div><div class="metric"><b>انرژی فعال</b><code>#energy</code></div>
+          <div class="metric"><b>ورزش</b><code>#exercise</code></div><div class="metric"><b>HRV</b><code>#hrv</code></div>
+          <div class="metric"><b>ضربان استراحت</b><code>#rhr</code></div><div class="metric"><b>بازه</b><code>Last 1 Day</code></div>
+        </div>
+        <div class="steps">
+          <div class="step"><h3>هفت Find Health Samples اضافه کن</h3><p>برای هر متریک یک block مستقل بذار و فیلتر تاریخ رو روی <code>Start Date is in the last 1 day</code> قرار بده. برای ضربان قلب، Limit رو روی حدود <code>500</code> بذار تا Shortcut با صدها نمونه گیر نکنه.</p></div>
+          <div class="step"><h3>یک Text block بساز</h3><p>هر بخش با یک تیتر مثل <code>#steps</code> شروع می‌شه و خط بعد، Magic Variable همون Health block قرار می‌گیره. تیترها رو lowercase و ثابت نگه دار تا parser هر روز پیداشون کنه.</p></div>
+          <div class="step"><h3>فایل رو همیشه روی یک مسیر ذخیره کن</h3><p>یک Save File بذار، گزینهٔ Ask Where to Save رو خاموش کن، مقصد رو <code>Shortcuts/health/latest.txt</code> انتخاب کن و Overwrite رو روشن بذار.</p></div>
+          <div class="step"><h3>Automation روزانه بساز</h3><p>در تب Automation، ساعت <code>07:00</code> رو انتخاب کن، اجرای Health Export رو اضافه کن و Run Immediately رو روشن کن. بار اول، دسترسی Health و Files رو خودت تأیید می‌کنی.</p></div>
+        </div>
+
+        <h3 style="margin-top:34px">دو تله‌ای که احتمالاً می‌بینی</h3>
+        <div class="trap-grid">
+          <div class="trap"><span class="num">TRAP 01</span><h3>block جدید خالیه</h3><p>اگر Find Health Samples رو بلافاصله بعد از block قبلی اضافه کنی، ممکنه خودکار ورودی قبلی رو filter کنه. روی token آبی بزن و Clear Variable رو انتخاب کن تا Find مستقل بشه.</p></div>
+          <div class="trap"><span class="num">TRAP 02</span><h3>ذخیره گیر می‌کنه</h3><p>در Settings → Apps → Shortcuts → Advanced، اشتراک‌گذاری حجم زیاد داده رو فعال کن. Limit ضربان و بازهٔ یک‌روزهٔ همهٔ blockها رو هم دوباره چک کن.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>مرحلهٔ ۲: فایل ساده‌ای که همه‌چیز رو وصل می‌کنه</h2>
+        <p><b dir="ltr">latest.txt</b> دیتابیس عجیب‌وغریبی نیست؛ فقط تیتر و مقدارهاست. نمونهٔ خیلی کوتاهش:</p>
+        <pre class="file-format">#steps
+8421
+#hr
+72
+81
+68
+#hrv
+46
+51
+#rhr
+58</pre>
+        <p>گاهی Shortcuts تیتر و اولین عدد رو می‌چسبونه و چیزی مثل <b dir="ltr">#hr90</b> می‌سازه. بهتره parser این حالت رو هم بفهمه. ضمن اینکه «۲۴ ساعت گذشته از ۷ صبح» دقیقاً برابر روز تقویمی نیست؛ این گزارش تقریباً بازهٔ ۷ صبح دیروز تا ۷ صبح امروزه.</p>
+      </section>
+
+      <section>
+        <h2>مرحلهٔ ۳: رساندن فایل به مک</h2>
+        <div class="steps">
+          <div class="step"><h3>iCloud Drive رو روی مک روشن کن</h3><p>System Settings → Apple Account → iCloud → Drive → Sync this Mac. اگر پوشهٔ Shortcuts رو نمی‌بینی، اول همین رو چک کن.</p></div>
+          <div class="step"><h3>پوشه رو روی مک نگه دار</h3><p>در Finder روی پوشهٔ health راست‌کلیک کن و <b dir="ltr">Keep Downloaded</b> رو بزن. وگرنه iCloud ممکنه فقط placeholder نگه داره و Claude فایل واقعی رو پیدا نکنه.</p></div>
+          <div class="step"><h3>فقط همین پوشه رو به Cowork بده</h3><p>در Claude Cowork از Add Folder استفاده کن و پوشهٔ health رو انتخاب کن؛ نه کل iCloud Drive یا Home folder. دسترسی کمتر، ریسک کمتر.</p></div>
+        </div>
+        <div class="path">~/Library/Mobile Documents/iCloud~is~workflow~my~workflows/Documents/health</div>
+      </section>
+
+      <section>
+        <h2>مرحلهٔ ۴: چهار فایل pipeline</h2>
+        <p>داخل همان پوشه، Claude چهار فایل اصلی می‌سازه. هر فایل یک مسئولیت داره:</p>
+        <div class="files">
+          <div class="file"><code>latest.txt</code><p>خروجی روزانهٔ آیفون. هر صبح overwrite می‌شه و فقط snapshot فعلی رو نگه می‌داره.</p></div>
+          <div class="file"><code>parse_daily.py</code><p>تیترها و عددها رو می‌خونه، جمع/میانگین/کمینه/بیشینهٔ لازم رو حساب می‌کنه و فقط یک ردیف برای آن روز می‌سازه.</p></div>
+          <div class="file"><code>history.csv</code><p>تاریخچهٔ رو‌به‌رشد؛ هر روز یک ردیف. اگر همان تاریخ دوباره پردازش شد باید ردیف قبلی رو update کنه، نه duplicate.</p></div>
+          <div class="file"><code>build_dashboard.py</code><p>CSV رو می‌خونه و یک dashboard.html قابل‌خواندن با کارت‌های امروز، نمودار روند و یادداشت‌ها می‌سازه.</p></div>
+        </div>
+        <p>برای اینکه Claude این فایل‌ها رو با ساختار درست بسازه، این Prompt رو داخل Cowork و با همان پوشهٔ health اجرا کن:</p>
+        <pre class="prompt">در پوشهٔ متصل‌شدهٔ health یک pipeline محلی بساز.
+
+ورودی latest.txt است. بخش‌ها با این headerها جدا می‌شوند:
+#steps #hr #sleep #energy #exercise #hrv #rhr
+گاهی header به اولین مقدار می‌چسبد، مثل #hr90؛ این حالت را هم parse کن.
+
+1) parse_daily.py بساز که:
+— فایل را فقط بخواند و هرگز پاک نکند.
+— برای هر روز یک ردیف بسازد.
+— steps، energy و exercise را جمع کند.
+— hr را به avg/min/max تبدیل کند.
+— hrv و resting hr را خلاصه کند.
+— sleep را به ساعت تبدیل کند.
+— با upsert در history.csv جلوی duplicate date را بگیرد.
+— اگر بخشی خالی بود crash نکند و مقدار خالی ثبت کند.
+
+2) build_dashboard.py بساز که از history.csv یک dashboard.html responsive بسازد:
+کارت امروز، روند ۷روزه، نمودار ضربان و قدم‌ها، و بخش هشدارهای wellness.
+هیچ کتابخانهٔ خارجی لازم نباشد و داده داخل همان HTML قرار بگیرد.
+
+3) قبل از اجرا، plan و فایل‌هایی که می‌سازی را نشان بده. بعد با یک latest.txt نمونه تست کن و نتیجه را توضیح بده.</pre>
+        <p class="copy-note">خروجی کد رو قبل از اتصال به دادهٔ واقعی تست کن. اگر چند دستگاه در Health قدم ثبت می‌کنن، از Claude بخواه منبع نمونه‌ها و احتمال duplicate شدن رو هم بررسی کنه.</p>
+      </section>
+
+      <section>
+        <h2>مرحلهٔ ۵: ایجنت روزانه</h2>
+        <p>در Cowork یک Scheduled task بساز. این کار هر روز pipeline رو اجرا می‌کنه، dashboard رو به‌روز می‌کنه و خلاصهٔ صبحگاهی می‌ده.</p>
+        <div class="schedule">
+          <div><span>01</span><b>Freshness check</b><small>فایل جدیدتر از ۲۶ ساعت هست؟</small></div>
+          <div><span>02</span><b>Parse</b><small>یک ردیف تازه وارد CSV کن.</small></div>
+          <div><span>03</span><b>Build</b><small>داشبورد رو با تاریخچه بساز.</small></div>
+          <div><span>04</span><b>Brief</b><small>فقط تغییرهای مهم رو خلاصه کن.</small></div>
+        </div>
+        <div class="eli5"><b>مک باید روشن بمونه یا نه؟</b><p>خود Scheduled task می‌تونه در cloud اجرا بشه؛ اما وقتی کار به پوشهٔ محلی مک نیاز داره، Claude Desktop باید روی همان مک باز و در دسترس باشه. اگر فایل‌ها رو به حساب Claude منتقل کنی، اجرای cloud داستان متفاوتی داره. برای این نسخهٔ ساده، مک و Desktop رو زمان اجرا روشن نگه دار.</p></div>
+        <pre class="prompt">یک Scheduled task روزانه برای ساعت 07:35 به وقت محلی بساز.
+
+در هر اجرا:
+1) latest.txt را بررسی کن. اگر قدیمی‌تر از 26 ساعت بود، هیچ داده‌ای اضافه نکن و فقط بگو sync انجام نشده.
+2) python3 parse_daily.py latest.txt history.csv را اجرا کن.
+3) python3 build_dashboard.py latest.txt history.csv dashboard.html را اجرا کن.
+4) نتیجه را با همان داشبورد قبلی به‌روزرسانی کن؛ duplicate artifact نساز.
+5) یک خلاصهٔ کوتاه فارسی از قدم‌ها، خواب، resting HR و HRV بده.
+6) فقط بر اساس ruleهای wellness توافق‌شده flag بده و صریح بگو تشخیص پزشکی نیست.
+7) هیچ فایل خامی را حذف، عمومی یا به مقصد دیگری ارسال نکن.</pre>
+      </section>
+
+      <section>
+        <h2>هشدار خوب یعنی «تغییر نسبت به خودت»</h2>
+        <p>یک عدد ثابت برای همه معنی یکسانی نداره. بهتره بعد از چند روز، میانگین ۷روزهٔ خودت baseline بشه و ایجنت فقط تغییرهای واضح رو نشون بده.</p>
+        <div class="quick-table"><table><thead><tr><th>نمونهٔ Rule شخصی</th><th>برداشت ساده</th><th>کاری که ایجنت باید بکنه</th></tr></thead><tbody>
+          <tr><td>Resting HR بالاتر از baseline</td><td>ممکنه ریکاوری ضعیف، استرس یا بیماری در راه باشه</td><td>فقط flag و مقایسه با چند روز قبل؛ نه تشخیص</td></tr>
+          <tr><td>HRV خیلی پایین‌تر از baseline</td><td>شاید بدن امروز فشار کمتری بخواد</td><td>پیشنهاد روز سبک‌تر، با لحن احتمالی</td></tr>
+          <tr><td>خواب کمتر از هدف شخصی</td><td>امروز انرژی و تمرکز ممکنه پایین‌تر باشه</td><td>یادآوری خواب؛ بدون ادعای پزشکی</td></tr>
+          <tr><td>قدم‌ها زیر هدف</td><td>تحرک روز پایین بوده</td><td>یک نوج ساده، نه شرمنده‌کردن کاربر</td></tr>
+        </tbody></table></div>
+        <p class="small">اعداد دقیق رو با سن، شرایط، داروها و توصیهٔ پزشک خودت تنظیم کن. قانون‌های نمونهٔ Artifact مثل HRV کمتر از ۷۰٪ baseline یا resting HR شش ضربه بالاتر، threshold پزشکی عمومی نیستن.</p>
+      </section>
+
+      <section class="privacy">
+        <h2>این قسمت رو رد نکن: دادهٔ سلامت حساسه</h2>
+        <p>این pipeline عمداً داده رو از محیط Health بیرون می‌آره. پس امنیتش بیشتر از اینکه به «هوش» ایجنت بستگی داشته باشه، به مرز دسترسی‌هایی بستگی داره که تو تعیین می‌کنی.</p>
+        <div class="privacy-grid">
+          <div><b>Artifact رو Public نکن</b><p>داشبورد واقعی سلامت باید private بمونه. لینک عمومی می‌تونه داده‌های شخصی و الگوی زندگی رو افشا کنه.</p></div>
+          <div><b>فقط خلاصه رو نگه دار</b><p>برای روند روزانه معمولاً CSV تجمیع‌شده کافیه. نمونه‌های خام ضربان رو بی‌دلیل وارد dashboard نکن.</p></div>
+          <div><b>پوشهٔ کوچک بده</b><p>Claude فقط به health folder دسترسی بگیره. دسترسی کل iCloud یا Documents برای این کار لازم نیست.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>وقتی چیزی کار نکرد</h2>
+        <div class="quick-table"><table><thead><tr><th>مشکل</th><th>اول این رو چک کن</th></tr></thead><tbody>
+          <tr><td>Shortcut اجرا نشد</td><td>Health Export رو دستی با دکمهٔ ▶ اجرا کن و تنظیم Run Immediately در Automation رو ببین.</td></tr>
+          <tr><td>فایل روی مک placeholderـه</td><td>Finder → پوشهٔ health → راست‌کلیک → Keep Downloaded.</td></tr>
+          <tr><td>Sleep همیشه خالیه</td><td>مجوز Health برای Shortcuts، ثبت Sleep در Watch و پوشیدن ساعت هنگام خواب رو بررسی کن.</td></tr>
+          <tr><td>Save File گیر می‌کنه</td><td>Limit ضربان، بازهٔ Last 1 Day و Allow Sharing Large Amounts of Data رو چک کن.</td></tr>
+          <tr><td>CSV ردیف تکراری داره</td><td>parser باید بر اساس date عمل upsert انجام بده؛ ردیف همون تاریخ رو جایگزین کنه.</td></tr>
+          <tr><td>کار زمان‌بندی‌شده فایل رو نمی‌بینه</td><td>Claude Desktop باید برای دسترسی به پوشهٔ محلی باز باشه و همان folder به task متصل شده باشه.</td></tr>
+          <tr><td>Dashboard عمومی شده</td><td>فوراً sharing رو private کن، لینک قدیمی رو باطل کن و بررسی کن چه داده‌ای داخل HTML embed شده.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section>
+        <h2>واقعاً رایگانه؟</h2>
+        <div class="cost">
+          <div class="yes"><h3>هزینهٔ اضافه لازم نداره</h3><ul><li>Shortcuts روی آیفون</li><li>iCloud Drive در محدودهٔ فضای موجود</li><li>فایل متنی، CSV و HTML محلی</li><li>بدون اپ export پولی و بدون سرور جدا</li></ul></div>
+          <div><h3>اما «صفر مطلق» نیست</h3><ul><li>Apple Watch، iPhone و Mac لازم داری</li><li>Cowork و Scheduled tasks روی پلن‌های پولی Claude ارائه می‌شن</li><li>اجرا از سهم مصرف Claude استفاده می‌کنه</li><li>اگر iCloud پر باشه ممکنه فضای بیشتر بخوای</li></ul></div>
+        </div>
+        <div class="eli5"><b>پس جملهٔ دقیق‌تر چیه؟</b><p>اگر سخت‌افزار و اشتراک Claude رو از قبل داری، برای ساخت این pipeline لازم نیست اپ واسط یا سرور جدا بخری.</p></div>
+      </section>
+
+      <section class="sources">
+        <h2>منبع و لینک‌های رسمی</h2>
+        <ul>
+          <li><a href="https://claude.ai/code/artifact/61e13bab-b6c5-4563-bb41-1a6cde65c126" target="_blank" rel="noreferrer">Pulse Handbook؛ Artifact اصلی این پروژه</a></li>
+          <li><a href="https://support.apple.com/en-au/guide/shortcuts/apd3c845e881/ios" target="_blank" rel="noreferrer">راهنمای رسمی Apple برای Find و Filter در Shortcuts</a></li>
+          <li><a href="https://support.apple.com/en-euro/guide/mac-help/mchl1a02d711/mac" target="_blank" rel="noreferrer">راهنمای رسمی Apple برای Keep Downloaded در iCloud Drive</a></li>
+          <li><a href="https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork" target="_blank" rel="noreferrer">راهنمای رسمی Scheduled tasks در Claude Cowork</a></li>
+          <li><a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork" target="_blank" rel="noreferrer">شروع کار و مدل دسترسی فایل در Claude Cowork</a></li>
+          <li><a href="https://support.claude.com/en/articles/13364135-use-claude-cowork-safely" target="_blank" rel="noreferrer">راهنمای امنیتی رسمی Cowork</a></li>
+        </ul>
+        <p class="disclaimer">این نوشته ترجمهٔ خط‌به‌خط Artifact نیست؛ یک بازنویسی آموزشی فارسی با توضیح ELI5، اصلاح ادعای هزینه و اضافه‌کردن مرزهای حریم خصوصی و ایمنی پزشکیه. قابلیت‌های Cowork و Scheduled tasks ممکنه تغییر کنن؛ قبل از ساخت، لینک‌های رسمی روز رو دوباره ببین.</p>
+      </section>
+    </article>
+  </main>
+  <footer>nabuguides · سنسورها اندازه می‌گیرن، ایجنت‌ها خلاصه می‌کنن، آدم‌ها تصمیم می‌گیرن.</footer>
+</body>
+</html>
