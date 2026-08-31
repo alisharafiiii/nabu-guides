@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f0e5">
+  <meta name="description" content="آموزش خیلی ساده و عملی ساخت اولین ایجنت واقعی با LangGraph، تأیید آدم، policy check و آشنایی درست با Ledger Speculos؛ از نصب تا تست مسیر ردشدن.">
+  <title>اولین ایجنت واقعی‌ات را بساز؛ از صفر تا مرز سخت | nabuguides</title>
+  <style>
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+    @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
+    :root{--ink:#171713;--paper:#f6f0e5;--card:#fffaf0;--line:#d9cfbd;--yellow:#e2a51d;--soft:#f6e5b6;--muted:#686056;--green:#2f6d52;--red:#a13f35;--shadow:0 9px 0 #ded3c1}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:18px/2 Vazirmatn,system-ui,sans-serif}a{color:inherit}img{display:block;max-width:100%}button{font:inherit}::selection{background:var(--yellow)}
+    .bar{height:68px;border-bottom:1px solid var(--line);background:rgba(246,240,229,.93);backdrop-filter:blur(15px);position:sticky;top:0;z-index:20}.bar-in{width:min(1180px,calc(100% - 32px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;font-weight:900;direction:ltr}.brand span{color:var(--yellow)}.back{text-decoration:none;color:var(--muted);font-size:14px}
+    .hero,.article{width:min(1120px,calc(100% - 32px));margin:auto}.hero{padding:62px 0 0}.eyebrow{font:900 13px/1.3 system-ui,sans-serif;color:#946700;direction:ltr;text-align:right}.hero h1{max-width:1050px;font-size:clamp(44px,7.5vw,84px);line-height:1.2;letter-spacing:-.055em;margin:13px 0}.lead{max-width:900px;font-size:clamp(19px,2.3vw,25px);color:#554f46;margin:0}.cover{position:relative;margin-top:38px;aspect-ratio:5/2;border:1.5px solid var(--ink);border-radius:30px;overflow:hidden;background:#f8f1e3 url("../assets/guarded-agent/guarded-agent-cover-fa-v1.png") center/cover no-repeat;box-shadow:var(--shadow)}.cover-copy{position:absolute;left:50%;top:8%;transform:translateX(-50%);width:min(570px,58%);padding:14px 20px;text-align:center;border:1px solid rgba(23,23,19,.25);border-radius:19px;background:rgba(255,250,240,.88);backdrop-filter:blur(5px)}.cover-copy small{direction:ltr;display:block;color:#8a6100;font:900 10px/1.2 system-ui,sans-serif;letter-spacing:.12em}.cover-copy strong{display:block;font-size:clamp(25px,3vw,40px);line-height:1.3;margin-top:7px}
+    .article{max-width:930px;padding:65px 0 110px}.intro{padding:27px 29px;border:2px solid var(--ink);border-radius:24px;background:var(--yellow);box-shadow:7px 7px 0 var(--ink);font-size:21px}.intro b{display:block;font-size:13px;margin-bottom:4px}.update{display:inline-flex;margin-top:18px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}
+    h2{font-size:clamp(31px,5vw,46px);line-height:1.45;letter-spacing:-.04em;margin:82px 0 17px}h3{font-size:22px;line-height:1.55;margin:0 0 7px}p{color:#4d473f;margin:0 0 20px}.small{font-size:13px;color:#766e63}.highlight{background:linear-gradient(transparent 58%,var(--soft) 58%)}
+    .recap{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:28px 0}.recap-card{display:flex;flex-direction:column;padding:22px;border:1.5px solid var(--ink);border-radius:22px;background:var(--card);text-decoration:none;transition:.18s}.recap-card:hover{transform:translateY(-3px);box-shadow:5px 6px 0 var(--yellow)}.recap-card span{direction:ltr;color:#966900;font:900 11px/1.2 system-ui,sans-serif;letter-spacing:.08em}.recap-card h3{margin-top:10px}.recap-card p{font-size:14px;line-height:1.8;margin:0}.recap-card b{margin-top:auto;padding-top:13px;font-size:13px}
+    .simple-note,.note,.danger{padding:21px 23px;border-radius:18px;margin:27px 0}.simple-note{border-right:6px solid var(--yellow);background:rgba(255,250,240,.82)}.note{border:1.5px solid var(--green);background:#eef7f0}.danger{border:1.5px solid var(--red);background:#fff2ed}.simple-note b,.note b,.danger b{display:block;margin-bottom:3px}.simple-note p,.note p,.danger p{font-size:15px;margin:0}.danger b{color:var(--red)}
+    .outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:28px 0}.outcome{padding:20px;border:1.5px solid var(--ink);border-radius:20px;background:var(--card)}.outcome span{direction:ltr;display:block;color:#936700;font:900 25px/1 system-ui,sans-serif}.outcome b{display:block;margin:10px 0 4px;font-size:15px}.outcome p{font-size:12px;line-height:1.8;margin:0}
+    .flow{margin:30px 0;padding:25px;border:1.5px solid var(--ink);border-radius:25px;background:var(--card);box-shadow:6px 6px 0 var(--yellow);overflow-x:auto}.flow-row{min-width:810px;display:grid;grid-template-columns:repeat(7,1fr);align-items:center;gap:8px;direction:ltr}.node{min-height:92px;padding:12px 9px;border:1.5px solid var(--ink);border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--paper);font:800 12px/1.4 system-ui,sans-serif}.node small{margin-top:5px;color:var(--muted);font-size:9px}.node.agent{background:var(--yellow)}.node.boundary{border:3px double var(--ink);background:#eef7f0}.arrow{text-align:center;font:900 24px/1 system-ui,sans-serif}.trust{direction:rtl;margin:16px 0 0;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
+    .picker{overflow-x:auto;border:1.5px solid var(--ink);border-radius:21px;background:var(--card);margin:28px 0}table{width:100%;min-width:720px;border-collapse:collapse;font-size:14px;line-height:1.75}th,td{padding:14px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}th{background:var(--ink);color:var(--paper)}th:first-child{color:var(--yellow)}tr:last-child td{border-bottom:0}th:last-child,td:last-child{border-left:0}
+    .steps{counter-reset:step;display:grid;gap:14px;margin:25px 0}.step{counter-increment:step;position:relative;padding:22px 77px 22px 22px;border:1.5px solid var(--ink);border-radius:22px;background:var(--card)}.step::before{content:counter(step,decimal-leading-zero);position:absolute;right:20px;top:21px;color:#946700;font:900 30px/1 system-ui,sans-serif}.step p{font-size:14px;margin:0}.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}.links a{direction:ltr;text-decoration:none;border:1px solid var(--ink);border-radius:999px;padding:7px 11px;background:var(--paper);font:800 11px/1.2 system-ui,sans-serif}.links a:hover{background:var(--yellow)}
+    .codebox{position:relative;margin:22px 0;border:1.5px solid var(--ink);border-radius:22px;overflow:hidden;background:#191914;color:#f7efe2;direction:ltr;text-align:left}.codehead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;border-bottom:1px solid #4b493f}.codehead b{font:900 12px/1.2 system-ui,sans-serif;color:#ffd875}.copy{border:1px solid #777064;border-radius:999px;background:#292821;color:#fff;padding:7px 11px;cursor:pointer;font:800 10px/1 system-ui,sans-serif}.copy:hover{background:var(--yellow);color:var(--ink)}pre{margin:0;padding:18px;overflow:auto;white-space:pre;color:#f8ecd0;font:12px/1.75 ui-monospace,SFMono-Regular,Menlo,monospace}.code-note{direction:rtl;text-align:right;padding:0 18px 16px;color:#c2b9a9;font-size:12px}
+    .test-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:27px 0}.test{padding:20px;border:1.5px solid var(--ink);border-radius:20px;background:var(--card)}.test b{display:flex;align-items:center;gap:8px}.test b::before{content:"✓";display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:var(--green);color:#fff;font:900 13px/1 system-ui}.test.block b::before{content:"✕";background:var(--red)}.test p{font-size:13px;margin:7px 0 0}
+    .finish{margin-top:76px;padding:31px;border:2px solid var(--ink);border-radius:28px;background:var(--soft);box-shadow:8px 8px 0 var(--ink)}.finish h2{margin:0 0 10px}.sources{margin-top:36px;padding-top:25px;border-top:1px solid var(--line)}.sources a{display:block;font-size:13px;color:#5d564d;margin:7px 0}.disclaimer{margin-top:27px;font-size:12px;color:#81796e}footer{border-top:1px solid var(--line);padding:32px;text-align:center;color:#81796e;font-size:13px}
+    @media(max-width:820px){body{font-size:16px}.hero{padding-top:40px}.hero h1{font-size:43px}.cover{aspect-ratio:auto;min-height:320px;background-size:auto 100%;background-position:center}.cover-copy{top:16px;width:86%}.recap,.test-grid{grid-template-columns:1fr}.outcomes{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.hero h1{font-size:38px}.lead{font-size:18px}.cover{min-height:290px}.cover-copy strong{font-size:28px}.intro{font-size:18px}.recap{grid-template-columns:1fr}.outcomes{grid-template-columns:1fr}.step{padding-right:66px}.codebox{margin-left:-7px;margin-right:-7px}pre{font-size:11px}.flow{padding:17px}}
+  </style>
+</head>
+<body>
+  <header class="bar"><div class="bar-in"><a class="brand" href="../index.html">nabu<span>guides</span></a><a class="back" href="../index.html">بازگشت به همهٔ راهنماها ←</a></div></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">BUILD · LANGGRAPH · HUMAN REVIEW · SPECULOS</div>
+      <h1>اولین ایجنت واقعی‌ات را بساز؛ از صفر تا مرز سخت</h1>
+      <p class="lead">این بار فقط دربارهٔ ایجنت حرف نمی‌زنیم. یک پروژهٔ واقعی می‌سازیم که پیشنهاد می‌دهد، با قانون چک می‌شود، منتظر تصمیم تو می‌ماند و فقط بعد از مرز امضا اجازهٔ ادامه دارد.</p>
+      <div class="cover" role="img" aria-label="مسیر ساخت ایجنت از کد و گراف تا شبیه‌ساز دستگاه"><div class="cover-copy"><small>AGENT PROPOSES · HUMAN REVIEWS · BOUNDARY ENFORCES</small><strong>از یک درخواست ساده تا اجرای کنترل‌شده</strong></div></div>
+    </section>
+
+    <article class="article">
+      <div class="intro"><b>نسخهٔ خیلی ساده</b>ایجنت مثل یک دستیار باهوشه که می‌تونه پیشنهاد بده و مراحل کار رو جلو ببره. ولی کلید، بودجه و اجازهٔ نهایی رو بهش نمی‌دیم. این پروژه دقیقاً همین جدایی رو عملی می‌کنه.</div>
+      <span class="update">پیش‌نویس فارسی · بررسی‌شده با مستندات رسمی · ۳۰ آگوست ۲۰۲۶</span>
+
+      <section>
+        <h2>تازه رسیدی؟ اول مسیر قبلی رو در دو دقیقه مرور کن</h2>
+        <p>لازم نیست همهٔ مقاله‌ها رو همین الان بخونی. هر کارت یک یادآوری یک‌جمله‌ای داره؛ اگر مفهومش برات جدیده، کلیک کن. اگر قبلاً خوندی، از روش رد شو.</p>
+        <div class="recap">
+          <a class="recap-card" href="ai-agent-roadmap-fa.html"><span>START HERE</span><h3>اصلاً ایجنت یعنی چی؟</h3><p>چت‌بات فقط جواب می‌ده؛ ایجنت می‌تونه برای رسیدن به هدف، مرحله و ابزار انتخاب کنه.</p><b>مرور خیلی سادهٔ کل مسیر ←</b></a>
+          <a class="recap-card" href="langchain-fa.html"><span>LANGCHAIN</span><h3>مدل چطور ابزار صدا می‌زنه؟</h3><p>LangChain مدل، پرامپت و ابزارها رو به یک حلقهٔ قابل‌استفاده وصل می‌کنه.</p><b>راهنمای LangChain ←</b></a>
+          <a class="recap-card" href="langgraph-fa.html"><span>LANGGRAPH</span><h3>کار چطور مکث می‌کنه و ادامه می‌ده؟</h3><p>LangGraph مسیر و state رو نگه می‌داره تا وسط کار توقف، بررسی و ادامه ممکن باشه.</p><b>راهنمای LangGraph ←</b></a>
+          <a class="recap-card" href="build-the-eye-fa.html"><span>REAL EXAMPLE</span><h3>یک نمونهٔ پیشرفته چه شکلیه؟</h3><p>The Eye نشان می‌ده یک ایجنت آنچین چطور پیشنهاد می‌ده ولی اختیار نهایی بیرونش می‌مونه.</p><b>نمونهٔ کامل‌تر را ببین ←</b></a>
+          <a class="recap-card" href="../downloads/first-ai-agent-beginners-guide-fa.pdf"><span>CLOUD</span><h3>ایجنت آمادهٔ ابری</h3><p>اگر هنوز هیچ تجربه‌ای نداری، اول یک کار ساده رو به یک ایجنت آماده بده.</p><b>اولین تسک ابری ←</b></a>
+          <a class="recap-card" href="../downloads/offline-ai-agent-guide-fa.pdf"><span>ON YOUR COMPUTER</span><h3>ایجنت روی کامپیوتر خودت</h3><p>همان کار را با مدل روی دستگاهت امتحان کن تا فرق هزینه، سرعت و حریم خصوصی را حس کنی.</p><b>اولین تجربهٔ آفلاین ←</b></a>
+        </div>
+        <div class="simple-note"><b>این مقاله چه چیز تازه‌ای اضافه می‌کنه؟</b><p>قبلی‌ها قطعات لگو رو معرفی کردن. اینجا برای اولین بار همشون رو روی میز می‌چینیم و یک ماشین کوچیکِ قابل‌اجرا می‌سازیم.</p></div>
+      </section>
+
+      <section>
+        <h2>آخر کار دقیقاً چی داری؟</h2>
+        <div class="outcomes">
+          <div class="outcome"><span>01</span><b>یک agent واقعی</b><p>درخواست رو می‌خونه و یک عملیات ساختاریافته پیشنهاد می‌ده.</p></div>
+          <div class="outcome"><span>02</span><b>قانونی که دور زده نمی‌شه</b><p>مبلغ یا مقصد خارج از policy قبل از تأیید آدم بلاک می‌شه.</p></div>
+          <div class="outcome"><span>03</span><b>توقف و ادامه</b><p>LangGraph state رو نگه می‌داره تا تو approve یا reject کنی.</p></div>
+          <div class="outcome"><span>04</span><b>signer جدا</b><p>agent به seed یا private key دسترسی پیدا نمی‌کنه.</p></div>
+          <div class="outcome"><span>05</span><b>Speculos آموزشی</b><p>بدون دستگاه، رابط یک Ledger App رو روی کامپیوتر می‌بینی.</p></div>
+          <div class="outcome"><span>06</span><b>تست مسیر شکست</b><p>مطمئن می‌شی درخواست خطرناک واقعاً متوقف می‌شه.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>نقشهٔ پروژه قبل از کدنویسی</h2>
+        <div class="flow">
+          <div class="flow-row"><div class="node">USER<small>درخواست می‌دهد</small></div><div class="arrow">→</div><div class="node agent">AGENT<small>فقط پیشنهاد می‌دهد</small></div><div class="arrow">→</div><div class="node">POLICY<small>مبلغ و مقصد</small></div><div class="arrow">→</div><div class="node">HUMAN<small>approve / reject</small></div></div>
+          <div class="flow-row" style="margin-top:11px"><div class="node" style="grid-column:1/4">AUDIT LOG<small>پیشنهاد، تصمیم و نتیجه را ثبت می‌کند</small></div><div class="arrow">→</div><div class="node boundary" style="grid-column:5/7">SIGNER BOUNDARY<small>demo · Speculos · hardware</small></div><div class="arrow">→</div><div class="node">RESULT<small>execute / reject</small></div></div>
+          <div class="trust"><b>مرز اعتماد اینجاست:</b> agent می‌تونه دادهٔ عملیات رو بسازه؛ ولی signer و policy بیرون از runtime ایجنت می‌مونن.</div>
+        </div>
+        <div class="danger"><b>یک اصلاح مهم</b><p>تأیید آدم نباید اجازه بده policy سخت دور زده بشه. اگر سقف مبلغ ۰٫۰۱ است، حتی آدم هم از داخل همین flow نمی‌تونه درخواست ۱ واحدی را «همین‌طوری» رد کند و جلو ببرد؛ باید policy جداگانه تغییر کند.</p></div>
+      </section>
+
+      <section>
+        <h2>قبل از شروع چی نصب کنیم؟</h2>
+        <div class="steps">
+          <div class="step"><h3>Python 3.11 یا جدیدتر</h3><p>کد پروژه با Python اجرا می‌شه. بعد از نصب، در ترمینال <code dir="ltr">python3 --version</code> رو بزن.</p><div class="links"><a href="https://www.python.org/downloads/" target="_blank" rel="noreferrer">python.org/downloads</a></div></div>
+          <div class="step"><h3>Ollama برای مدل رایگان روی کامپیوتر</h3><p>مسیر اصلی مقاله رایگان و local است. اگر سیستم ضعیفه، می‌تونی بعداً adapter مدل رو با یک API ابری عوض کنی.</p><div class="links"><a href="https://ollama.com/download" target="_blank" rel="noreferrer">ollama.com/download</a><a href="../downloads/offline-ai-agent-guide-fa.pdf">راهنمای انتخاب مدل</a></div></div>
+          <div class="step"><h3>یک ادیتور ساده</h3><p>VS Code خوبه، ولی هر ادیتوری که فایل متنی ذخیره کنه کافیه.</p><div class="links"><a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">code.visualstudio.com</a></div></div>
+          <div class="step"><h3>Docker فقط برای بخش Speculos</h3><p>برای ساخت خود agent لازم نیست. وقتی رسیدیم به emulator، نصبش می‌کنیم.</p><div class="links"><a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noreferrer">Docker Desktop</a><a href="https://github.com/LedgerHQ/speculos" target="_blank" rel="noreferrer">LedgerHQ/speculos</a></div></div>
+        </div>
+        <div class="note"><b>سخت‌افزار ضعیفه؟</b><p>اول پروژه رو با node ساختگیِ پیشنهاد اجرا کن یا از API ابری استفاده کن. بخش policy، human review و signer boundary به مدل بزرگ احتیاج ندارن؛ مهم‌ترین یادگیری مقاله همین قسمت‌هاست.</p></div>
+      </section>
+
+      <section>
+        <h2>قدم یک: پوشه و محیط پروژه</h2>
+        <div class="codebox"><div class="codehead"><b>TERMINAL</b><button class="copy" data-copy="c1">COPY</button></div><pre id="c1">mkdir first-guarded-agent
+cd first-guarded-agent
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install langgraph langchain langchain-ollama pydantic python-dotenv</pre></div>
+        <p>بعد یک مدل کوچک در Ollama آماده کن. اسم مدل رو می‌تونی براساس سخت‌افزارت عوض کنی:</p>
+        <div class="codebox"><div class="codehead"><b>OLLAMA</b><button class="copy" data-copy="c2">COPY</button></div><pre id="c2">ollama run qwen3:4b</pre><div class="code-note">اگر این مدل برای سیستمت سنگینه، از راهنمای مدل آفلاین کمک بگیر یا مدل کوچک‌تری انتخاب کن.</div></div>
+      </section>
+
+      <section>
+        <h2>قدم دو: مدل فقط یک Proposal می‌سازه</h2>
+        <p>اولین قانون معماری: مدل هیچ تابعی برای «ارسال» یا «امضا» نمی‌بینه. خروجی‌اش فقط یک فرم پیشنهاده.</p>
+        <div class="codebox"><div class="codehead"><b>agent.py · proposal</b><button class="copy" data-copy="c3">COPY</button></div><pre id="c3">import os
+from typing import TypedDict
+from pydantic import BaseModel, Field
+from langchain_ollama import ChatOllama
+from langgraph.graph import StateGraph, START, END
+from langgraph.checkpoint.memory import InMemorySaver
+from langgraph.types import interrupt, Command
+
+class TransferProposal(BaseModel):
+    asset: str = Field(description="demo asset symbol")
+    amount: float = Field(gt=0)
+    destination: str
+    reason: str
+
+class AgentState(TypedDict, total=False):
+    request: str
+    proposal: dict
+    policy: dict
+    approved: bool
+    result: str
+
+model = ChatOllama(
+    model=os.getenv("OLLAMA_MODEL", "qwen3:4b"),
+    temperature=0,
+)
+proposal_model = model.with_structured_output(TransferProposal)
+
+def propose(state: AgentState):
+    proposal = proposal_model.invoke(
+        "Create a DEMO transfer proposal only. "
+        "Never claim that anything was executed. Request: " + state["request"]
+    )
+    return {"proposal": proposal.model_dump()}</pre></div>
+        <div class="simple-note"><b>Structured output یعنی چی؟</b><p>به‌جای اینکه مدل یک پاراگراف شلخته بده، مجبورش می‌کنیم چهار خانهٔ مشخص رو پر کنه: دارایی، مبلغ، مقصد و دلیل.</p></div>
+      </section>
+
+      <section>
+        <h2>قدم سه: policy قبل از آدم تصمیم می‌گیره</h2>
+        <p>در این تمرین فقط دو مقصد آزمایشی مجازن و سقف مبلغ ۰٫۰۱ است. اگر یکی از این دو قانون رد شود، flow مستقیم تمام می‌شود.</p>
+        <div class="codebox"><div class="codehead"><b>agent.py · policy</b><button class="copy" data-copy="c4">COPY</button></div><pre id="c4">MAX_AMOUNT = 0.01
+ALLOWLIST = {"demo-alice", "demo-bob"}
+
+def policy_check(state: AgentState):
+    p = state["proposal"]
+    reasons = []
+    if p["amount"] > MAX_AMOUNT:
+        reasons.append("amount is above the hard limit")
+    if p["destination"] not in ALLOWLIST:
+        reasons.append("destination is not allowlisted")
+
+    return {
+        "policy": {
+            "allowed": not reasons,
+            "reasons": reasons,
+        }
+    }
+
+def after_policy(state: AgentState):
+    return "review" if state["policy"]["allowed"] else "blocked"
+
+def blocked(state: AgentState):
+    return {"result": "REJECTED BY POLICY: " + ", ".join(state["policy"]["reasons"])}</pre></div>
+      </section>
+
+      <section>
+        <h2>قدم چهار: LangGraph وسط کار مکث می‌کنه</h2>
+        <p><code dir="ltr">interrupt()</code> پیشنهاد رو بیرون می‌فرسته و state رو نگه می‌داره. همون <code dir="ltr">thread_id</code> باعث می‌شه ادامهٔ کار دقیقاً به اجرای قبلی برگرده.</p>
+        <div class="codebox"><div class="codehead"><b>agent.py · review + signer</b><button class="copy" data-copy="c5">COPY</button></div><pre id="c5">def human_review(state: AgentState):
+    decision = interrupt({
+        "question": "Do you approve this demo proposal?",
+        "proposal": state["proposal"],
+        "allowed_decisions": ["approve", "reject"],
+    })
+    return {"approved": decision == "approve"}
+
+def signer_boundary(state: AgentState):
+    if not state["policy"]["allowed"]:
+        return {"result": "REJECTED: policy cannot be bypassed"}
+    if not state.get("approved"):
+        return {"result": "REJECTED BY HUMAN"}
+
+    # No seed, private key or transaction broadcast exists in this tutorial.
+    # This adapter is where demo / Speculos / real hardware would be selected.
+    mode = os.getenv("SIGNER_MODE", "demo")
+    return {"result": f"APPROVED; handed to {mode} signer boundary (no broadcast)"}</pre></div>
+      </section>
+
+      <section>
+        <h2>قدم پنج: گراف رو به هم وصل کن</h2>
+        <div class="codebox"><div class="codehead"><b>agent.py · graph</b><button class="copy" data-copy="c6">COPY</button></div><pre id="c6">builder = StateGraph(AgentState)
+builder.add_node("propose", propose)
+builder.add_node("policy", policy_check)
+builder.add_node("blocked", blocked)
+builder.add_node("review", human_review)
+builder.add_node("signer", signer_boundary)
+
+builder.add_edge(START, "propose")
+builder.add_edge("propose", "policy")
+builder.add_conditional_edges(
+    "policy",
+    after_policy,
+    {"review": "review", "blocked": "blocked"},
+)
+builder.add_edge("blocked", END)
+builder.add_edge("review", "signer")
+builder.add_edge("signer", END)
+
+graph = builder.compile(checkpointer=InMemorySaver())
+config = {"configurable": {"thread_id": "demo-1"}}
+
+first = graph.invoke({
+    "request": "Send 0.005 DEMO to demo-alice for lunch"
+}, config=config)
+
+if "__interrupt__" in first:
+    print(first["__interrupt__"])
+    answer = input("Type approve or reject: ").strip().lower()
+    final = graph.invoke(Command(resume=answer), config=config)
+    print(final["result"])
+else:
+    print(first["result"])</pre></div>
+        <p>فایل رو ذخیره کن و اجرا بگیر:</p>
+        <div class="codebox"><div class="codehead"><b>RUN</b><button class="copy" data-copy="c7">COPY</button></div><pre id="c7">SIGNER_MODE=demo python agent.py</pre></div>
+      </section>
+
+      <section>
+        <h2>قدم شش: Speculos دقیقاً کجای داستانه؟</h2>
+        <p>Speculos پروژهٔ رسمی Ledger برای اجرای <b>Ledger Apps</b> روی کامپیوتره. یعنی می‌تونی UI و رفتار یک اپ سازگار رو بدون دستگاه ببینی و تست کنی.</p>
+        <div class="danger"><b>ولی این سخت‌افزار واقعی نیست</b><p>Speculos طبق مستندات خودش Secure Element، جداسازی سیستم‌عامل و تمام رفتارهای دستگاه واقعی رو تضمین نمی‌کنه. پس برای آموزش و تست خوبه؛ برای نگه‌داری دارایی یا ادعای امنیت سخت‌افزاری نه.</p></div>
+        <p>برای شروع رسمی، مخزن و Quickstart خود Ledger رو دنبال کن. مسیر پایه معمولاً این شکله:</p>
+        <div class="codebox"><div class="codehead"><b>SPECULOS · LEARNING SETUP</b><button class="copy" data-copy="c8">COPY</button></div><pre id="c8">git clone https://github.com/LedgerHQ/speculos.git
+cd speculos
+python3 -m venv .venv
+source .venv/bin/activate
+pip install .
+./speculos.py apps/boil.elf
+# then open http://127.0.0.1:5000</pre><div class="code-note">روی بعضی سیستم‌ها—مخصوصاً macOS و Windows—Docker یا WSL مسیر ساده‌تریه. Quickstart رسمی رو برای سیستم‌عامل خودت چک کن.</div></div>
+        <div class="simple-note"><b>چرا هنوز به فایل app نیاز داریم؟</b><p>Speculos خودش «یک کیف پول آماده» نیست؛ مثل یک کنسول بازیه که برای اجرا به بازی نیاز داره. فایل <code dir="ltr">.elf</code> همان Ledger Appیه که داخل emulator اجرا می‌شه.</p></div>
+        <p>در پروژهٔ ما، تابع <code dir="ltr">signer_boundary</code> جای اتصال adapter است. فعلاً فقط اعلام می‌کنه پیشنهاد به مرز رسیده. برای اتصال واقعی باید:</p>
+        <div class="picker"><table><thead><tr><th>مرحله</th><th>در نسخهٔ آموزشی</th><th>در نسخهٔ واقعی‌تر</th></tr></thead><tbody>
+          <tr><td>پیشنهاد agent</td><td>JSON آزمایشی</td><td>تراکنش decode‌شده و قابل‌نمایش</td></tr>
+          <tr><td>Policy</td><td>سقف مبلغ + allowlist</td><td>session scope، expiry، nonce و budget</td></tr>
+          <tr><td>Human review</td><td>approve/reject در ترمینال</td><td>نمایش واضح مقصد، مبلغ و معنی عملیات</td></tr>
+          <tr><td>Speculos</td><td>تمرین UI یک Ledger App</td><td>APDU adapter سازگار با همان app</td></tr>
+          <tr><td>Hardware</td><td>نداریم</td><td>کلید داخل دستگاه و تأیید روی secure screen</td></tr>
+          <tr><td>Broadcast</td><td>عمداً خاموش</td><td>بعد از امضای معتبر و کنترل replay</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section>
+        <h2>چهار تستی که حتماً باید انجام بدی</h2>
+        <div class="test-grid">
+          <div class="test"><b>درخواست مجاز + approve</b><p>باید به signer boundary برسه، ولی در این آموزش هیچ تراکنشی broadcast نمی‌شه.</p></div>
+          <div class="test block"><b>مبلغ بیشتر از سقف</b><p>باید قبل از human review رد بشه؛ آدم نباید مسیر bypass داشته باشه.</p></div>
+          <div class="test block"><b>مقصد خارج از allowlist</b><p>حتی اگر متن درخواست قانع‌کننده بود، policy باید مستقل ردش کنه.</p></div>
+          <div class="test block"><b>درخواست مجاز + reject</b><p>باید با نتیجهٔ REJECTED BY HUMAN تمام بشه و signer صدا نخوره.</p></div>
+        </div>
+        <div class="note"><b>تست ایجنت خراب‌شده</b><p>تابع <code dir="ltr">propose</code> رو موقتاً طوری تغییر بده که همیشه مبلغ ۹۹۹ بسازه. اگر معماری درست باشه، policy بدون توجه به مدل یا پرامپت، درخواست رو متوقف می‌کنه.</p></div>
+      </section>
+
+      <section class="finish">
+        <h2>چیزی که ساختیم «کیف پول» نیست؛ یک مرز درست برای agent است</h2>
+        <p>مدل پیشنهاد می‌ده. LangGraph مسیر و توقف رو نگه می‌داره. policy اجازهٔ عبور رو محدود می‌کنه. آدم تصمیم می‌گیره. signer بیرون از runtime ایجنت می‌مونه. Speculos هم کمک می‌کنه تجربهٔ یک Ledger App رو تمرین کنی—نه اینکه امنیت سخت‌افزار واقعی رو جعل کنی.</p>
+      </section>
+
+      <section class="sources">
+        <h3>منابع رسمی و به‌روز</h3>
+        <a href="https://docs.langchain.com/oss/python/langgraph/interrupts" target="_blank" rel="noreferrer">LangGraph Interrupts — pause, checkpoint and resume</a>
+        <a href="https://docs.langchain.com/oss/python/langchain/human-in-the-loop" target="_blank" rel="noreferrer">LangChain Human-in-the-loop middleware</a>
+        <a href="https://github.com/LedgerHQ/speculos" target="_blank" rel="noreferrer">LedgerHQ Speculos — official repository, setup and limitations</a>
+        <a href="https://ledgerhq.github.io/speculos/user/quickstart.html" target="_blank" rel="noreferrer">Speculos Quickstart — Linux, macOS and Windows</a>
+        <a href="https://docs.ollama.com/quickstart" target="_blank" rel="noreferrer">Ollama Quickstart — local model setup</a>
+      </section>
+      <p class="disclaimer"><b>دیسکلیمر:</b> این پروژه برای یادگیری معماری و تست با دادهٔ ساختگیه. seed phrase، private key، دارایی واقعی یا تراکنش واقعی واردش نکن. Speculos جای Secure Element یا دستگاه واقعی نیست. بخش‌هایی از آماده‌سازی و تصویرسازی این راهنما با کمک ایجنت هوش مصنوعی انجام شده.</p>
+    </article>
+  </main>
+  <footer>nabuguides · free practical guides · 2026</footer>
+  <script>
+    document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{const target=document.getElementById(button.dataset.copy);await navigator.clipboard.writeText(target.innerText);const old=button.textContent;button.textContent='COPIED';setTimeout(()=>button.textContent=old,1200)}));
+  </script>
+</body>
+</html>
