@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f6f0e5">
-  <meta name="description" content="آموزش خیلی ساده و عملی ساخت اولین ایجنت واقعی با LangGraph، تأیید آدم، policy check و آشنایی درست با Ledger Speculos؛ از نصب تا تست مسیر ردشدن.">
-  <title>اولین ایجنت واقعی‌ات را بساز؛ از صفر تا مرز سخت | nabuguides</title>
+  <meta name="description" content="راهنمای قدم‌به‌قدم ساخت اولین ایجنت با Ollama و LangGraph؛ ایجنت پیشنهاد می‌ده، قانون‌ها چکش می‌کنن و تصمیم آخر با تو می‌مونه.">
+  <title>بیا اولین ایجنت واقعی‌ات رو از صفر بسازیم | nabuguides</title>
   <style>
     @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
     @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
@@ -33,9 +33,9 @@
   <main>
     <section class="hero">
       <div class="eyebrow">BUILD · LANGGRAPH · HUMAN REVIEW · SPECULOS</div>
-      <h1>اولین ایجنت واقعی‌ات را بساز؛ از صفر تا مرز سخت</h1>
-      <p class="lead">این بار فقط دربارهٔ ایجنت حرف نمی‌زنیم. یک پروژهٔ واقعی می‌سازیم که پیشنهاد می‌دهد، با قانون چک می‌شود، منتظر تصمیم تو می‌ماند و فقط بعد از مرز امضا اجازهٔ ادامه دارد.</p>
-      <div class="cover" role="img" aria-label="مسیر ساخت ایجنت از کد و گراف تا شبیه‌ساز دستگاه"><div class="cover-copy"><small>AGENT PROPOSES · HUMAN REVIEWS · BOUNDARY ENFORCES</small><strong>از یک درخواست ساده تا اجرای کنترل‌شده</strong></div></div>
+      <h1>بیا اولین ایجنت واقعی‌ات رو از صفر بسازیم</h1>
+      <p class="lead">این دفعه دیگه فقط دربارهٔ ایجنت حرف نمی‌زنیم؛ با هم یکی می‌سازیم. ایجنت پیشنهاد می‌ده، قانون‌ها چکش می‌کنن و تو تأیید یا رد می‌کنی. تا اجازه ندی، هیچ کاری جلو نمی‌ره.</p>
+      <div class="cover" role="img" aria-label="مسیر ساخت ایجنت از کد و گراف تا شبیه‌ساز دستگاه"><div class="cover-copy"><small>AGENT PROPOSES · HUMAN REVIEWS · BOUNDARY ENFORCES</small><strong>ایجنت پیشنهاد می‌ده؛ کنترل دست تو می‌مونه</strong></div></div>
     </section>
 
     <article class="article">
@@ -71,7 +71,7 @@
       <section>
         <h2>نقشهٔ پروژه قبل از کدنویسی</h2>
         <div class="flow">
-          <div class="flow-row"><div class="node">USER<small>درخواست می‌دهد</small></div><div class="arrow">→</div><div class="node agent">AGENT<small>فقط پیشنهاد می‌دهد</small></div><div class="arrow">→</div><div class="node">POLICY<small>مبلغ و مقصد</small></div><div class="arrow">→</div><div class="node">HUMAN<small>approve / reject</small></div></div>
+          <div class="flow-row"><div class="node">USER<small>درخواست می‌ده</small></div><div class="arrow">→</div><div class="node agent">AGENT<small>فقط پیشنهاد می‌ده</small></div><div class="arrow">→</div><div class="node">POLICY<small>مبلغ و مقصد</small></div><div class="arrow">→</div><div class="node">HUMAN<small>approve / reject</small></div></div>
           <div class="flow-row" style="margin-top:11px"><div class="node" style="grid-column:1/4">AUDIT LOG<small>پیشنهاد، تصمیم و نتیجه را ثبت می‌کند</small></div><div class="arrow">→</div><div class="node boundary" style="grid-column:5/7">SIGNER BOUNDARY<small>demo · Speculos · hardware</small></div><div class="arrow">→</div><div class="node">RESULT<small>execute / reject</small></div></div>
           <div class="trust"><b>مرز اعتماد اینجاست:</b> agent می‌تونه دادهٔ عملیات رو بسازه؛ ولی signer و policy بیرون از runtime ایجنت می‌مونن.</div>
         </div>
@@ -141,7 +141,7 @@ def propose(state: AgentState):
 
       <section>
         <h2>قدم سه: policy قبل از آدم تصمیم می‌گیره</h2>
-        <p>در این تمرین فقط دو مقصد آزمایشی مجازن و سقف مبلغ ۰٫۰۱ است. اگر یکی از این دو قانون رد شود، flow مستقیم تمام می‌شود.</p>
+        <p>تو این تمرین فقط دو مقصد آزمایشی مجازن و سقف مبلغ هم ۰٫۰۱ است. اگر درخواست با یکی از این قانون‌ها جور درنیاد، مسیر همون‌جا تموم می‌شه.</p>
         <div class="codebox"><div class="codehead"><b>agent.py · policy</b><button class="copy" data-copy="c4">COPY</button></div><pre id="c4">MAX_AMOUNT = 0.01
 ALLOWLIST = {"demo-alice", "demo-bob"}
 
