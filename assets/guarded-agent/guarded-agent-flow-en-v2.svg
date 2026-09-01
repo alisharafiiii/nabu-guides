@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="600" viewBox="0 0 1500 600" role="img" aria-labelledby="title desc">
+  <title id="title">A guarded AI agent from proposal to hardware enforcement</title>
+  <desc id="desc">A horizontal workflow showing a user request, agent proposal, policy check, human review, a trust boundary, hardware enforcement, and execute or reject results, with an audit trail below.</desc>
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#171713" opacity=".09"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="150%" height="160%">
+      <feDropShadow dx="6" dy="8" stdDeviation="0" flood-color="#171713" flood-opacity=".16"/>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L10 5L0 10Z" fill="#171713"/>
+    </marker>
+    <style>
+      .sans{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+      .label{font-size:13px;font-weight:900;letter-spacing:1.6px}
+      .title{font-size:21px;font-weight:900;letter-spacing:-.3px}
+      .sub{font-size:12px;font-weight:650;fill:#6b6257}
+      .micro{font-size:10px;font-weight:850;letter-spacing:1.1px}
+      .line{fill:none;stroke:#171713;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .thin{fill:none;stroke:#171713;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .flowline{fill:none;stroke:#171713;stroke-width:3.5;stroke-linecap:round;marker-end:url(#arrow)}
+    </style>
+  </defs>
+
+  <rect width="1500" height="600" fill="#f6f0e5"/>
+  <rect width="1500" height="600" fill="url(#dots)"/>
+  <circle cx="410" cy="300" r="128" fill="#e2a51d" opacity=".10" filter="url(#soft)"/>
+  <circle cx="1145" cy="290" r="150" fill="#94b9a8" opacity=".16" filter="url(#soft)"/>
+  <rect x="24" y="22" width="1452" height="556" rx="34" fill="#fffaf0" stroke="#171713" stroke-width="2.5"/>
+  <path d="M58 566H1442" stroke="#e2a51d" stroke-width="8" stroke-linecap="round" opacity=".92"/>
+
+  <g class="sans">
+    <text x="70" y="70" class="label" fill="#8e6300">GUARDED AGENT · PRACTICAL FLOW</text>
+    <text x="70" y="109" font-size="31" font-weight="950" letter-spacing="-1.1">From proposal to permission.</text>
+    <g transform="translate(1128 55)">
+      <rect width="292" height="45" rx="22.5" fill="#171713"/>
+      <circle cx="22" cy="22.5" r="5" fill="#e2a51d"/>
+      <text x="38" y="28" class="micro" fill="#fffaf0">DEMO ONLY · NO SEED · NO BROADCAST</text>
+    </g>
+  </g>
+
+  <!-- User -->
+  <g transform="translate(66 174)" filter="url(#shadow)">
+    <rect width="155" height="172" rx="25" fill="#f6f0e5" stroke="#171713" stroke-width="2.5"/>
+    <g transform="translate(49 28)" class="line">
+      <circle cx="28" cy="18" r="15" fill="#fffaf0"/>
+      <path d="M4 69c3-20 17-29 24-29s21 9 24 29" fill="#fffaf0"/>
+      <path d="M45 4h24c8 0 14 6 14 14v11c0 8-6 14-14 14H57l-9 8 2-9" fill="#fffaf0"/>
+      <circle cx="58" cy="23" r="2" fill="#171713" stroke="none"/><circle cx="66" cy="23" r="2" fill="#171713" stroke="none"/><circle cx="74" cy="23" r="2" fill="#171713" stroke="none"/>
+    </g>
+    <text x="77.5" y="121" text-anchor="middle" class="sans title">REQUEST</text>
+    <text x="77.5" y="145" text-anchor="middle" class="sans sub">goal + context</text>
+  </g>
+
+  <path d="M237 260H276" class="flowline"/>
+
+  <!-- Agent -->
+  <g transform="translate(294 160)" filter="url(#shadow)">
+    <rect width="185" height="200" rx="27" fill="#e2a51d" stroke="#171713" stroke-width="2.5"/>
+    <g transform="translate(53 23)">
+      <path d="M39 7c-13 0-23 10-23 23v2C6 37 2 47 5 57c3 9 11 14 19 15 2 10 10 18 20 18 8 0 15-5 19-11 3 2 7 3 11 3 12 0 22-10 22-22 0-6-3-12-7-16 1-3 2-6 2-10 0-12-10-22-22-22-5 0-10 2-14 5-4-6-10-10-16-10Z" fill="#fffaf0" stroke="#171713" stroke-width="2.5"/>
+      <path d="M29 24v15m0 0-10 8m10-8 12 5m18-23v15m0 0-10 8m10-8 13 7m-28 1v19m0 0-9 8m9-8 12 7" class="thin"/>
+      <circle cx="29" cy="24" r="4" fill="#171713"/><circle cx="59" cy="21" r="4" fill="#171713"/><circle cx="44" cy="63" r="4" fill="#171713"/>
+    </g>
+    <text x="92.5" y="141" text-anchor="middle" class="sans title">AGENT</text>
+    <text x="92.5" y="164" text-anchor="middle" class="sans sub">proposes an action</text>
+    <rect x="42" y="176" width="101" height="17" rx="8.5" fill="#171713"/>
+    <text x="92.5" y="188" text-anchor="middle" class="sans micro" fill="#fffaf0">NO AUTHORITY</text>
+  </g>
+
+  <path d="M496 260H535" class="flowline"/>
+
+  <!-- Policy -->
+  <g transform="translate(553 174)" filter="url(#shadow)">
+    <rect width="170" height="172" rx="25" fill="#fffaf0" stroke="#171713" stroke-width="2.5"/>
+    <g transform="translate(50 20)">
+      <path d="M35 3 66 15v24c0 22-13 37-31 47C17 76 4 61 4 39V15L35 3Z" fill="#f6e5b6" stroke="#171713" stroke-width="2.5"/>
+      <path d="m20 42 10 10 21-24" class="line"/>
+    </g>
+    <text x="85" y="120" text-anchor="middle" class="sans title">POLICY</text>
+    <text x="85" y="143" text-anchor="middle" class="sans sub">cap + allowlist</text>
+  </g>
+
+  <path d="M740 260H779" class="flowline"/>
+
+  <!-- Human -->
+  <g transform="translate(797 174)" filter="url(#shadow)">
+    <rect width="176" height="172" rx="25" fill="#fffaf0" stroke="#171713" stroke-width="2.5"/>
+    <g transform="translate(34 25)">
+      <rect width="108" height="62" rx="14" fill="#f6f0e5" stroke="#171713" stroke-width="2.3"/>
+      <circle cx="28" cy="31" r="14" fill="#2f6d52"/>
+      <path d="m21 31 5 5 9-11" fill="none" stroke="#fffaf0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="79" cy="31" r="14" fill="#a13f35"/>
+      <path d="m73 25 12 12m0-12L73 37" fill="none" stroke="#fffaf0" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <text x="88" y="120" text-anchor="middle" class="sans title">HUMAN</text>
+    <text x="88" y="143" text-anchor="middle" class="sans sub">reviews + decides</text>
+  </g>
+
+  <!-- Trust wall -->
+  <g transform="translate(1002 138)">
+    <rect x="0" y="0" width="10" height="246" rx="5" fill="#171713"/>
+    <rect x="17" y="0" width="4" height="246" rx="2" fill="#e2a51d"/>
+    <path d="M-4 28h18M-4 74h18M-4 120h18M-4 166h18M-4 212h18" stroke="#fffaf0" stroke-width="2" opacity=".85"/>
+    <rect x="-56" y="-27" width="132" height="25" rx="12.5" fill="#171713"/>
+    <text x="10" y="-10" text-anchor="middle" class="sans micro" fill="#fffaf0">TRUST BOUNDARY</text>
+  </g>
+  <path d="M973 260H1040" class="flowline"/>
+
+  <!-- Hardware, hollow and logo-free -->
+  <g transform="translate(1058 154)" filter="url(#shadow)">
+    <rect width="196" height="212" rx="27" fill="#eef7f0" stroke="#171713" stroke-width="2.5"/>
+    <g transform="translate(59 17) rotate(-4 39 61)">
+      <rect x="3" y="2" width="74" height="112" rx="13" fill="none" stroke="#171713" stroke-width="3"/>
+      <rect x="12" y="12" width="56" height="71" rx="8" fill="#fffaf0" stroke="#171713" stroke-width="2"/>
+      <rect x="12" y="89" width="56" height="16" rx="5" fill="none" stroke="#171713" stroke-width="2"/>
+      <path d="M33 47h14v12H33zM36 47v-7c0-5 3-8 4-8s4 3 4 8v7" fill="none" stroke="#171713" stroke-width="2.3" stroke-linejoin="round"/>
+      <circle cx="67" cy="97" r="2.6" fill="#171713"/>
+    </g>
+    <text x="98" y="151" text-anchor="middle" class="sans title">HARDWARE</text>
+    <text x="98" y="175" text-anchor="middle" class="sans sub">enforces the final rule</text>
+    <text x="98" y="194" text-anchor="middle" class="sans micro" fill="#2f6d52">KEYS STAY OUTSIDE</text>
+  </g>
+
+  <path d="M1271 260H1304" class="flowline"/>
+
+  <!-- Results -->
+  <g transform="translate(1322 184)">
+    <rect width="106" height="70" rx="19" fill="#2f6d52" stroke="#171713" stroke-width="2.5"/>
+    <path d="m24 35 10 10 18-22" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="67" y="40" class="sans label" fill="#fffaf0">EXECUTE</text>
+    <rect y="87" width="106" height="70" rx="19" fill="#fff2ed" stroke="#171713" stroke-width="2.5"/>
+    <path d="m24 111 22 22m0-22-22 22" fill="none" stroke="#a13f35" stroke-width="4" stroke-linecap="round"/>
+    <text x="67" y="129" class="sans label" fill="#a13f35">REJECT</text>
+  </g>
+
+  <!-- Audit rail -->
+  <g transform="translate(70 438)" class="sans">
+    <rect width="1360" height="84" rx="23" fill="#171713"/>
+    <text x="26" y="34" class="label" fill="#e2a51d">AUDIT TRAIL</text>
+    <text x="26" y="58" class="sub" fill="#cfc7b9">One record across both sides of the boundary</text>
+    <path d="M286 42H1309" stroke="#706a5f" stroke-width="2" stroke-dasharray="5 8"/>
+    <g font-size="11" font-weight="800" text-anchor="middle">
+      <circle cx="350" cy="42" r="7" fill="#e2a51d"/><text x="350" y="69" fill="#fffaf0">REQUEST</text>
+      <circle cx="550" cy="42" r="7" fill="#e2a51d"/><text x="550" y="69" fill="#fffaf0">PROPOSAL</text>
+      <circle cx="750" cy="42" r="7" fill="#e2a51d"/><text x="750" y="69" fill="#fffaf0">POLICY</text>
+      <circle cx="950" cy="42" r="7" fill="#e2a51d"/><text x="950" y="69" fill="#fffaf0">DECISION</text>
+      <circle cx="1140" cy="42" r="7" fill="#94b9a8"/><text x="1140" y="69" fill="#fffaf0">BOUNDARY</text>
+      <circle cx="1309" cy="42" r="7" fill="#94b9a8"/><text x="1309" y="69" fill="#fffaf0">RESULT</text>
+    </g>
+  </g>
+</svg>
