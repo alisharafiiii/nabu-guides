@@ -1,0 +1,30 @@
+/* A consistent tile grid for the guide library, including formerly featured cards. */
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:22px;align-items:stretch}
+.grid>.card{grid-column:auto;min-width:0;min-height:0;margin:0}
+.grid>.card .thumb{width:100%;height:auto;aspect-ratio:5/2;flex:none;object-fit:cover}
+.grid>.card .body{padding:20px;min-width:0}
+.grid>.card .meta{gap:6px;margin-bottom:14px}
+.grid>.card .tag{font-size:11px;padding:5px 8px}
+.grid>.card h3{font-size:24px;line-height:1.4;letter-spacing:-.025em;overflow-wrap:anywhere}
+.grid>.card h3.fa{line-height:1.65;letter-spacing:0}
+.grid>.card p{font-size:15px;line-height:1.8}
+.grid>.card .language-links{padding-top:24px}
+.grid>.card .language-link{font-size:14px;padding:10px 8px}
+
+/* HTML covers need the same compact composition as image covers. */
+.grid .pulse-thumb{grid-template-columns:1.35fr .65fr;gap:12px;padding:clamp(12px,1.6vw,20px) clamp(16px,1.8vw,22px)}
+.grid .pulse-cover-copy small{font-size:7px;letter-spacing:.05em}
+.grid .pulse-cover-copy strong{font-size:clamp(20px,2.15vw,24px);line-height:1.3;margin-top:8px}
+.grid .mini-watch{width:70px;height:90px;border-width:4px;border-radius:21px}
+.grid .mini-watch::before,.grid .mini-watch::after{height:24px}
+.grid .mini-watch::before{top:-28px}.grid .mini-watch::after{bottom:-28px}
+.grid .mini-watch span{inset:12px 7px;font-size:31px}
+.grid .mini-watch span::after{font-size:7px}
+.grid .hermes-card-thumb{padding:12px 22%}
+.grid .hermes-card-copy small{font-size:6px;letter-spacing:.06em;padding:3px 5px}
+.grid .hermes-card-copy strong{font-size:clamp(19px,2.05vw,23px);line-height:1.2;margin-top:7px}
+.grid .hermes-card-copy span{font-size:10px;margin-top:5px}
+
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.grid{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;gap:22px}.grid>.card{grid-column:auto;margin:0}.grid>.card h3{font-size:23px}.profile .scribble{max-width:100%}}
+@media(prefers-reduced-motion:reduce){.grid>.card,.grid .language-link{transition:none}.grid>.card:hover,.grid .language-link:hover{transform:none}}
