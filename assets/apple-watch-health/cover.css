@@ -1,0 +1,6 @@
+.hero.health-cover-hero{padding-top:32px}
+.health-cover-hero .hero-cover-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.health-cover{margin:18px 0 28px;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
+.health-cover img{display:block;width:100%;height:auto;object-fit:contain}
+@media(max-width:620px){.hero.health-cover-hero{padding-top:24px}.health-cover{margin-top:16px;border-radius:16px}.health-cover-hero .lead{font-size:18px}}
+@media print{.health-cover-hero .hero-cover-title{position:static;width:auto;height:auto;clip:auto;white-space:normal;font-size:24pt;margin:0 0 16px}.health-cover{box-shadow:none}}
