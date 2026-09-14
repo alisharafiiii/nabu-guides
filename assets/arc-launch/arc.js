@@ -98,4 +98,5 @@
     }, {rootMargin:'-10% 0px -70% 0px'});
     document.querySelectorAll('article>section').forEach(s => observer.observe(s));
   }
+  document.getElementById('watch-editor').hidden = false;
 })();
