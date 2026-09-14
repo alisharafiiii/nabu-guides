@@ -1,6 +1,10 @@
-/* A consistent tile grid for the guide library, including formerly featured cards. */
-.grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:22px;align-items:stretch}
-.grid>.card{grid-column:auto;min-width:0;min-height:0;margin:0}
+/* Mixed-size editorial tiles: one lead, two stacked companions, then varied pairs. */
+.grid{grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:auto;gap:22px;align-items:stretch}
+.grid>.card{grid-column:span 2;min-width:0;min-height:0;margin:0}
+.grid>.tile-lead{grid-column:span 4;grid-row:span 2;background:#fbf0d9;border-color:#cfb771}
+.grid>.tile-wide{grid-column:span 4}
+.grid>.tile-half{grid-column:span 3}
+.grid>.tile-only{grid-column:1/-1}
 .grid>.card .thumb{width:100%;height:auto;aspect-ratio:5/2;flex:none;object-fit:cover}
 .grid>.card .body{padding:20px;min-width:0}
 .grid>.card .meta{gap:6px;margin-bottom:14px}
@@ -10,6 +14,17 @@
 .grid>.card p{font-size:15px;line-height:1.8}
 .grid>.card .language-links{padding-top:24px}
 .grid>.card .language-link{font-size:14px;padding:10px 8px}
+.grid>.tile-lead .body{padding:30px}
+.grid>.tile-lead h3{font-size:38px;line-height:1.5}
+.grid>.tile-lead p{font-size:18px;line-height:1.9;max-width:640px}
+.grid>.tile-lead .language-link{min-height:50px}
+.grid>.tile-wide h3,.grid>.tile-half h3{font-size:28px;line-height:1.5}
+.grid>.tile-compact .body{padding:16px}
+.grid>.tile-compact .meta{margin-bottom:9px}
+.grid>.tile-compact h3{font-size:21px;line-height:1.5;margin-bottom:0}
+.grid>.tile-compact p{display:none}
+.grid>.tile-compact .language-links{padding-top:14px}
+.grid>.tile-compact .language-link{min-height:34px;padding:5px 8px;font-size:12px}
 
 /* HTML covers need the same compact composition as image covers. */
 .grid .pulse-thumb{grid-template-columns:1.35fr .65fr;gap:12px;padding:clamp(12px,1.6vw,20px) clamp(16px,1.8vw,22px)}
@@ -24,7 +39,10 @@
 .grid .hermes-card-copy small{font-size:6px;letter-spacing:.06em;padding:3px 5px}
 .grid .hermes-card-copy strong{font-size:clamp(19px,2.05vw,23px);line-height:1.2;margin-top:7px}
 .grid .hermes-card-copy span{font-size:10px;margin-top:5px}
+.grid>.tile-wide .hermes-card-copy strong,.grid>.tile-half .hermes-card-copy strong{font-size:34px}
+.grid>.tile-wide .hermes-card-copy span,.grid>.tile-half .hermes-card-copy span{font-size:13px}
+.grid>.tile-wide .pulse-cover-copy strong,.grid>.tile-half .pulse-cover-copy strong{font-size:34px}
 
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.grid{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;gap:22px}.grid>.card{grid-column:auto;margin:0}.grid>.card h3{font-size:23px}.profile .scribble{max-width:100%}}
+@media(min-width:621px) and (max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid>.card{grid-column:span 1;grid-row:auto}.grid>.tile-lead,.grid>.tile-wide,.grid>.tile-only{grid-column:span 2}.grid>.tile-half h3{font-size:24px}.grid>.tile-half .hermes-card-copy strong,.grid>.tile-half .pulse-cover-copy strong{font-size:23px}}
+@media(max-width:620px){.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}.grid>.card{grid-column:auto;grid-row:auto;margin:0}.grid>.card h3{font-size:23px}.grid>.tile-lead .body{padding:22px}.grid>.tile-lead h3{font-size:28px}.grid>.tile-lead p{font-size:16px}.grid>.tile-compact h3{font-size:20px}.grid>.tile-wide .hermes-card-copy strong,.grid>.tile-half .hermes-card-copy strong{font-size:19px}.grid>.tile-wide .hermes-card-copy span,.grid>.tile-half .hermes-card-copy span{font-size:10px}.grid>.tile-wide .pulse-cover-copy strong,.grid>.tile-half .pulse-cover-copy strong{font-size:20px}.profile .scribble{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.grid>.card,.grid .language-link{transition:none}.grid>.card:hover,.grid .language-link:hover{transform:none}}
