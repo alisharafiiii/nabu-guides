@@ -1,0 +1,10 @@
+.grok-cover-hero{margin-top:32px}
+.grok-cover-hero .hero-cover-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.grok-cover-hero .hero-figure{margin:16px 0 28px}
+.grok-cover-hero .hero-figure img{display:block;width:100%;height:auto;aspect-ratio:1983/793;object-fit:contain;border-radius:22px;box-shadow:0 7px 0 #e7ad2440}
+.grok-cover-hero .hero-figure figcaption{font-size:11px;margin-top:14px}
+.grok-cover-hero .lead{max-width:950px;font-size:20px;line-height:2}
+.grok-cover-hero .meta{margin-top:18px}
+.grok-cover-hero .article-journey{margin-top:22px}
+@media(max-width:620px){.grok-cover-hero{margin-top:24px}.grok-cover-hero .hero-figure{margin:14px 0 22px}.grok-cover-hero .hero-figure img{border-radius:13px;box-shadow:0 5px 0 #e7ad2440}.grok-cover-hero .lead{font-size:17px}.grok-cover-hero .hero-figure figcaption{font-size:10px}}
+@media print{.grok-cover-hero .hero-cover-title{position:static;width:auto;height:auto;clip:auto;white-space:normal;font-size:24pt;margin:0 0 16px}.grok-cover-hero .hero-figure img{max-height:280px;box-shadow:none}}
