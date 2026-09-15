@@ -6,16 +6,7 @@
   <meta name="theme-color" content="#f6f0e5">
   <meta name="description" content="راهنمای قدم‌به‌قدم ساخت اولین ایجنت با Ollama و LangGraph؛ ایجنت پیشنهاد می‌ده، قانون‌ها چکش می‌کنن و تصمیم آخر با تو می‌مونه.">
   <title>اولین ایجنت کنترل‌شده | nabuguides</title>
-  <link rel="canonical" href="https://alisharafiiii.github.io/nabu-guides/articles/first-guarded-agent-fa.html">
-  <meta property="og:type" content="article">
-  <meta property="og:locale" content="fa_IR">
-  <meta property="og:title" content="اولین ایجنت کنترل‌شده">
-  <meta property="og:image" content="https://alisharafiiii.github.io/nabu-guides/assets/guarded-agent/guarded-agent-cover-bilingual-v2.png">
-  <meta property="og:image:width" content="1983">
-  <meta property="og:image:height" content="793">
-  <meta property="og:image:alt" content="اولین ایجنت کنترل‌شده / Build your first guarded agent — nabuguides، Ollama و LangGraph">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://alisharafiiii.github.io/nabu-guides/assets/guarded-agent/guarded-agent-cover-bilingual-v2.png">
+
   <style>
     @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
     @font-face{font-family:Vazirmatn;src:url("../assets/langchain/Vazirmatn-Bold.ttf") format("truetype");font-weight:700 900;font-display:swap}
@@ -38,6 +29,27 @@
     @media(max-width:520px){.lead{font-size:18px}.intro{font-size:18px}.recap{grid-template-columns:1fr}.outcomes{grid-template-columns:1fr}.step{padding-right:66px}.codebox{margin-left:-7px;margin-right:-7px}pre{font-size:11px}.flow{padding:17px}}
   </style>
   <link rel="stylesheet" href="../assets/guarded-agent/cover.css">
+<!-- nabulines-seo:start -->
+<link rel="canonical" href="https://www.nabulines.com/nabuguides/articles/first-guarded-agent-fa.html">
+<meta property="og:site_name" content="Nabu Guides">
+<meta property="og:type" content="article">
+<meta property="og:title" content="اولین ایجنت کنترل‌شده">
+<meta property="og:description" content="راهنمای قدم‌به‌قدم ساخت اولین ایجنت با Ollama و LangGraph؛ ایجنت پیشنهاد می‌ده، قانون‌ها چکش می‌کنن و تصمیم آخر با تو می‌مونه.">
+<meta property="og:url" content="https://www.nabulines.com/nabuguides/articles/first-guarded-agent-fa.html">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:image" content="https://www.nabulines.com/nabuguides/assets/guarded-agent/guarded-agent-cover-bilingual-v2.png">
+<meta property="og:image:alt" content="اولین ایجنت کنترل‌شده / Build your first guarded agent — nabuguides، Ollama و LangGraph">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="اولین ایجنت کنترل‌شده">
+<meta name="twitter:description" content="راهنمای قدم‌به‌قدم ساخت اولین ایجنت با Ollama و LangGraph؛ ایجنت پیشنهاد می‌ده، قانون‌ها چکش می‌کنن و تصمیم آخر با تو می‌مونه.">
+<meta name="twitter:image" content="https://www.nabulines.com/nabuguides/assets/guarded-agent/guarded-agent-cover-bilingual-v2.png">
+<meta property="og:image:width" content="1983">
+<meta property="og:image:height" content="793">
+<link rel="alternate" hreflang="en" href="https://www.nabulines.com/nabuguides/articles/first-guarded-agent-en.html">
+<link rel="alternate" hreflang="fa" href="https://www.nabulines.com/nabuguides/articles/first-guarded-agent-fa.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"اولین ایجنت کنترل‌شده","description":"راهنمای قدم‌به‌قدم ساخت اولین ایجنت با Ollama و LangGraph؛ ایجنت پیشنهاد می‌ده، قانون‌ها چکش می‌کنن و تصمیم آخر با تو می‌مونه.","url":"https://www.nabulines.com/nabuguides/articles/first-guarded-agent-fa.html","inLanguage":"fa","image":"https://www.nabulines.com/nabuguides/assets/guarded-agent/guarded-agent-cover-bilingual-v2.png","isPartOf":{"@type":"WebSite","name":"Nabu Guides","url":"https://www.nabulines.com/nabuguides/"},"author":{"@type":"Person","name":"Nabu","url":"https://www.nabulines.com/nabuguides/#about"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.nabulines.com/nabuguides/articles/first-guarded-agent-fa.html"}}</script>
+<script src="../assets/site-move.js"></script>
+<!-- nabulines-seo:end -->
 </head>
 <body>
   <header class="bar"><div class="bar-in"><a class="brand" href="../index.html">nabu<span>guides</span></a><div style="display:flex;align-items:center;gap:12px"><a class="back" href="first-guarded-agent-en.html" lang="en" style="border:1px solid var(--line);border-radius:999px;padding:5px 10px">English</a><a class="back" href="../index.html">بازگشت به همهٔ راهنماها ←</a></div></div></header>
